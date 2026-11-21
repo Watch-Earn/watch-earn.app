@@ -79,3 +79,22 @@ Each update entry follows this standard structure:
   - Validated HTML/CSS rendering and asset availability across all pages.
 - **Next Steps / Remarks**:
   - Preview locally via `web/website/index.html` or through a local HTTP server.
+
+### [2026-11-21 13:01:00 IST] - Redesigned Showcase into 3D Phone Mockup & Interactive Studio
+- **Type**: Bugfix / UI Overhaul
+- **Components / Modules**: Web (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Replaced 4 misaligned cropped cards with flagship 3D Titanium Phone Mockups in Hero and an Interactive Studio stage in `#screens`
+  - `web/website/css/style.css` - Crafted photorealistic smartphone bezel mockup, dynamic island, floating neon badges, interactive tabs, and uniform feature cards
+  - `web/website/js/app.js` - Added smooth tab switching transitions across app screens
+  - `web/website/images/screen_tab_*.png` - Added full-height (9:18) high-res screenshots with zero black gaps or aspect ratio mismatches
+- **Summary of Changes**:
+  - Fixed clunky, uneven, partially cut-off screenshot card layout that had black voids and mismatched heights.
+  - Placed high-definition 3D phone mockup in the Hero with floating stat badges.
+  - Implemented an interactive 4-tab studio allowing users to explore Home, Sponsored Tasks, Verification, and UPI Payouts with matching phone mockups and bullet point breakdowns.
+  - Added clean 3-column feature overview cards for ledger integrity, AdMob compliance, and direct UPI transfers.
+- **Verification / Testing**:
+  - Verified image dimensions: all showcase screens have uniform 9:18 mobile aspect ratio with zero dead gaps.
+  - Verified tab switching interaction and calculator functionality in browser.
+- **Next Steps / Remarks**:
+  - Refresh or view [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the upgraded layout.
