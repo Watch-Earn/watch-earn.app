@@ -400,25 +400,23 @@ watch-and-earn/
 │   ├── database-schema.md
 │   ├── threat-model.md
 │   └── deployment.md
-├── android/                      # Kotlin + Jetpack Compose
-│   ├── app/
-│   └── build.gradle.kts
-├── backend/                      # Laravel application
-│   ├── app/
-│   │   ├── Http/Controllers/
-│   │   ├── Jobs/
-│   │   ├── Models/
-│   │   ├── Services/
-│   │   └── Policies/
-│   ├── database/migrations/
-│   ├── routes/api.php
-│   ├── tests/
-│   └── .env.example
-├── admin/                        # Filament resources or admin UI docs
-├── website/                      # HTML / CSS / JavaScript landing site
-│   ├── index.html
-│   ├── css/
-│   └── js/
+├── app/
+│   └── android/                      # Kotlin + Jetpack Compose Android app
+│       ├── app/
+│       └── build.gradle.kts
+├── web/
+│   ├── website/                      # HTML / CSS / JavaScript landing site
+│   │   ├── index.html
+│   │   ├── css/
+│   │   └── js/
+│   ├── backend/                      # Laravel REST API & Admin web portal
+│   │   ├── app/
+│   │   ├── database/migrations/
+│   │   ├── routes/api.php
+│   │   └── tests/
+│   └── admin/                        # Operations manual & admin runbook
+├── assets/                           # Shared brand identity & iconography
+├── design_screens/                   # Visual specs & high-res mockups
 └── .github/workflows/
 ```
 

@@ -36,6 +36,25 @@ Each update entry follows this standard structure:
   - Configured long-term memory to ensure every future modification or task appends an update to this file.
 - **Verification / Testing**:
   - Verified file structure and cross-directory accessibility.
-- **Current Project Status**:
-  - Project specification and requirements outlined in `README.md`.
-  - Directory structure initialized with `android/`, `backend/`, `admin/`, `website/`, `docs/`, `assets/`, and `design_screens/`.
+
+### [2026-11-21 12:46:00 IST] - Structural Separation into `web/` and `app/` Domains
+- **Type**: Refactor / Architecture
+- **Components / Modules**: Project Root, Web (Website, Admin, Backend), App (Android)
+- **Files Affected**:
+  - `website/` -> `web/website/` (Moved)
+  - `admin/` -> `web/admin/` (Moved)
+  - `backend/` -> `web/backend/` (Moved)
+  - `android/` -> `app/android/` (Moved)
+  - `README.md` - Updated repository directory tree documentation
+  - `update.md` - Recorded structural re-organization
+- **Summary of Changes**:
+  - Reorganized project tree into two primary domains inside `watch-earn.app`:
+    - `web/`: Houses web frontend marketing website (`web/website`), admin operational runbook (`web/admin`), and Laravel backend + admin portal (`web/backend`).
+    - `app/`: Houses client application codebases starting with the Android Jetpack Compose app (`app/android`).
+  - Preserved local configuration files (`.env`, `database.sqlite`, `local.properties`).
+- **Verification / Testing**:
+  - Backend tests: Executed `php artisan test` in `web/backend` — 15 passed, 61 assertions.
+  - Android unit tests: Executed `./gradlew testDebugUnitTest` in `app/android` — BUILD SUCCESSFUL (24 actionable tasks, 0 failures).
+- **Next Steps / Remarks**:
+  - When opening the Android project in Android Studio, open the directory `app/android/`.
+  - When serving or working on the web frontend, access `web/website/` or `web/backend/`.
