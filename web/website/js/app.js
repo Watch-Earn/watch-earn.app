@@ -588,4 +588,83 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // --- 4. Interactive Campaign ROI & Reach Estimator (advertise.html) ---
+  const roiGoalTabs = document.getElementById('roiGoalTabs');
+  const roiBudgetSlider = document.getElementById('roiBudgetSlider');
+  const roiBudgetDisplay = document.getElementById('roiBudgetDisplay');
+  const roiOutputCompletions = document.getElementById('roiOutputCompletions');
+  const roiOutputLabel = document.getElementById('roiOutputLabel');
+  const roiOutputCpa = document.getElementById('roiOutputCpa');
+  const roiApplyBtn = document.getElementById('roiApplyBtn');
+
+  if (roiBudgetSlider && roiOutputCompletions) {
+    let currentCpa = 4.50;
+    let currentLabel = 'Verified App Installs (CPI)';
+    let currentGoalKey = 'app_installs';
+
+    function updateRoiEstimates() {
+      const budget = parseInt(roiBudgetSlider.value, 10) || 100000;
+      if (roiBudgetDisplay) {
+        roiBudgetDisplay.textContent = `₹${budget.toLocaleString('en-IN')}`;
+      }
+
+      const completions = Math.floor(budget / currentCpa);
+      if (roiOutputCompletions) {
+        roiOutputCompletions.textContent = completions.toLocaleString('en-IN');
+      }
+      if (roiOutputLabel) {
+        roiOutputLabel.textContent = currentLabel;
+      }
+      if (roiOutputCpa) {
+        roiOutputCpa.textContent = `₹${currentCpa.toFixed(2)}`;
+      }
+    }
+
+    if (roiGoalTabs) {
+      const tabBtns = roiGoalTabs.querySelectorAll('.goal-tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          currentCpa = parseFloat(btn.getAttribute('data-cpa')) || 4.50;
+          currentLabel = btn.getAttribute('data-label') || 'Verified App Installs (CPI)';
+
+          const goal = btn.getAttribute('data-goal');
+          if (goal === 'cpi') currentGoalKey = 'app_installs';
+          else if (goal === 'surveys') currentGoalKey = 'market_surveys';
+          else if (goal === 'video') currentGoalKey = 'brand_video';
+          else if (goal === 'cpl') currentGoalKey = 'lead_gen';
+
+          updateRoiEstimates();
+        });
+      });
+    }
+
+    roiBudgetSlider.addEventListener('input', updateRoiEstimates);
+    updateRoiEstimates();
+
+    if (roiApplyBtn) {
+      roiApplyBtn.addEventListener('click', () => {
+        const budgetVal = parseInt(roiBudgetSlider.value, 10);
+        const advGoalSelect = document.getElementById('advGoal');
+        const advBudgetSelect = document.getElementById('advBudget');
+
+        if (advGoalSelect) advGoalSelect.value = currentGoalKey;
+
+        if (advBudgetSelect) {
+          if (budgetVal <= 50000) advBudgetSelect.value = 'starter';
+          else if (budgetVal <= 200000) advBudgetSelect.value = 'growth';
+          else if (budgetVal <= 1000000) advBudgetSelect.value = 'scale';
+          else advBudgetSelect.value = 'enterprise';
+        }
+
+        const leadSection = document.getElementById('inquire');
+        if (leadSection) {
+          leadSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  }
 });

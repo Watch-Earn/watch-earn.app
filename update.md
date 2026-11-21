@@ -342,6 +342,27 @@ Each update entry follows this standard structure:
   - Validated JavaScript syntax (`node -c web/website/js/app.js`).
   - Verified 3D rotation tracking, screen switcher transitions, and particle animations.
 
+### [2026-11-21 14:18:00 IST] - Comprehensive Redesign of B2B Partner Portal (`advertise.html`)
+- **Type**: UI / UX Major Overhaul & Enterprise Feature Suite
+- **Components / Modules**: Dedicated B2B Advertising Portal (`web/website/advertise.html`)
+- **Files Affected**:
+  - `web/website/advertise.html` - Complete visual & structural overhaul:
+    1. Grand authoritative hero header with radial lighting and dual action CTAs.
+    2. Key proof strip with 4 metrics (100% 18+ Indian demographic, 0.0% bot tolerance, SHA-256 HMAC postbacks, <24h SLA).
+    3. Interactive Campaign ROI & Audience Reach Estimator section with live budget slider (₹25K to ₹10L), objective toggles (CPI, Surveys, Video, CPL), and real-time delivery projections.
+    4. Two-column Client Connection studio with direct contact desk and customized campaign inquiry form.
+    5. 6 tailored enterprise ad format cards with dedicated pricing model pills.
+    6. Industrial 4-pillar anti-fraud architecture and 4-step rapid onboarding timeline.
+    7. Collapsible Advertiser FAQ covering MMP tracking, geographic targeting, and billing.
+  - `web/website/js/app.js` - Integrated interactive Campaign ROI Estimator engine with dynamic unit economics and one-click "Apply Estimate to Campaign Brief Form" bridging to the lead form.
+- **Summary of Changes**:
+  - Elevated `advertise.html` to an enterprise-grade performance marketing portal matching top-tier ad network platforms.
+  - Gave advertisers immediate clarity and interactivity to simulate campaign reach before submitting inquiry proposals.
+- **Verification / Testing**:
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Tested ROI estimator calculations across all 4 marketing goals and budget thresholds.
+  - Tested form submission flow with local caching and proposal notification.
+
 
 
 
