@@ -234,3 +234,18 @@ Each update entry follows this standard structure:
   - Verified responsive grid collapsing on desktop, tablet, and mobile.
 - **Next Steps / Remarks**:
   - Brand clients can navigate directly to the section via the "For Brands" navbar link or jump directly to `#advertise`.
+
+### [2026-11-21 13:52:00 IST] - Header Redesign & Empty Space Elimination
+- **Type**: UI / UX Refactor
+- **Components / Modules**: Website Navigation (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Redesigned `<header class="navbar">` into `.nav-left` and `.nav-right` groups; streamlined nav items; added sleek `B2B` badge pill to "For Brands" link; removed redundant legal links from header (preserved in footer)
+  - `web/website/css/style.css` - Anchored Logo and Nav Links together inside `.nav-left` (32px gap) eliminating the left void; styled nav items into a floating glass capsule with pill hover effects; built purposeful `.nav-right` cluster with dual CTA buttons (`Partner With Us` and `Get Android App`) eliminating the right void
+- **Summary of Changes**:
+  - Eliminated the wide empty voids on either side of the navigation links previously caused by `justify-content: space-between` across wide desktop viewports.
+  - Placed the navigation links inside an elevated glassmorphic capsule (`background: rgba(18, 21, 54, 0.65)`, subtle border, rounded pill tags) for a cohesive and high-tech gaming aesthetic.
+  - Added secondary action `Partner With Us` alongside the primary `Get Android App` CTA on the right side, balancing both sides of the navbar.
+- **Verification / Testing**:
+  - Verified layout across desktop, tablet (links hide gracefully), and mobile screen widths.
+  - Confirmed logo hover scales smoothly and link interactions provide fluid visual feedback.
+
