@@ -58,3 +58,24 @@ Each update entry follows this standard structure:
 - **Next Steps / Remarks**:
   - When opening the Android project in Android Studio, open the directory `app/android/`.
   - When serving or working on the web frontend, access `web/website/` or `web/backend/`.
+
+### [2026-11-21 12:53:00 IST] - Website Dark Gaming UI Theme Alignment
+- **Type**: Feature / UI Redesign
+- **Components / Modules**: Web (`web/website`)
+- **Files Affected**:
+  - `web/website/css/style.css` - Redesigned color palette, variables, gradients, and neon components
+  - `web/website/index.html` - Enhanced hero HUD, app screenshot showcase gallery, and regulatory badge
+  - `web/website/privacy.html` - Applied matching dark theme styling to policy documentation
+  - `web/website/terms.html` - Applied matching dark theme styling to terms documentation
+  - `web/website/images/screen_*.png` - Added real Android app mockup preview assets
+- **Summary of Changes**:
+  - Aligned website visual design with Android Jetpack Compose Dark Gaming Theme:
+    - Deep space background (`#080B20`), card surfaces (`#121536`, `#151837`), and border tokens (`#242752`, `#383C75`).
+    - Luminous purple and electric cyan accents (`#9633F5`, `#A855F7`, `#29CBFF`), and coin gold (`#FFC638`).
+    - Glassmorphism navbar with blurred backdrop.
+    - Added an interactive app screen showcase gallery highlighting Home, Tasks, Rewards, and Wallet.
+    - Updated live calculator HUD with glowing slider thumb and status feedback.
+- **Verification / Testing**:
+  - Validated HTML/CSS rendering and asset availability across all pages.
+- **Next Steps / Remarks**:
+  - Preview locally via `web/website/index.html` or through a local HTTP server.

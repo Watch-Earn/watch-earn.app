@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch & Earn 🪙 — Transparent Rewards & Verified Activities</title>
+  <title>Watch & Earn 🪙 — Transparent Micro-Rewards & Verified Activities</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="css/style.css">
@@ -15,18 +15,19 @@
   <!-- Header / Navigation -->
   <header class="navbar">
     <div class="container nav-container">
-      <div class="logo">
-        <img src="images/brand_wordmark.png" alt="Watch & Earn" style="height: 38px; vertical-align: middle;">
-      </div>
+      <a href="index.html" class="logo">
+        <img src="images/brand_wordmark.png" alt="Watch & Earn">
+      </a>
       <nav class="nav-links">
         <a href="#how-it-works">How It Works</a>
+        <a href="#screens">App Experience</a>
         <a href="#calculator">Coin Calculator</a>
         <a href="#transparency">Transparency</a>
         <a href="#faq">FAQ</a>
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
       </nav>
-      <a href="#download" class="btn btn-primary nav-cta">Get the App</a>
+      <a href="#download" class="btn btn-primary nav-cta">Get Android App</a>
     </div>
   </header>
 
@@ -34,33 +35,42 @@
   <section class="hero">
     <div class="container hero-container">
       <div class="hero-content">
-        <div class="badge">🇮🇳 India 18+ • Approved Partner Activities Only</div>
-        <h1>Transparent Micro-Rewards for Your Time & Attention</h1>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>India 18+ • Approved Partner Activities Only</span>
+        </div>
+        <h1>
+          Transparent <span class="text-gradient-purple">Micro-Rewards</span> for Your Time & Attention
+        </h1>
         <p class="hero-desc">
           Participate voluntarily in verified advertiser-sponsored surveys and activities. Earn virtual coins with a fixed, strictly disclosed conversion rate. No guaranteed income claims. No entry fees.
         </p>
         <div class="exchange-pill">
-          <strong>Fixed Rate:</strong> 1,000 Coins = ₹1.00 (100 Paise)
+          <span>⚡ <strong>Fixed Conversion Rate:</strong> 1,000 Coins = ₹1.00 (100 Paise)</span>
         </div>
         <div class="hero-actions" id="download">
-          <a href="#download-info" class="btn btn-primary btn-large">Download Android APK (Direct)</a>
+          <a href="#download-info" class="btn btn-primary btn-large">Download Android APK</a>
           <a href="#calculator" class="btn btn-outline btn-large">Calculate Rewards</a>
         </div>
-        <p class="subtext">Minimum withdrawal: 10,000 coins (₹10.00 via verified UPI). 18+ only.</p>
+        <p class="subtext">🛡️ Minimum withdrawal: 10,000 coins (₹10.00 via verified UPI). Strictly 18+ only.</p>
       </div>
+
+      <!-- Live Interactive Wallet Card (Styled like Android Gaming Dark HUD) -->
       <div class="hero-card">
         <div class="card-header">
           <span>Live Wallet Preview</span>
-          <span class="status-indicator">● Verified</span>
+          <span class="status-indicator">● Verified Partner Feed</span>
         </div>
         <div class="balance-box">
           <div class="balance-label">Available Balance</div>
-          <div class="balance-value">12,400 <span class="coin-symbol">🪙</span></div>
+          <div class="balance-value">
+            12,400 <span class="coin-symbol">🪙</span>
+          </div>
           <div class="rupee-equivalent">≈ ₹12.40 (1,240 paise)</div>
         </div>
         <div class="balance-grid">
           <div class="mini-box">
-            <span class="mini-label">Pending Review</span>
+            <span class="mini-label">Pending Hold (24h)</span>
             <span class="mini-val">60 🪙 (₹0.06)</span>
           </div>
           <div class="mini-box">
@@ -80,10 +90,61 @@
   <section class="policy-notice">
     <div class="container">
       <div class="notice-box">
-        <h3>🛡️ Important Disclosure & Responsible Platform Commitment</h3>
-        <p>
-          Watch & Earn is <strong>not a job, salary replacement, or investment opportunity</strong>. We do not provide guaranteed income. Earnings represent small discretionary micro-incentives funded exclusively by verified commercial sponsors. Google AdMob rewarded ad inventory is strictly excluded from cash-redeemable paths. Users must be residents of India aged 18 or above.
-        </p>
+        <div class="notice-icon">🛡️</div>
+        <div class="notice-text">
+          <h3>Platform Commitment & Regulatory Compliance</h3>
+          <p>
+            Watch & Earn is <strong>not an employment opportunity, job, or guaranteed income scheme</strong>. Rewards represent modest discretionary micro-incentives funded exclusively by verified commercial sponsors. Google AdMob rewarded ad inventory is strictly excluded from cash-redeemable paths. Users must be residents of India aged 18 or above.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Experience Screens Showcase -->
+  <section class="showcase-section" id="screens">
+    <div class="container">
+      <div class="section-title">
+        <h2>Designed for <span class="text-gradient-purple">Engagement & Clarity</span></h2>
+        <p>Built with Jetpack Compose featuring our signature dark gaming aesthetic and transparent ledger accounting.</p>
+      </div>
+      <div class="screens-showcase-grid">
+        <div class="screen-card">
+          <div class="screen-img-wrap">
+            <img src="images/screen_home.png" alt="Home Dashboard" loading="lazy">
+          </div>
+          <div class="screen-info">
+            <h4>Home Dashboard</h4>
+            <span>Dynamic Balances & Quick Actions</span>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-img-wrap">
+            <img src="images/screen_watch.png" alt="Watch Ads & Tasks" loading="lazy">
+          </div>
+          <div class="screen-info">
+            <h4>Sponsored Tasks</h4>
+            <span>Transparent Reward Disclosures</span>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-img-wrap">
+            <img src="images/screen_reward.png" alt="Reward Credited" loading="lazy">
+          </div>
+          <div class="screen-info">
+            <h4>Reward Success</h4>
+            <span>Instant Hold & Verification Notice</span>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-img-wrap">
+            <img src="images/screen_wallet.png" alt="UPI Wallet & Withdrawal" loading="lazy">
+          </div>
+          <div class="screen-info">
+            <h4>UPI Wallet</h4>
+            <span>Real-time Double-Entry Ledger</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -93,7 +154,7 @@
     <div class="container">
       <div class="section-title">
         <h2>How It Works</h2>
-        <p>A simple, verifiable 4-step workflow from voluntary participation to UPI withdrawal.</p>
+        <p>A simple, verifiable 4-step workflow from voluntary participation to UPI payout.</p>
       </div>
       <div class="steps-grid">
         <div class="step-card">
@@ -124,7 +185,7 @@
   <section class="section bg-alt" id="calculator">
     <div class="container">
       <div class="section-title">
-        <h2>Interactive Coin & Rupee Calculator</h2>
+        <h2>Interactive <span class="text-gradient-gold">Coin & Rupee Calculator</span></h2>
         <p>All wallet computations use integer arithmetic: <code>paise = coins / 10</code>.</p>
       </div>
       <div class="calculator-card">
@@ -146,7 +207,7 @@
           </div>
           <div class="result-item">
             <span class="res-label">Withdrawal Status</span>
-            <span class="res-value status-tag" id="statusTag">Eligible (≥ 10,000 Coins)</span>
+            <span class="res-value status-tag" id="statusTag">Eligible for Payout (≥ 10,000 Coins)</span>
           </div>
         </div>
         <div class="calc-note">
@@ -161,7 +222,7 @@
     <div class="container">
       <div class="section-title">
         <h2>Our Transparency Commitments</h2>
-        <p>We believe in honest economics and sustainable user rewards.</p>
+        <p>We believe in honest economics, sustainable incentives, and strict regulatory adherence.</p>
       </div>
       <div class="transparency-grid">
         <div class="trans-item">
@@ -191,7 +252,7 @@
         <h2>Frequently Asked Questions</h2>
       </div>
       <div class="faq-list">
-        <details class="faq-item">
+        <details class="faq-item" open>
           <summary>What is the coin conversion rate?</summary>
           <p>The rate is fixed: 1,000 coins equals exactly ₹1.00 (100 paise). 10,000 coins equals ₹10.00 (1,000 paise).</p>
         </details>
@@ -218,13 +279,14 @@
   <!-- Download Info Modal/Section -->
   <section class="section" id="download-info">
     <div class="container text-center">
-      <h2>Download Watch & Earn</h2>
-      <p class="download-desc">Android app built with Kotlin & Jetpack Compose.</p>
+      <h2>Download <span class="text-gradient-purple">Watch & Earn</span></h2>
+      <p class="download-desc">Native Android app built with Kotlin & Jetpack Compose.</p>
       <div class="download-box">
+        <p><strong>Package Name:</strong> <code>com.watchearn.app</code></p>
         <p><strong>Version:</strong> 1.0.0-mvp (Build 1)</p>
-        <p><strong>Package:</strong> <code>com.watchearn.app</code></p>
-        <p><strong>Target SDK:</strong> Android 14+ (API 34) • Compatible with Android 8.0+ (API 26)</p>
-        <a href="#" class="btn btn-primary" onclick="alert('Demo sandbox mode: Android project is available in the android/ directory. You can build and run via Android Studio or the android CLI.'); return false;">Install Android APK</a>
+        <p><strong>Architecture:</strong> Kotlin, Jetpack Compose, MVVM, Retrofit</p>
+        <p><strong>Compatibility:</strong> Android 8.0+ (API 26) up to Android 15 (API 35)</p>
+        <a href="#" class="btn btn-primary btn-large" onclick="alert('The Android project is ready to compile in app/android/. You can build and run via Android Studio or the android CLI.'); return false;">Install Android APK</a>
       </div>
     </div>
   </section>
@@ -234,10 +296,9 @@
     <div class="container footer-content">
       <div class="footer-col">
         <div class="logo">
-          <span class="coin-icon">🪙</span>
-          <span class="brand-name">Watch & Earn</span>
+          <img src="images/brand_wordmark.png" alt="Watch & Earn">
         </div>
-        <p>Transparent, verified micro-rewards platform for India (18+).</p>
+        <p>Transparent, verified micro-rewards platform for India (18+). Designed with fair economics.</p>
       </div>
       <div class="footer-col">
         <h4>Legal & Compliance</h4>
@@ -255,7 +316,7 @@
       </div>
     </div>
     <div class="footer-bottom text-center">
-      <p>&copy; 2026 Watch & Earn. All rights reserved. Not affiliated with Google LLC.</p>
+      <p>&copy; 2026 Watch & Earn. All rights reserved. Not affiliated with Google LLC or any partner networks.</p>
     </div>
   </footer>
 
