@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "104928374621",
+    "project_id": "watch-and-earn-app",
+    "storage_bucket": "watch-and-earn-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104928374621:android:c394857b291847e0",
+        "android_client_info": {
+          "package_name": "com.watchearn.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104928374621-android.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.watchearn.app",
+            "certificate_hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyFakeKeyForLocalDevelopmentAndTesting"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

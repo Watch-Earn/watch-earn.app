@@ -48,6 +48,71 @@ class AuthAndApiTest extends TestCase
             ]);
     }
 
+    public function test_google_authentication_registers_and_logs_in_user(): void
+    {
+        // 1. Google Sign Up (First time user)
+        $signUpRes = $this->postJson('/api/v1/auth/google', [
+            'email' => 'rahul.sharma@gmail.com',
+            'name' => 'Rahul Sharma',
+            'google_id' => 'google-oauth-1092837482',
+            'avatar_url' => 'https://lh3.googleusercontent.com/a/photo.jpg',
+            'age_confirmed' => true,
+            'consent_version' => 'v1.0',
+        ]);
+
+        $signUpRes->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => 'Authenticated successfully with Google',
+                'data' => [
+                    'user' => [
+                        'email' => 'rahul.sharma@gmail.com',
+                        'name' => 'Rahul Sharma',
+                        'status' => 'active',
+                    ],
+                ],
+            ])
+            ->assertJsonStructure(['data' => ['token', 'user']]);
+
+        $token = $signUpRes->json('data.token');
+        $this->assertNotEmpty($token);
+
+        // Verify user exists in database
+        $user = User::where('email', 'rahul.sharma@gmail.com')->first();
+        $this->assertNotNull($user);
+        $this->assertEquals('google-oauth-1092837482', $user->google_id);
+
+        // 2. Access authenticated /me endpoint
+        $meRes = $this->withHeader('Authorization', "Bearer {$token}")
+            ->getJson('/api/v1/me');
+
+        $meRes->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => [
+                    'email' => 'rahul.sharma@gmail.com',
+                    'name' => 'Rahul Sharma',
+                ],
+            ]);
+
+        // 3. Subsequent Google Sign In (Returning user)
+        $signInRes = $this->postJson('/api/v1/auth/google', [
+            'email' => 'rahul.sharma@gmail.com',
+            'google_id' => 'google-oauth-1092837482',
+            'name' => 'Rahul Sharma Updated',
+        ]);
+
+        $signInRes->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => [
+                    'user' => [
+                        'email' => 'rahul.sharma@gmail.com',
+                    ],
+                ],
+            ]);
+    }
+
     public function test_unauthenticated_request_is_rejected(): void
     {
         $response = $this->getJson('/api/v1/me');

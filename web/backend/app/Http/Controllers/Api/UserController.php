@@ -34,7 +34,9 @@ class UserController extends Controller
             'data' => [
                 'user_id' => $user->id,
                 'name' => $user->name,
-                'phone_masked' => '+91*****' . $user->phone_last_four,
+                'email' => $user->email,
+                'avatar_url' => $user->avatar_url,
+                'phone_masked' => $user->phone_last_four ? ('+91*****' . $user->phone_last_four) : null,
                 'status' => $user->status,
                 'country' => $profile?->country ?? 'IN',
                 'age_eligibility_status' => $profile?->age_eligibility_status ?? 'unverified',

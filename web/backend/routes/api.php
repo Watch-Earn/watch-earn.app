@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\AdminNotificationController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\PartnerWebhookController;
 use App\Http\Controllers\Api\PayoutWebhookController;
@@ -21,6 +23,7 @@ Route::prefix('v1')->group(function () {
 
     // Public Authentication Endpoints
     Route::prefix('auth')->group(function () {
+        Route::post('/google', [AuthController::class, 'googleAuth']);
         Route::post('/otp/request', [AuthController::class, 'requestOtp']);
         Route::post('/otp/verify', [AuthController::class, 'verifyOtp']);
     });
@@ -52,6 +55,15 @@ Route::prefix('v1')->group(function () {
         // Support & Disputes
         Route::post('/support/tickets', [SupportController::class, 'createTicket']);
         Route::get('/support/tickets', [SupportController::class, 'index']);
+
+        // Push Notification Devices & Inbox
+        Route::post('/push/devices', [NotificationController::class, 'registerDevice']);
+        Route::delete('/push/devices', [NotificationController::class, 'revokeDevice']);
+        Route::get('/notifications', [NotificationController::class, 'inbox']);
+        Route::patch('/notifications/{id}/read', [NotificationController::class, 'markRead']);
+        Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead']);
+        Route::get('/notifications/preferences', [NotificationController::class, 'getPreferences']);
+        Route::put('/notifications/preferences', [NotificationController::class, 'updatePreferences']);
     });
 
     // Administrative Portal Routes
@@ -60,5 +72,20 @@ Route::prefix('v1')->group(function () {
         Route::get('/withdrawals', [AdminController::class, 'withdrawals']);
         Route::post('/withdrawals/{id}/review', [AdminController::class, 'reviewWithdrawal']);
         Route::get('/audit-logs', [AdminController::class, 'auditLogs']);
+        Route::get('/users', [AdminController::class, 'users']);
+        Route::post('/users/{id}/status', [AdminController::class, 'updateUserStatus']);
+        Route::get('/partners', [AdminController::class, 'partners']);
+        Route::get('/ledger', [AdminController::class, 'ledger']);
+        Route::get('/support-tickets', [AdminController::class, 'supportTickets']);
+        Route::post('/support-tickets/{id}', [AdminController::class, 'updateTicket']);
+        Route::get('/integrity-check', [AdminController::class, 'integrityCheck']);
+
+        // Push Campaigns & Notification Controls
+        Route::get('/push/stats', [AdminNotificationController::class, 'stats']);
+        Route::post('/push/send', [AdminNotificationController::class, 'sendCampaign']);
+        Route::post('/push/schedule', [AdminNotificationController::class, 'scheduleCampaign']);
+        Route::get('/push/campaigns', [AdminNotificationController::class, 'campaigns']);
+        Route::get('/push/campaigns/{id}', [AdminNotificationController::class, 'campaignDetail']);
+        Route::post('/push/campaigns/{id}/cancel', [AdminNotificationController::class, 'cancelCampaign']);
     });
 });

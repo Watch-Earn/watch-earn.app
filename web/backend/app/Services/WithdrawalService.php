@@ -78,6 +78,20 @@ class WithdrawalService
             // Reserve coins atomically (available -> reserved)
             $this->walletService->reserveForWithdrawal($user, $coins, $withdrawal);
 
+            // Push Notification & Inbox Entry
+            try {
+                app(NotificationService::class)->sendToUser(
+                    $user,
+                    'WITHDRAWAL_REQUESTED',
+                    'Withdrawal Request Received',
+                    "Your withdrawal request for ₹" . number_format($amountPaise / 100, 2) . " via UPI is being processed.",
+                    'wallet',
+                    ['withdrawal_id' => (string) $withdrawal->id, 'coins' => (string) $coins]
+                );
+            } catch (\Throwable $e) {
+                // Non-blocking for transactional integrity
+            }
+
             return [
                 'status' => 'success',
                 'message' => 'Withdrawal request submitted successfully',
@@ -113,6 +127,17 @@ class WithdrawalService
         return DB::transaction(function () use ($withdrawal, $payoutId, $status, $failureReason) {
             if ($status === 'SUCCESS' || $status === 'PAID') {
                 $this->walletService->finalizePaidWithdrawal($withdrawal, $payoutId);
+                try {
+                    app(NotificationService::class)->sendToUser(
+                        $withdrawal->user,
+                        'WITHDRAWAL_PAID',
+                        'Withdrawal Completed!',
+                        "₹" . number_format($withdrawal->amount_paise / 100, 2) . " has been successfully transferred to your UPI ID {$withdrawal->upi_id}.",
+                        'wallet',
+                        ['withdrawal_id' => (string) $withdrawal->id, 'payout_id' => $payoutId]
+                    );
+                } catch (\Throwable $e) {}
+
                 return [
                     'status' => 'paid',
                     'message' => 'Payout successfully confirmed and ledger finalized',
@@ -122,6 +147,17 @@ class WithdrawalService
 
             if ($status === 'FAILED' || $status === 'REJECTED') {
                 $this->walletService->releaseReservedWithdrawal($withdrawal, $failureReason);
+                try {
+                    app(NotificationService::class)->sendToUser(
+                        $withdrawal->user,
+                        'WITHDRAWAL_FAILED',
+                        'Withdrawal Action Needed',
+                        "Your withdrawal request failed and {$withdrawal->coins} coins were returned to your available balance.",
+                        'wallet',
+                        ['withdrawal_id' => (string) $withdrawal->id, 'reason' => $failureReason]
+                    );
+                } catch (\Throwable $e) {}
+
                 return [
                     'status' => 'failed',
                     'message' => 'Payout failed, reserved coins released back to available balance',

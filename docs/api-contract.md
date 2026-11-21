@@ -15,6 +15,38 @@ All responses follow standard envelope formatting:
 
 ## 1. Authentication
 
+### `POST /auth/google`
+Unified Google Authentication (Login or Sign Up). No phone number or password required.
+- **Payload:**
+  ```json
+  {
+    "email": "user@example.com",
+    "name": "User Name",
+    "google_id": "google-user-id-12345",
+    "avatar_url": "https://lh3.googleusercontent.com/...",
+    "age_confirmed": true,
+    "consent_version": "v1.0"
+  }
+  ```
+- **Response (200 OK):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "token": "1|bearer_token_xyz...",
+      "user": {
+        "id": 1,
+        "name": "User Name",
+        "email": "user@example.com",
+        "avatar_url": "https://lh3.googleusercontent.com/...",
+        "status": "active",
+        "age_eligibility_status": "verified_18_plus"
+      }
+    },
+    "message": "Authenticated successfully with Google"
+  }
+  ```
+
 ### `POST /auth/otp/request`
 Request an SMS OTP code.
 - **Payload:**

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch &amp; Earn — Immutable Audit Trail</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-page="audit">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/brand_emblem.png" alt="Emblem" class="brand-emblem-img">
+      <div class="brand-text">
+        <h1>WATCH &amp; EARN</h1>
+        <span>Admin Operations HUD</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Operations</div>
+      <a href="index.html" class="nav-item" data-page="overview">
+        <span class="nav-item-icon">📊</span>
+        <span>Overview &amp; HUD</span>
+      </a>
+      <a href="withdrawals.html" class="nav-item" data-page="withdrawals">
+        <span class="nav-item-icon">💸</span>
+        <span>Withdrawals</span>
+        <span class="nav-badge danger" id="navWdBadge" style="display: none;">0</span>
+      </a>
+      <a href="users.html" class="nav-item" data-page="users">
+        <span class="nav-item-icon">👥</span>
+        <span>Users &amp; Security</span>
+      </a>
+
+      <div class="nav-section-title">Messaging &amp; Push</div>
+      <a href="notifications.html" class="nav-item" data-page="notifications">
+        <span class="nav-item-icon">🔔</span>
+        <span>Push Campaigns</span>
+      </a>
+
+      <div class="nav-section-title">Ledger &amp; Partners</div>
+      <a href="ledger.html" class="nav-item" data-page="ledger">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Double-Entry Ledger</span>
+      </a>
+      <a href="partners.html" class="nav-item" data-page="partners">
+        <span class="nav-item-icon">🤝</span>
+        <span>Partners &amp; Webhooks</span>
+      </a>
+      <a href="fraud.html" class="nav-item" data-page="fraud">
+        <span class="nav-item-icon">🛡️</span>
+        <span>Fraud &amp; Velocity</span>
+      </a>
+
+      <div class="nav-section-title">Disputes &amp; Audit</div>
+      <a href="support.html" class="nav-item" data-page="support">
+        <span class="nav-item-icon">🎫</span>
+        <span>Support Tickets</span>
+      </a>
+      <a href="audit.html" class="nav-item active" data-page="audit">
+        <span class="nav-item-icon">📜</span>
+        <span>Audit Trail</span>
+      </a>
+      <a href="settings.html" class="nav-item" data-page="settings">
+        <span class="nav-item-icon">⚙️</span>
+        <span>Compliance Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="node-status-pill">
+        <div class="pulse-indicator">
+          <div class="pulse-dot"></div>
+          <span>Node: Mumbai-IN</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">v1.0.4</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+        <div class="page-title-box">
+          <h2>Immutable Administrative Audit Trail</h2>
+          <p>Permanent append-only cryptographic record of all administrative approvals, rejections, and interventions</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mode-toggle-chip" id="modeToggle">
+          <div class="mode-status-led" id="modeStatusLed"></div>
+          <span id="modeLabel">Connecting...</span>
+        </div>
+        <button class="btn-refresh" id="btnRefresh">
+          <span>🔄</span>
+          <span>Sync</span>
+        </button>
+        <div class="admin-avatar-card">
+          <div class="avatar-circle">SA</div>
+          <div class="admin-info">
+            <div class="admin-info-name">Sec Officer</div>
+            <div class="admin-info-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+
+      <!-- Audit Invariant Notice -->
+      <div class="notice-box" style="margin-bottom: 24px;">
+        <strong>Legal &amp; Regulatory Invariant:</strong> In compliance with Indian Information Technology Rules and RBI guidelines, all operator intervention records are append-only. Direct SQL mutation or log purging is strictly prohibited.
+      </div>
+
+      <!-- Audit KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Logged Actions</span>
+            <span class="kpi-icon">📜</span>
+          </div>
+          <div class="kpi-value">503</div>
+          <div class="kpi-sub">
+            <span>Immutable entries recorded</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Officer Sessions</span>
+            <span class="kpi-icon">👤</span>
+          </div>
+          <div class="kpi-value" style="color: var(--cyan-primary);">Active</div>
+          <div class="kpi-sub">
+            <span>IP: 10.0.4.12 • MFA Verified</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Compensating Refunds</span>
+            <span class="kpi-icon">🔄</span>
+          </div>
+          <div class="kpi-value" style="color: var(--emerald-primary);">100% Traceable</div>
+          <div class="kpi-sub">
+            <span>Matched to rejection events</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Integrity Status</span>
+            <span class="kpi-icon">🛡️</span>
+          </div>
+          <div class="kpi-value" style="color: var(--emerald-primary);">VERIFIED</div>
+          <div class="kpi-sub">
+            <span>SHA-256 Chain Unbroken</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Audit Logs Table -->
+      <div class="hud-card">
+        <div class="hud-card-header">
+          <div class="hud-card-title">
+            <span>📜</span>
+            <span>Administrative Event Stream</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Live Synchronized Journal</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Log #</th>
+                <th>Operator ID</th>
+                <th>Action Type</th>
+                <th>Target Entity &amp; ID</th>
+                <th>Justification / Reason</th>
+                <th>IP Address</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <!-- Hydrated dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

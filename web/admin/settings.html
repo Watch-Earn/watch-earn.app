@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch &amp; Earn — Statutory Compliance &amp; Settings</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-page="settings">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/brand_emblem.png" alt="Emblem" class="brand-emblem-img">
+      <div class="brand-text">
+        <h1>WATCH &amp; EARN</h1>
+        <span>Admin Operations HUD</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Operations</div>
+      <a href="index.html" class="nav-item" data-page="overview">
+        <span class="nav-item-icon">📊</span>
+        <span>Overview &amp; HUD</span>
+      </a>
+      <a href="withdrawals.html" class="nav-item" data-page="withdrawals">
+        <span class="nav-item-icon">💸</span>
+        <span>Withdrawals</span>
+        <span class="nav-badge danger" id="navWdBadge" style="display: none;">0</span>
+      </a>
+      <a href="users.html" class="nav-item" data-page="users">
+        <span class="nav-item-icon">👥</span>
+        <span>Users &amp; Security</span>
+      </a>
+
+      <div class="nav-section-title">Messaging &amp; Push</div>
+      <a href="notifications.html" class="nav-item" data-page="notifications">
+        <span class="nav-item-icon">🔔</span>
+        <span>Push Campaigns</span>
+      </a>
+
+      <div class="nav-section-title">Ledger &amp; Partners</div>
+      <a href="ledger.html" class="nav-item" data-page="ledger">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Double-Entry Ledger</span>
+      </a>
+      <a href="partners.html" class="nav-item" data-page="partners">
+        <span class="nav-item-icon">🤝</span>
+        <span>Partners &amp; Webhooks</span>
+      </a>
+      <a href="fraud.html" class="nav-item" data-page="fraud">
+        <span class="nav-item-icon">🛡️</span>
+        <span>Fraud &amp; Velocity</span>
+      </a>
+
+      <div class="nav-section-title">Disputes &amp; Audit</div>
+      <a href="support.html" class="nav-item" data-page="support">
+        <span class="nav-item-icon">🎫</span>
+        <span>Support Tickets</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <span class="nav-item-icon">📜</span>
+        <span>Audit Trail</span>
+      </a>
+      <a href="settings.html" class="nav-item active" data-page="settings">
+        <span class="nav-item-icon">⚙️</span>
+        <span>Compliance Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="node-status-pill">
+        <div class="pulse-indicator">
+          <div class="pulse-dot"></div>
+          <span>Node: Mumbai-IN</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">v1.0.4</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+        <div class="page-title-box">
+          <h2>Statutory Compliance &amp; Economic Settings</h2>
+          <p>Configure fixed exchange ratios, cashout boundaries, and DPDPA statutory controls</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mode-toggle-chip" id="modeToggle">
+          <div class="mode-status-led" id="modeStatusLed"></div>
+          <span id="modeLabel">Connecting...</span>
+        </div>
+        <button class="btn-refresh" id="btnRefresh">
+          <span>🔄</span>
+          <span>Sync</span>
+        </button>
+        <div class="admin-avatar-card">
+          <div class="avatar-circle">SA</div>
+          <div class="admin-info">
+            <div class="admin-info-name">Sec Officer</div>
+            <div class="admin-info-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+
+      <!-- Economic Constants Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Conversion Rate</span>
+            <span class="kpi-icon">💱</span>
+          </div>
+          <div class="kpi-value" style="color: var(--gold-primary);">1,000 : ₹1.00</div>
+          <div class="kpi-sub">
+            <span>Server-enforced fixed invariant</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Min Withdrawal</span>
+            <span class="kpi-icon">🪙</span>
+          </div>
+          <div class="kpi-value" style="color: var(--cyan-primary);">10,000 Coins</div>
+          <div class="kpi-sub">
+            <span>₹10.00 (1,000 Paise) threshold</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Paise Integer Rule</span>
+            <span class="kpi-icon">🔢</span>
+          </div>
+          <div class="kpi-value" style="color: var(--emerald-primary);">divisibleBy(10)</div>
+          <div class="kpi-sub">
+            <span>Guarantees zero float truncation</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">AdMob Isolation</span>
+            <span class="kpi-icon">🔒</span>
+          </div>
+          <div class="kpi-value" style="color: var(--emerald-primary);">LOCKED</div>
+          <div class="kpi-sub">
+            <span>Strict non-withdrawable virtual path</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Cards -->
+      <div class="dashboard-grid">
+        
+        <!-- Left: Form Controls -->
+        <div>
+          <div class="hud-card">
+            <div class="hud-card-header">
+              <div class="hud-card-title">
+                <span>⚙️</span>
+                <span>Economic &amp; Operational Thresholds</span>
+              </div>
+            </div>
+
+            <form onsubmit="event.preventDefault(); window.WatchEarnAdmin.showToast('Compliance configuration updated and recorded in audit log.', 'success');">
+              <div class="modal-field">
+                <label class="modal-label">Virtual Coin to INR Rate</label>
+                <input type="text" class="modal-input" value="1,000 Coins = 100 Paise (₹1.00)" readonly style="background: rgba(8, 11, 32, 0.4); color: var(--gold-primary); font-family: var(--font-mono);">
+              </div>
+
+              <div class="modal-field">
+                <label class="modal-label">Minimum UPI Cashout Floor (Coins)</label>
+                <input type="number" class="modal-input" value="10000" min="1000" step="10">
+                <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; display: block;">Users must hold at least this balance to initiate a withdrawal request.</span>
+              </div>
+
+              <div class="modal-field">
+                <label class="modal-label">Daily Completion Ceiling</label>
+                <input type="number" class="modal-input" value="10" max="50">
+                <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; display: block;">Maximum sponsored activities permitted per 24-hour cycle per handset.</span>
+              </div>
+
+              <div class="modal-field">
+                <label class="modal-label">HMAC Timestamp Drift Tolerance (Seconds)</label>
+                <input type="number" class="modal-input" value="300" max="600">
+                <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; display: block;">Maximum allowed clock drift for partner server-to-server callbacks.</span>
+              </div>
+
+              <button type="submit" class="btn-table btn-table-approve" style="padding: 10px 24px; font-size: 0.85rem; margin-top: 8px;">
+                Save Configuration
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: Policy & Legal Toggles -->
+        <div>
+          <div class="hud-card">
+            <div class="hud-card-header">
+              <div class="hud-card-title">
+                <span>📜</span>
+                <span>Statutory Policy Toggles</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="switch-label">
+                <div class="switch-text">
+                  <h5>Google AdMob Policy Lock</h5>
+                  <p>Permanently isolate rewarded ad credits from cash conversion.</p>
+                </div>
+                <input type="checkbox" class="switch-input" checked disabled>
+                <div class="switch-toggle"></div>
+              </label>
+
+              <label class="switch-label">
+                <div class="switch-text">
+                  <h5>Mandatory 18+ Verification</h5>
+                  <p>Enforce strict age gate declaration at OTP registration.</p>
+                </div>
+                <input type="checkbox" class="switch-input" checked disabled>
+                <div class="switch-toggle"></div>
+              </label>
+
+              <label class="switch-label">
+                <div class="switch-text">
+                  <h5>DPDPA 72h Deletion Engine</h5>
+                  <p>Automate irreversible data anonymization upon user deletion.</p>
+                </div>
+                <input type="checkbox" class="switch-input" checked disabled>
+                <div class="switch-toggle"></div>
+              </label>
+
+              <label class="switch-label">
+                <div class="switch-text">
+                  <h5>High-Risk Velocity Freeze</h5>
+                  <p>Hold payouts exceeding ₹500 for secondary risk verification.</p>
+                </div>
+                <input type="checkbox" class="switch-input" checked>
+                <div class="switch-toggle"></div>
+              </label>
+            </div>
+          </div>
+
+          <div class="hud-card" style="background: rgba(14, 18, 50, 0.6);">
+            <h4 style="font-size: 0.9rem; color: #fff; margin-bottom: 6px;">Compliance Verification Seal</h4>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              All settings are cryptographically anchored. Changing economic thresholds generates a mandatory entry in the immutable audit trail.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

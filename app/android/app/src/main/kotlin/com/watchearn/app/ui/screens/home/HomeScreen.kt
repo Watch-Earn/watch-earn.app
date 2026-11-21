@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -39,10 +40,12 @@ fun HomeScreen(
     onNavigateToWallet: () -> Unit,
     onNavigateToWithdraw: () -> Unit,
     onNavigateToTasks: () -> Unit,
-    onNavigateToRefer: () -> Unit
+    onNavigateToRefer: () -> Unit,
+    onNavigateToNotifications: () -> Unit = {}
 ) {
     val user by repository.user.collectAsState()
     val wallet by repository.wallet.collectAsState()
+    val unreadNotifs by repository.unreadNotificationCount.collectAsState()
 
     Column(
         modifier = Modifier
@@ -79,11 +82,31 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .size(36.dp)
+                        .clip(CircleShape)
                         .background(DarkCardSurfaceElevated, CircleShape)
-                        .border(1.dp, DarkBorder, CircleShape),
+                        .border(1.dp, DarkBorder, CircleShape)
+                        .clickable { onNavigateToNotifications() },
                     contentAlignment = Alignment.Center
                 ) {
                     Text("🔔", fontSize = 16.sp)
+                    if (unreadNotifs > 0) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .offset(x = 2.dp, y = (-2).dp)
+                                .size(14.dp)
+                                .background(ElectricCyan, CircleShape)
+                                .border(1.5.dp, DarkNavyBg, CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = if (unreadNotifs > 9) "9+" else "$unreadNotifs",
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = DarkNavyBg
+                            )
+                        }
+                    }
                 }
                 Box(
                     modifier = Modifier
@@ -591,6 +614,76 @@ fun HomeScreen(
                             fontWeight = FontWeight.Bold,
                             color = CoinGold
                         )
+                    }
+                }
+            }
+        }
+
+        // Official Sponsors & Verified Offer Partners
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("🤝", fontSize = 18.sp)
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "Official Sponsors & Partners",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextPrimary
+                )
+            }
+            Text(
+                text = "100% Verified",
+                fontSize = 11.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = EmeraldGreen
+            )
+        }
+
+        // Horizontal scrolling partner showcase
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            listOf(
+                Triple("AdGate Media", "Offerwall & Quests", "🌐"),
+                Triple("OfferToro", "Rewarded Engagement", "🎯"),
+                Triple("RevU", "High-Yield Tasks", "🚀"),
+                Triple("BitLabs", "Verified Surveys", "📊")
+            ).forEach { (name, type, icon) ->
+                Box(
+                    modifier = Modifier
+                        .width(155.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(DarkCardSurfaceElevated)
+                        .border(1.dp, DarkBorder, RoundedCornerShape(14.dp))
+                        .clickable { onNavigateToTasks() }
+                        .padding(12.dp)
+                ) {
+                    Column {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(icon, fontSize = 20.sp)
+                            Box(
+                                modifier = Modifier
+                                    .background(Color(0xFF132A22), RoundedCornerShape(6.dp))
+                                    .border(1.dp, Color(0xFF1F5C45), RoundedCornerShape(6.dp))
+                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text("HMAC", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = EmeraldGreen)
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(name, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = TextPrimary)
+                        Text(type, fontSize = 10.sp, color = TextSecondary, maxLines = 1)
                     }
                 }
             }

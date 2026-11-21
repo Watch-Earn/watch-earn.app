@@ -10,6 +10,26 @@ class WatchEarnRepository {
     private val _user = MutableStateFlow(User())
     val user: StateFlow<User> = _user.asStateFlow()
 
+    fun loginWithGoogle(email: String, name: String, avatarUrl: String = "") {
+        _user.value = _user.value.copy(
+            email = email,
+            name = name,
+            avatarUrl = avatarUrl
+        )
+    }
+
+    fun updateUserName(name: String) {
+        _user.value = _user.value.copy(name = name.trim())
+    }
+
+    fun updateUpiId(upiId: String) {
+        _user.value = _user.value.copy(upiId = upiId.trim())
+    }
+
+    fun logout() {
+        // Keep current state or reset to default guest
+    }
+
     private val _wallet = MutableStateFlow(WalletSummary())
     val wallet: StateFlow<WalletSummary> = _wallet.asStateFlow()
 
@@ -50,6 +70,76 @@ class WatchEarnRepository {
     )
     val transactions: StateFlow<List<TransactionItem>> = _transactions.asStateFlow()
 
+    private val _notifications = MutableStateFlow(
+        listOf(
+            NotificationItem(
+                id = 1L,
+                type = "REWARD_CREDIT",
+                title = "Welcome Bonus Credited! 🪙",
+                body = "500 welcome coins have been added to your vault balance.",
+                targetScreen = "REWARDS_HUB",
+                timestamp = "Today, 10:00 AM",
+                isRead = false
+            ),
+            NotificationItem(
+                id = 2L,
+                type = "ANNOUNCEMENT",
+                title = "2X Weekend Rush Live! ⚡",
+                body = "Double reward multiplier is now active on all partner video ads.",
+                targetScreen = "WATCH_ADS",
+                timestamp = "Yesterday",
+                isRead = false
+            ),
+            NotificationItem(
+                id = 3L,
+                type = "WITHDRAWAL_PAID",
+                title = "UPI Transfer Successful 💳",
+                body = "₹50 has been settled to your registered UPI ID successfully.",
+                targetScreen = "WALLET",
+                timestamp = "20 Nov 2026",
+                isRead = true
+            )
+        )
+    )
+    val notifications: StateFlow<List<NotificationItem>> = _notifications.asStateFlow()
+
+    private val _unreadNotificationCount = MutableStateFlow(2)
+    val unreadNotificationCount: StateFlow<Int> = _unreadNotificationCount.asStateFlow()
+
+    private val _preferences = MutableStateFlow(NotificationPreference())
+    val preferences: StateFlow<NotificationPreference> = _preferences.asStateFlow()
+
+    private val _fcmToken = MutableStateFlow<String?>(null)
+    val fcmToken: StateFlow<String?> = _fcmToken.asStateFlow()
+
+    private fun updateUnreadCount() {
+        _unreadNotificationCount.value = _notifications.value.count { !it.isRead }
+    }
+
+    fun markNotificationRead(id: Long) {
+        _notifications.value = _notifications.value.map {
+            if (it.id == id) it.copy(isRead = true) else it
+        }
+        updateUnreadCount()
+    }
+
+    fun markAllNotificationsRead() {
+        _notifications.value = _notifications.value.map { it.copy(isRead = true) }
+        updateUnreadCount()
+    }
+
+    fun registerFcmToken(token: String) {
+        _fcmToken.value = token
+    }
+
+    fun unregisterFcmToken() {
+        _fcmToken.value = null
+    }
+
+    fun updateNotificationPreferences(pref: NotificationPreference) {
+        _preferences.value = pref
+    }
+
     fun completeAd(adId: Int): Int {
         val reward = 20
         val currentU = _user.value
@@ -76,6 +166,20 @@ class WatchEarnRepository {
             type = "earnings"
         )
         _transactions.value = listOf(newTx) + _transactions.value
+
+        if (_preferences.value.rewardsEnabled) {
+            val notif = NotificationItem(
+                id = System.currentTimeMillis(),
+                type = "REWARD_CREDIT",
+                title = "Ad Reward Credited! 🪙",
+                body = "You earned $reward coins for watching an ad video.",
+                targetScreen = "REWARDS_HUB",
+                timestamp = "Just now",
+                isRead = false
+            )
+            _notifications.value = listOf(notif) + _notifications.value
+            updateUnreadCount()
+        }
 
         return reward
     }
@@ -104,6 +208,18 @@ class WatchEarnRepository {
             type = "withdrawals"
         )
         _transactions.value = listOf(newTx) + _transactions.value
+
+        val notif = NotificationItem(
+            id = System.currentTimeMillis() + 1,
+            type = "WITHDRAWAL_REQUESTED",
+            title = "Withdrawal Submitted 💳",
+            body = "Your ₹$amountRupees withdrawal to $upiId is processing.",
+            targetScreen = "WALLET",
+            timestamp = "Just now",
+            isRead = false
+        )
+        _notifications.value = listOf(notif) + _notifications.value
+        updateUnreadCount()
 
         return Result.success("Withdrawal of ₹$amountRupees submitted successfully to $upiId!")
     }

@@ -16,6 +16,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'google_id',
+        'avatar_url',
         'phone_hash',
         'phone_last_four',
         'status',
@@ -70,5 +72,20 @@ class User extends Authenticatable
     public function supportTickets(): HasMany
     {
         return $this->hasMany(SupportTicket::class);
+    }
+
+    public function pushDevices(): HasMany
+    {
+        return $this->hasMany(PushDevice::class);
+    }
+
+    public function notificationRecipients(): HasMany
+    {
+        return $this->hasMany(NotificationRecipient::class);
+    }
+
+    public function notificationPreference(): HasOne
+    {
+        return $this->hasOne(NotificationPreference::class);
     }
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch &amp; Earn — Partner Integrations &amp; Webhooks</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-page="partners">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/brand_emblem.png" alt="Emblem" class="brand-emblem-img">
+      <div class="brand-text">
+        <h1>WATCH &amp; EARN</h1>
+        <span>Admin Operations HUD</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Operations</div>
+      <a href="index.html" class="nav-item" data-page="overview">
+        <span class="nav-item-icon">📊</span>
+        <span>Overview &amp; HUD</span>
+      </a>
+      <a href="withdrawals.html" class="nav-item" data-page="withdrawals">
+        <span class="nav-item-icon">💸</span>
+        <span>Withdrawals</span>
+        <span class="nav-badge danger" id="navWdBadge" style="display: none;">0</span>
+      </a>
+      <a href="users.html" class="nav-item" data-page="users">
+        <span class="nav-item-icon">👥</span>
+        <span>Users &amp; Security</span>
+      </a>
+
+      <div class="nav-section-title">Messaging &amp; Push</div>
+      <a href="notifications.html" class="nav-item" data-page="notifications">
+        <span class="nav-item-icon">🔔</span>
+        <span>Push Campaigns</span>
+      </a>
+
+      <div class="nav-section-title">Ledger &amp; Partners</div>
+      <a href="ledger.html" class="nav-item" data-page="ledger">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Double-Entry Ledger</span>
+      </a>
+      <a href="partners.html" class="nav-item active" data-page="partners">
+        <span class="nav-item-icon">🤝</span>
+        <span>Partners &amp; Webhooks</span>
+      </a>
+      <a href="fraud.html" class="nav-item" data-page="fraud">
+        <span class="nav-item-icon">🛡️</span>
+        <span>Fraud &amp; Velocity</span>
+      </a>
+
+      <div class="nav-section-title">Disputes &amp; Audit</div>
+      <a href="support.html" class="nav-item" data-page="support">
+        <span class="nav-item-icon">🎫</span>
+        <span>Support Tickets</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <span class="nav-item-icon">📜</span>
+        <span>Audit Trail</span>
+      </a>
+      <a href="settings.html" class="nav-item" data-page="settings">
+        <span class="nav-item-icon">⚙️</span>
+        <span>Compliance Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="node-status-pill">
+        <div class="pulse-indicator">
+          <div class="pulse-dot"></div>
+          <span>Node: Mumbai-IN</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">v1.0.4</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+        <div class="page-title-box">
+          <h2>Partner Integrations &amp; Webhook Gateway</h2>
+          <p>Cryptographically verified offerwalls, HMAC postbacks, and AdMob cash-isolation policy</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mode-toggle-chip" id="modeToggle">
+          <div class="mode-status-led" id="modeStatusLed"></div>
+          <span id="modeLabel">Connecting...</span>
+        </div>
+        <button class="btn-refresh" id="btnRefresh">
+          <span>🔄</span>
+          <span>Sync</span>
+        </button>
+        <div class="admin-avatar-card">
+          <div class="avatar-circle">SA</div>
+          <div class="admin-info">
+            <div class="admin-info-name">Sec Officer</div>
+            <div class="admin-info-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+
+      <!-- AdMob Compliance Banner -->
+      <div class="compliance-banner">
+        <div class="compliance-info">
+          <div class="compliance-icon">🛡️</div>
+          <div class="compliance-text">
+            <h4>
+              <span>AdMob Strict Isolation Invariant</span>
+              <span class="compliance-badge-enforced">Policy Locked</span>
+            </h4>
+            <p>AdMob rewarded video ad credits are isolated in-memory for game entertainment only. Only HMAC-signed callbacks from authorized offerwall networks can credit cashable coin balances.</p>
+          </div>
+        </div>
+        <span style="font-size: 0.75rem; color: var(--emerald-primary); font-weight: 700;">Zero Policy Violations</span>
+      </div>
+
+      <!-- Partner Cards Grid -->
+      <div class="partner-grid" id="partnersGrid" style="margin-bottom: 28px;">
+        <!-- Hydrated dynamically by admin.js -->
+      </div>
+
+      <!-- Webhook Postback Simulator -->
+      <div class="hud-card">
+        <div class="hud-card-header">
+          <div class="hud-card-title">
+            <span>🧪</span>
+            <span>Partner HMAC Webhook Postback Simulator</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Verify attribution, replay protection, and signature verification</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px;">
+          <div class="modal-field">
+            <label class="modal-label">Target Partner</label>
+            <select class="modal-select" id="simPartnerSelect">
+              <option value="adgate">AdGate Media (adgate)</option>
+              <option value="offertoro">OfferToro (offertoro)</option>
+              <option value="revu">Revenue Universe (revu)</option>
+            </select>
+          </div>
+
+          <div class="modal-field">
+            <label class="modal-label">User ID</label>
+            <input type="number" class="modal-input" id="simUserId" value="101">
+          </div>
+
+          <div class="modal-field">
+            <label class="modal-label">Offer ID</label>
+            <input type="number" class="modal-input" id="simOfferId" value="501">
+          </div>
+
+          <div class="modal-field">
+            <label class="modal-label">Reward Coins</label>
+            <input type="number" class="modal-input" id="simCoins" value="50">
+          </div>
+        </div>
+
+        <button class="btn-table btn-table-approve" id="btnSimulateWebhook" style="padding: 10px 20px;">
+          Send Signed Webhook Test
+        </button>
+
+        <div id="webhookResponseBox" style="display: none; margin-top: 18px;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

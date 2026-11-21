@@ -28,6 +28,7 @@ import com.watchearn.app.ui.screens.earn.EarnHubScreen
 import com.watchearn.app.ui.screens.earn.RewardSuccessScreen
 import com.watchearn.app.ui.screens.earn.WatchAdsListScreen
 import com.watchearn.app.ui.screens.home.HomeScreen
+import com.watchearn.app.ui.screens.notifications.NotificationScreen
 import com.watchearn.app.ui.screens.onboarding.OnboardingScreen
 import com.watchearn.app.ui.screens.profile.ProfileScreen
 import com.watchearn.app.ui.screens.refer.ReferScreen
@@ -58,25 +59,33 @@ sealed class ScreenRoute {
     data object Refer : ScreenRoute()
     data object Tasks : ScreenRoute()
     data object Support : ScreenRoute()
+    data object Notifications : ScreenRoute()
 }
 
 @Composable
 fun MainScreen(
     repository: WatchEarnRepository = WatchEarnRepository.instance
 ) {
+    var isLoggedIn by remember { mutableStateOf(false) }
     var currentRoute by remember { mutableStateOf<ScreenRoute>(ScreenRoute.Splash) }
     var currentBottomTab by remember { mutableStateOf(BottomTab.HOME) }
 
     when (val route = currentRoute) {
         is ScreenRoute.Splash -> {
-            SplashScreen(onFinish = { currentRoute = ScreenRoute.MainApp })
+            SplashScreen(onFinish = {
+                currentRoute = if (isLoggedIn) ScreenRoute.MainApp else ScreenRoute.Login
+            })
         }
         is ScreenRoute.Onboarding -> {
             OnboardingScreen(onFinish = { currentRoute = ScreenRoute.Login })
         }
         is ScreenRoute.Login -> {
             LoginScreen(
-                onSendOtp = { phone -> currentRoute = ScreenRoute.OtpVerify(phone) }
+                onGoogleSignIn = { name, email ->
+                    isLoggedIn = true
+                    repository.loginWithGoogle(email = email, name = name)
+                    currentRoute = ScreenRoute.MainApp
+                }
             )
         }
         is ScreenRoute.OtpVerify -> {
@@ -141,6 +150,29 @@ fun MainScreen(
         is ScreenRoute.Support -> {
             SupportScreen(repository = repository)
         }
+        is ScreenRoute.Notifications -> {
+            NotificationScreen(
+                repository = repository,
+                onBack = { currentRoute = ScreenRoute.MainApp },
+                onNavigateToScreen = { destination ->
+                    when (destination.uppercase()) {
+                        "WATCH_ADS", "ADS" -> currentRoute = ScreenRoute.WatchAdsList
+                        "REWARDS_HUB", "EARN" -> currentRoute = ScreenRoute.EarnHub
+                        "WALLET" -> {
+                            currentBottomTab = BottomTab.WALLET
+                            currentRoute = ScreenRoute.MainApp
+                        }
+                        "WITHDRAW" -> currentRoute = ScreenRoute.Withdraw
+                        "TASKS" -> {
+                            currentBottomTab = BottomTab.TASKS
+                            currentRoute = ScreenRoute.MainApp
+                        }
+                        "REFER" -> currentRoute = ScreenRoute.Refer
+                        else -> currentRoute = ScreenRoute.MainApp
+                    }
+                }
+            )
+        }
         is ScreenRoute.MainApp -> {
             // Main Scaffold with Bottom Navigation Bar matching 00_ORIGINAL_DARK_THEME_REFERENCE.png
             Scaffold(
@@ -166,7 +198,8 @@ fun MainScreen(
                             onNavigateToWallet = { currentBottomTab = BottomTab.WALLET },
                             onNavigateToWithdraw = { currentRoute = ScreenRoute.Withdraw },
                             onNavigateToTasks = { currentBottomTab = BottomTab.TASKS },
-                            onNavigateToRefer = { currentRoute = ScreenRoute.Refer }
+                            onNavigateToRefer = { currentRoute = ScreenRoute.Refer },
+                            onNavigateToNotifications = { currentRoute = ScreenRoute.Notifications }
                         )
                         BottomTab.TASKS -> TasksScreen(
                             repository = repository,
@@ -181,7 +214,10 @@ fun MainScreen(
                         BottomTab.PROFILE -> ProfileScreen(
                             repository = repository,
                             onNavigateToSupport = { currentRoute = ScreenRoute.Support },
-                            onLogout = { currentRoute = ScreenRoute.Login },
+                            onLogout = {
+                                isLoggedIn = false
+                                currentRoute = ScreenRoute.Login
+                            },
                             onBack = { currentBottomTab = BottomTab.HOME }
                         )
                     }

@@ -3,8 +3,8 @@ package com.watchearn.app.data.model
 data class User(
     val id: Long = 1,
     val name: String = "Rahul Sharma",
-    val phone: String = "+91 98765 43210",
-    val phoneMasked: String = "+91*****43210",
+    val email: String = "rahul.sharma@gmail.com",
+    val avatarUrl: String = "",
     val level: Int = 5,
     val streakDays: Int = 5,
     val todayEarnedCoins: Int = 200,
@@ -64,4 +64,34 @@ data class WithdrawalRecord(
     val upiId: String,
     val status: String, // "Success", "Processing", "Failed"
     val timestamp: String
+)
+
+
+enum class NotificationCategory {
+    ALL, REWARDS, WALLET, ANNOUNCEMENTS
+}
+
+data class NotificationItem(
+    val id: Long,
+    val type: String,
+    val title: String,
+    val body: String,
+    val targetScreen: String? = null,
+    val targetData: Map<String, String> = emptyMap(),
+    val timestamp: String,
+    val isRead: Boolean = false
+) {
+    val category: NotificationCategory get() = when (type) {
+        "DAILY_REWARD", "REWARD_CREDIT", "REWARD_EVENT" -> NotificationCategory.REWARDS
+        "WALLET_UPDATE", "WITHDRAWAL_REQUESTED", "WITHDRAWAL_PAID", "WITHDRAWAL_FAILED" -> NotificationCategory.WALLET
+        else -> NotificationCategory.ANNOUNCEMENTS
+    }
+}
+
+data class NotificationPreference(
+    val rewardsEnabled: Boolean = true,
+    val promotionalEnabled: Boolean = true,
+    val quietHoursStart: String? = "22:00",
+    val quietHoursEnd: String? = "08:00",
+    val timezone: String = "Asia/Kolkata"
 )

@@ -148,6 +148,17 @@ class RewardVerificationService
                 $event->update(['status' => 'settled']);
             }
 
+            try {
+                app(\App\Services\NotificationService::class)->sendToUser(
+                    $user,
+                    'REWARD_CREDIT',
+                    'Coins Credited!',
+                    "You earned {$rewardCoins} coins from {$partner->name}.",
+                    'rewards',
+                    ['event_id' => (string) $event->id, 'partner' => $partner->slug, 'coins' => (string) $rewardCoins]
+                );
+            } catch (\Throwable $e) {}
+
             return [
                 'status' => 'success',
                 'message' => 'Reward credited successfully',

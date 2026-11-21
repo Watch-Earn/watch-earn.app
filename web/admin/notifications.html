@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch &amp; Earn — Push Notifications &amp; Campaigns</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-page="notifications">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/brand_emblem.png" alt="Emblem" class="brand-emblem-img">
+      <div class="brand-text">
+        <h1>WATCH &amp; EARN</h1>
+        <span>Admin Operations HUD</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Operations</div>
+      <a href="index.html" class="nav-item" data-page="overview">
+        <span class="nav-item-icon">📊</span>
+        <span>Overview &amp; HUD</span>
+      </a>
+      <a href="withdrawals.html" class="nav-item" data-page="withdrawals">
+        <span class="nav-item-icon">💸</span>
+        <span>Withdrawals</span>
+        <span class="nav-badge danger" id="navWdBadge" style="display: none;">0</span>
+      </a>
+      <a href="users.html" class="nav-item" data-page="users">
+        <span class="nav-item-icon">👥</span>
+        <span>Users &amp; Security</span>
+      </a>
+
+      <div class="nav-section-title">Messaging &amp; Push</div>
+      <a href="notifications.html" class="nav-item active" data-page="notifications">
+        <span class="nav-item-icon">🔔</span>
+        <span>Push Campaigns</span>
+      </a>
+
+      <div class="nav-section-title">Ledger &amp; Partners</div>
+      <a href="ledger.html" class="nav-item" data-page="ledger">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Double-Entry Ledger</span>
+      </a>
+      <a href="partners.html" class="nav-item" data-page="partners">
+        <span class="nav-item-icon">🤝</span>
+        <span>Partners &amp; Webhooks</span>
+      </a>
+      <a href="fraud.html" class="nav-item" data-page="fraud">
+        <span class="nav-item-icon">🛡️</span>
+        <span>Fraud &amp; Velocity</span>
+      </a>
+
+      <div class="nav-section-title">Disputes &amp; Audit</div>
+      <a href="support.html" class="nav-item" data-page="support">
+        <span class="nav-item-icon">🎫</span>
+        <span>Support Tickets</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <span class="nav-item-icon">📜</span>
+        <span>Audit Trail</span>
+      </a>
+      <a href="settings.html" class="nav-item" data-page="settings">
+        <span class="nav-item-icon">⚙️</span>
+        <span>Compliance Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="node-status-pill">
+        <div class="pulse-indicator">
+          <div class="pulse-dot"></div>
+          <span>Node: Mumbai-IN</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">v1.0.4</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+        <div class="page-title-box">
+          <h2>FCM Push Notifications &amp; Campaigns</h2>
+          <p>Authoritative FCM HTTP v1 broadcasts, segmented audience targeting &amp; delivery audits</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mode-toggle-chip" id="modeToggle">
+          <div class="mode-status-led" id="modeStatusLed"></div>
+          <span id="modeLabel">Connecting...</span>
+        </div>
+        <button class="btn-refresh" id="btnRefresh">
+          <span>🔄</span>
+          <span>Sync</span>
+        </button>
+        <div class="admin-avatar-card">
+          <div class="avatar-circle">SA</div>
+          <div class="admin-info">
+            <div class="admin-info-name">Sec Officer</div>
+            <div class="admin-info-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+
+      <!-- Statutory & Policy Notice -->
+      <div class="notice-box" style="margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <strong>Server-Authoritative Anti-Exploit Rule:</strong> Opening a push notification or deep-link never credits coins directly on the client. Balance additions are strictly validated and minted server-side.
+        </div>
+        <div style="font-weight: 700; color: var(--cyan-primary);">
+          ✓ Google FCM HTTP v1 Compliant
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Active Push Devices</span>
+            <span class="kpi-icon">📱</span>
+          </div>
+          <div class="kpi-value" id="kpiActiveDevices">1,248</div>
+          <div class="kpi-sub">
+            <span class="trend-up">+18%</span> Valid registered tokens
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Campaigns Dispatched</span>
+            <span class="kpi-icon">🚀</span>
+          </div>
+          <div class="kpi-value" id="kpiCampaignsCount">14</div>
+          <div class="kpi-sub">
+            All-time broadcast batches
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">HTTP v1 Delivery Rate</span>
+            <span class="kpi-icon">⚡</span>
+          </div>
+          <div class="kpi-value" id="kpiDeliveryRate" style="color: var(--emerald-primary);">99.4%</div>
+          <div class="kpi-sub">
+            <span class="trend-up">Low bounce</span> 4 expired tokens pruned
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Quiet Hours Safeguard</span>
+            <span class="kpi-icon">🌙</span>
+          </div>
+          <div class="kpi-value" style="color: var(--purple-light);">Active</div>
+          <div class="kpi-sub">
+            22:00 - 08:00 IST non-urgent cap
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign Creation & Templates Grid -->
+      <div style="display: grid; grid-template-columns: 1.6fr 1.2fr; gap: 24px; margin-bottom: 28px;">
+        
+        <!-- Left: Compose Push Notification Form -->
+        <div class="glass-card" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+              <span>📣</span> Create &amp; Dispatch Push Broadcast
+            </h3>
+            <span class="status-badge live" style="font-size: 0.75rem;">FCM HTTP v1</span>
+          </div>
+
+          <form id="pushCampaignForm" onsubmit="event.preventDefault(); window.WatchEarnAdmin.dispatchPushCampaign();">
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                Notification Title <span style="color: var(--danger-color);">*</span>
+              </label>
+              <input type="text" id="pushTitle" class="form-input" placeholder="e.g. 2X Weekend Rush Live! ⚡" required maxlength="100" style="width: 100%;">
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                Notification Message Body <span style="color: var(--danger-color);">*</span>
+              </label>
+              <textarea id="pushBody" class="form-input" rows="3" placeholder="Double coins active on all partner video ads this Saturday..." required maxlength="250" style="width: 100%; resize: vertical;"></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                  Target App Screen
+                </label>
+                <select id="pushTargetScreen" class="form-input" style="width: 100%;">
+                  <option value="HOME">Home Dashboard</option>
+                  <option value="WATCH_ADS" selected>Watch Ads List (2x Booster)</option>
+                  <option value="REWARDS_HUB">Rewards Hub &amp; Tasks</option>
+                  <option value="WALLET">Wallet &amp; UPI Vault</option>
+                  <option value="WITHDRAW">Instant Withdrawal Form</option>
+                </select>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                  Target Segment
+                </label>
+                <select id="pushSegment" class="form-input" style="width: 100%;">
+                  <option value="ALL_ACTIVE" selected>All Active Registered Devices</option>
+                  <option value="ACTIVE_7D">Active in Last 7 Days (Engaged)</option>
+                  <option value="INACTIVE_3D">Inactive &gt; 3 Days (Re-engagement)</option>
+                  <option value="HIGH_BALANCE">High Balance (&gt; 1,000 coins)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                Campaign Tag / Deep Link Meta (Optional)
+              </label>
+              <input type="text" id="pushDeepLinkData" class="form-input" placeholder='{"campaign_tag": "weekend_2x", "bonus": 50}' style="width: 100%; font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="pushEnforceQuiet" checked style="accent-color: var(--purple-light); cursor: pointer;">
+                <label for="pushEnforceQuiet" style="font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">
+                  Enforce Quiet Hours &amp; Promotional Opt-Out Safeguards
+                </label>
+              </div>
+              <button type="button" class="btn-secondary" onclick="window.WatchEarnAdmin.previewAudience()" style="font-size: 0.8rem; padding: 4px 10px;">
+                <span>👥</span> Estimate Audience
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 12px;">
+              <button type="submit" class="btn-primary" id="btnDispatchPush" style="flex: 1; padding: 12px 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span>🚀</span> Dispatch Push Broadcast Now
+              </button>
+              <button type="button" class="btn-secondary" onclick="window.WatchEarnAdmin.openScheduleModal()" style="padding: 12px 16px;">
+                <span>⏰</span> Schedule Later
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Pre-built Campaign Templates & Health -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <!-- Quick Templates Card -->
+          <div class="glass-card" style="padding: 20px;">
+            <h3 style="margin: 0 0 14px 0; font-size: 1.05rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+              <span>⚡</span> Pre-Approved Campaign Templates
+            </h3>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="template-item" onclick="window.WatchEarnAdmin.applyPushTemplate('weekend_2x')" style="padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--cyan-primary); font-size: 0.9rem;">2X Weekend Ad Rush</strong>
+                  <span class="status-badge approved" style="font-size: 0.7rem;">Watch Ads</span>
+                </div>
+                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Double coins active on all video ad completions this weekend!</p>
+              </div>
+
+              <div class="template-item" onclick="window.WatchEarnAdmin.applyPushTemplate('daily_streak')" style="padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--gold-coin); font-size: 0.9rem;">Daily Streak Waiting 🪙</strong>
+                  <span class="status-badge approved" style="font-size: 0.7rem;">Tasks</span>
+                </div>
+                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Don't break your streak! Claim 100 free coins on your daily check-in.</p>
+              </div>
+
+              <div class="template-item" onclick="window.WatchEarnAdmin.applyPushTemplate('upi_payout')" style="padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--emerald-primary); font-size: 0.9rem;">Instant UPI Settled</strong>
+                  <span class="status-badge approved" style="font-size: 0.7rem;">Wallet</span>
+                </div>
+                <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Your withdrawal transfer has been successfully credited to your bank UPI.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Channel & FCM Protocol Health -->
+          <div class="glass-card" style="padding: 20px;">
+            <h3 style="margin: 0 0 14px 0; font-size: 1.05rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+              <span>🛡️</span> Notification Infrastructure Status
+            </h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span style="color: var(--text-secondary);">FCM HTTP v1 Protocol</span>
+                <span style="color: var(--emerald-primary); font-weight: 700;">● Active (OAuth2)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span style="color: var(--text-secondary);">Android 13+ POST_NOTIFICATIONS</span>
+                <span style="color: var(--text-primary); font-weight: 600;">91.4% Opt-In</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span style="color: var(--text-secondary);">Inbox Storage Guarantee</span>
+                <span style="color: var(--cyan-primary); font-weight: 600;">Backend Persisted</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Simulation Mock Fallback</span>
+                <span style="color: var(--purple-light); font-weight: 600;">Enabled (Zero 500s)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Historical Push Campaigns Table -->
+      <div class="glass-card" style="padding: 24px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+          <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+            <span>📜</span> Dispatched Campaigns &amp; Delivery Performance
+          </h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);" id="campaignsCountLabel">Showing recent campaigns</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="campaignsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Campaign Title</th>
+                <th>Target Screen</th>
+                <th>Audience</th>
+                <th>Status</th>
+                <th>Dispatched</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="campaignsTableBody">
+              <!-- Rendered dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Real-time Delivery Log Stream -->
+      <div class="glass-card" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+            <span>📡</span> Live FCM Dispatch Stream
+          </h3>
+          <span class="status-badge approved" style="font-size: 0.75rem;">Real-time Telemetry</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="deliveryLogsTable">
+            <thead>
+              <tr>
+                <th>Time (IST)</th>
+                <th>Event / Campaign</th>
+                <th>Recipient Device</th>
+                <th>Platform</th>
+                <th>Delivery Status</th>
+                <th>FCM Response</th>
+              </tr>
+            </thead>
+            <tbody id="deliveryLogsTableBody">
+              <!-- Rendered dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Schedule Campaign Modal -->
+  <div class="modal-overlay" id="scheduleModal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>⏰ Schedule Push Campaign</h3>
+        <button class="modal-close" onclick="window.WatchEarnAdmin.closeScheduleModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
+          Schedule this campaign for automatic dispatch by the background queue runner.
+        </p>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+            Dispatch Date &amp; Time (IST)
+          </label>
+          <input type="datetime-local" id="scheduleDateTime" class="form-input" style="width: 100%;">
+        </div>
+
+        <div class="notice-box" style="font-size: 0.8rem; margin-bottom: 16px;">
+          <strong>Automatic Quiet Hours Shift:</strong> If the chosen time falls within 22:00–08:00 IST, non-urgent promotional broadcasts will be automatically delayed to 08:05 IST.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="window.WatchEarnAdmin.closeScheduleModal()">Cancel</button>
+        <button class="btn-primary" onclick="window.WatchEarnAdmin.confirmScheduleCampaign()">Save Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
