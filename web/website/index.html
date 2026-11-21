@@ -274,37 +274,147 @@
     </div>
   </section>
 
-  <!-- Interactive Calculator Section -->
-  <section class="section bg-alt" id="calculator">
+  <!-- Interactive Calculator Section (High-Tech Redesign) -->
+  <section class="section bg-alt calculator-section" id="calculator">
     <div class="container">
       <div class="section-title">
+        <div class="calc-badge">
+          <span>⚡ SERVER-ENFORCED ARITHMETIC</span>
+        </div>
         <h2>Interactive <span class="text-gradient-gold">Coin & Rupee Calculator</span></h2>
-        <p>All wallet computations use integer arithmetic: <code>paise = coins / 10</code>.</p>
+        <p>Zero floating-point inaccuracies. All wallet computations use integer arithmetic: <code>paise = coins / 10</code> (1,000 Coins = ₹1.00).</p>
       </div>
-      <div class="calculator-card">
-        <div class="calc-row">
-          <label for="coinInput">Enter Virtual Coins:</label>
-          <input type="number" id="coinInput" value="10000" min="0" step="10">
-        </div>
-        <div class="calc-slider">
-          <input type="range" id="coinSlider" min="0" max="100000" step="100" value="10000">
-        </div>
-        <div class="calc-results">
-          <div class="result-item">
-            <span class="res-label">Rupees (INR)</span>
-            <span class="res-value" id="inrValue">₹10.00</span>
+
+      <div class="calculator-wrapper">
+        <!-- Left Column: Controls & Presets -->
+        <div class="calc-controls-card">
+          <div>
+            <div class="calc-card-header">
+              <div class="calc-icon-bubble">🪙</div>
+              <div>
+                <h3>Adjust Virtual Coins</h3>
+                <p>Slide, type, or pick a preset to preview real-time INR payout</p>
+              </div>
+            </div>
+
+            <!-- Input Box with Coin Icon -->
+            <div class="calc-input-group">
+              <div class="calc-input-box">
+                <span class="calc-input-prefix">🪙 Virtual Coins</span>
+                <input type="number" id="coinInput" value="10000" min="0" max="100000" step="10">
+              </div>
+            </div>
+
+            <!-- Custom Range Slider -->
+            <div class="calc-slider-container">
+              <input type="range" id="coinSlider" min="0" max="100000" step="100" value="10000">
+              <div class="slider-marks">
+                <span>0</span>
+                <span class="mark-min">10K (Min Payout)</span>
+                <span>50K</span>
+                <span>100K Coins</span>
+              </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="calc-presets">
+              <span class="preset-label">Quick Presets:</span>
+              <div class="preset-buttons">
+                <button type="button" class="preset-btn" data-value="1000">1,000</button>
+                <button type="button" class="preset-btn" data-value="5000">5,000</button>
+                <button type="button" class="preset-btn active" data-value="10000">10,000 (Min)</button>
+                <button type="button" class="preset-btn" data-value="25000">25,000</button>
+                <button type="button" class="preset-btn" data-value="50000">50,000</button>
+              </div>
+            </div>
           </div>
-          <div class="result-item">
-            <span class="res-label">Integral Paise</span>
-            <span class="res-value" id="paiseValue">1,000 paise</span>
-          </div>
-          <div class="result-item">
-            <span class="res-label">Withdrawal Status</span>
-            <span class="res-value status-tag" id="statusTag">Eligible for Payout (≥ 10,000 Coins)</span>
+
+          <!-- Progress to Minimum Payout -->
+          <div class="payout-progress-box">
+            <div class="progress-labels">
+              <span>Threshold Progress (Min 10,000 Coins)</span>
+              <span id="calcProgressPercent">100%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="calcProgressBar" style="width: 100%;"></div>
+            </div>
+            <p class="progress-hint" id="calcProgressHint">✓ Payout threshold reached! Unlocked for instant UPI transfer.</p>
           </div>
         </div>
-        <div class="calc-note">
-          Standard daily limit: 10 completions per day (200 coins = ₹0.20/day max for standard activities).
+
+        <!-- Right Column: Live Holographic UPI Transfer Card -->
+        <div class="calc-preview-card">
+          <div class="upi-card-inner">
+            <div class="upi-card-top">
+              <div class="upi-chip">
+                <span class="chip-sim"></span>
+                <span class="upi-network-badge">BHIM UPI • INSTANT</span>
+              </div>
+              <div class="upi-status-pill eligible" id="cardStatusPill">
+                <span class="status-dot"></span>
+                <span id="statusTag">Eligible for Payout</span>
+              </div>
+            </div>
+
+            <div class="upi-card-amount">
+              <span class="amount-label">Redeemable Rupee Valuation</span>
+              <div class="amount-display">
+                <span class="currency-symbol">₹</span>
+                <span class="amount-number" id="inrValue">10.00</span>
+              </div>
+              <div class="amount-paise" id="paiseValue">Integral: 1,000 paise</div>
+            </div>
+
+            <div class="upi-card-details">
+              <div class="card-detail-item">
+                <span class="detail-label">Enforced Ratio</span>
+                <span class="detail-val">1,000 Coins = ₹1.00</span>
+              </div>
+              <div class="card-detail-item">
+                <span class="detail-label">Transfer Speed</span>
+                <span class="detail-val">Instant IMPS</span>
+              </div>
+              <div class="card-detail-item">
+                <span class="detail-label">Ledger Protocol</span>
+                <span class="detail-val">Double-Entry</span>
+              </div>
+            </div>
+
+            <div class="upi-card-footer">
+              <div class="vpa-preview">
+                <span class="vpa-icon">⚡</span>
+                <span class="vpa-text">Direct to YourVPA@upi</span>
+              </div>
+              <a href="#download-info" class="btn btn-primary upi-sim-btn">
+                Get App to Redeem →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Safeguards & Rules Row Underneath -->
+      <div class="calc-safeguards-row">
+        <div class="safeguard-chip">
+          <span class="safeguard-icon">🔒</span>
+          <div>
+            <strong>Integer Math Guard</strong>
+            <span>Zero float drift. All ledger operations computed in integral paise.</span>
+          </div>
+        </div>
+        <div class="safeguard-chip">
+          <span class="safeguard-icon">🛡️</span>
+          <div>
+            <strong>₹10.00 Sustainable Minimum</strong>
+            <span>10,000 coins threshold maintains zero-loss payout processing.</span>
+          </div>
+        </div>
+        <div class="safeguard-chip">
+          <span class="safeguard-icon">⚖️</span>
+          <div>
+            <strong>Fair 10-Task Daily Cap</strong>
+            <span>Standard daily limit of 200 coins protects user health & quality.</span>
+          </div>
         </div>
       </div>
     </div>

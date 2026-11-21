@@ -299,16 +299,20 @@ Each update entry follows this standard structure:
   - Validated JavaScript syntax (`node -c web/website/js/app.js`).
   - Tested navigation flow: clicking "For Brands" or "Partner With Us" opens `advertise.html`, and clicking "← Back to App" returns to `index.html`.
 
-### [2026-11-21 13:59:00 IST] - Streamlined Navbar by Removing Redundant "For Brands" Pill
-- **Type**: UI / UX Refactor
-- **Components / Modules**: Website Navigation (`web/website`)
+### [2026-11-21 14:05:00 IST] - FinTech Gaming Redesign for Interactive Coin & Rupee Calculator
+- **Type**: UI / UX Major Overhaul & Feature Enhancement
+- **Components / Modules**: Website Interactive Calculator (`web/website`)
 - **Files Affected**:
-  - `web/website/index.html` - Removed the redundant "For Brands B2B" link from inside the main nav links capsule. B2B / advertiser navigation is cleanly represented by the dedicated "Partner With Us" action button in `.nav-right`.
+  - `web/website/index.html` - Overhauled `#calculator` section into a 2-column FinTech workstation: left control panel with glowing coin input, range slider with scale marks, quick-preset pill buttons (`1K`, `5K`, `10K`, `25K`, `50K`), and dynamic payout threshold progress bar; right side live holographic UPI Debit Card preview (`BHIM UPI • INSTANT`) displaying real-time Rupee valuation (`₹10.00`), exact integral paise breakdown, and eligibility status pill; bottom 3-card economic safeguard row.
+  - `web/website/css/style.css` - Created 2-column responsive layout (`.calculator-wrapper`), custom gradient thumb slider, interactive preset buttons with active glow, dynamic threshold progress track (`.progress-track`), and 3D metallic virtual banking card (`.upi-card-inner`) with gold EMV chip and neon emerald Rupee typography.
+  - `web/website/js/app.js` - Upgraded calculator engine to dynamically update the live UPI card, threshold percentage meter (`0%` to `100%`), contextual status pills, and active preset chips on input, slide, or button clicks.
 - **Summary of Changes**:
-  - Cleaned up navigation capsule to strictly contain user-facing sections (How It Works, App Experience, Coin Calculator, Transparency, FAQ).
-  - Kept "Partner With Us" secondary button on the right for brand partners, preventing duplicate buttons in the header.
+  - Transformed the calculator from a plain text card into a high-tech gaming FinTech showcase matching the rest of the application.
+  - Users can click any preset button or drag the slider to instantly see their rupee earnings, paise conversion, and whether they have unlocked the ₹10.00 minimum UPI withdrawal threshold.
 - **Verification / Testing**:
-  - Verified navbar layout and responsiveness across desktop and mobile.
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Tested responsive collapsing on desktop (2-column grid), tablet, and mobile (stacked cards with full-width CTA).
+
 
 
 

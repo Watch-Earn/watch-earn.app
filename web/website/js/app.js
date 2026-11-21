@@ -1,10 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. Interactive Coin & Rupee Calculator ---
+  // --- 1. Interactive Coin & Rupee Calculator (High-Tech FinTech Engine) ---
   const coinInput = document.getElementById('coinInput');
   const coinSlider = document.getElementById('coinSlider');
   const inrValue = document.getElementById('inrValue');
   const paiseValue = document.getElementById('paiseValue');
   const statusTag = document.getElementById('statusTag');
+  const cardStatusPill = document.getElementById('cardStatusPill');
+  const calcProgressBar = document.getElementById('calcProgressBar');
+  const calcProgressPercent = document.getElementById('calcProgressPercent');
+  const calcProgressHint = document.getElementById('calcProgressHint');
+  const presetButtons = document.querySelectorAll('.preset-btn');
 
   function updateCalculator(coins) {
     let val = parseInt(coins, 10);
@@ -16,19 +21,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const paise = Math.floor(val / 10);
     const inr = (val / 1000).toFixed(2);
 
-    if (inrValue) inrValue.textContent = `₹${inr}`;
-    if (paiseValue) paiseValue.textContent = `${paise.toLocaleString('en-IN')} paise`;
+    if (inrValue) inrValue.textContent = inr;
+    if (paiseValue) paiseValue.textContent = `Integral: ${paise.toLocaleString('en-IN')} paise`;
 
-    // Minimum withdrawal is 10,000 coins (₹10.00)
-    if (statusTag) {
-      if (val >= 10000) {
-        statusTag.textContent = 'Eligible for Payout (≥ 10,000 Coins)';
-        statusTag.className = 'res-value status-tag';
-      } else {
-        const remaining = 10000 - val;
-        statusTag.textContent = `Need ${remaining.toLocaleString('en-IN')} more coins`;
-        statusTag.className = 'res-value status-tag ineligible';
+    // Calculate progress towards minimum 10,000 threshold
+    const percent = Math.min(100, Math.floor((val / 10000) * 100));
+    if (calcProgressBar) calcProgressBar.style.width = `${percent}%`;
+    if (calcProgressPercent) calcProgressPercent.textContent = `${percent}%`;
+
+    // Minimum withdrawal threshold is 10,000 coins (₹10.00)
+    if (val >= 10000) {
+      if (statusTag) statusTag.textContent = 'Eligible for Payout';
+      if (cardStatusPill) {
+        cardStatusPill.className = 'upi-status-pill eligible';
       }
+      if (calcProgressHint) {
+        calcProgressHint.textContent = '✓ Payout threshold reached! Unlocked for instant UPI transfer.';
+        calcProgressHint.className = 'progress-hint';
+      }
+    } else {
+      const remaining = 10000 - val;
+      if (statusTag) statusTag.textContent = `Need ${remaining.toLocaleString('en-IN')} Coins`;
+      if (cardStatusPill) {
+        cardStatusPill.className = 'upi-status-pill ineligible';
+      }
+      if (calcProgressHint) {
+        calcProgressHint.textContent = `Need ${remaining.toLocaleString('en-IN')} more coins to reach ₹10.00 threshold.`;
+        calcProgressHint.className = 'progress-hint ineligible';
+      }
+    }
+
+    // Active preset button sync
+    if (presetButtons) {
+      presetButtons.forEach(btn => {
+        const btnVal = parseInt(btn.getAttribute('data-value'), 10);
+        if (btnVal === val) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
     }
   }
 
@@ -44,6 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
       coinInput.value = val;
       updateCalculator(val);
     });
+
+    if (presetButtons) {
+      presetButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-value');
+          coinInput.value = val;
+          coinSlider.value = val;
+          updateCalculator(val);
+        });
+      });
+    }
 
     updateCalculator(coinInput.value);
   }

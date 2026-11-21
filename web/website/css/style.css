@@ -1017,136 +1017,525 @@ p {
   line-height: 1.6;
 }
 
-/* Interactive Calculator */
-.calculator-card {
-  max-width: 640px;
+/* Interactive Calculator (High-Tech FinTech Gaming Redesign) */
+.calculator-section {
+  position: relative;
+  overflow: hidden;
+  padding: 85px 0 95px;
+}
+
+.calc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 198, 56, 0.12);
+  border: 1px solid rgba(255, 198, 56, 0.35);
+  color: var(--coin-gold);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.calculator-wrapper {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: stretch;
+  max-width: 1080px;
   margin: 0 auto;
-  background: var(--card-gradient);
+}
+
+/* Left Column: Interactive Controls Card */
+.calc-controls-card {
+  background: rgba(18, 21, 54, 0.75);
   border: 1px solid var(--border-highlight);
   border-radius: 24px;
-  padding: 34px;
-  box-shadow: var(--glow-card), 0 0 35px rgba(94, 23, 235, 0.18);
-  backdrop-filter: blur(12px);
-}
-
-.calc-row {
+  padding: 34px 30px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 36px rgba(8, 11, 32, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.calc-card-header {
+  display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.calc-row label {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 1.02rem;
-}
-
-.calc-row input[type="number"] {
-  background: rgba(8, 11, 32, 0.85);
-  color: var(--coin-gold);
-  padding: 10px 16px;
-  font-size: 1.25rem;
-  border: 1px solid var(--border-highlight);
-  border-radius: 12px;
-  width: 170px;
-  text-align: right;
-  font-weight: 800;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.calc-row input[type="number"]:focus {
-  border-color: var(--coin-gold);
+.calc-icon-bubble {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  flex-shrink: 0;
   box-shadow: var(--glow-gold);
 }
 
-.calc-slider {
+.calc-card-header h3 {
+  font-size: 1.22rem;
+  margin-bottom: 3px;
+  color: #ffffff;
+}
+
+.calc-card-header p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.calc-input-group {
+  margin-bottom: 22px;
+}
+
+.calc-input-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 11, 32, 0.9);
+  border: 1.5px solid var(--border-highlight);
+  border-radius: 16px;
+  padding: 12px 20px;
+  transition: all 0.25s;
+}
+
+.calc-input-box:focus-within {
+  border-color: var(--coin-gold);
+  box-shadow: 0 0 20px rgba(255, 198, 56, 0.25);
+  background: rgba(12, 16, 46, 0.95);
+}
+
+.calc-input-prefix {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--coin-gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calc-input-box input[type="number"] {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: 800;
+  font-family: inherit;
+  text-align: right;
+  width: 170px;
+  outline: none;
+}
+
+/* Custom Styled Range Slider */
+.calc-slider-container {
   margin-bottom: 26px;
 }
 
-.calc-slider input[type="range"] {
+.calc-slider-container input[type="range"] {
   width: 100%;
   height: 8px;
-  border-radius: 4px;
-  background: rgba(8, 11, 32, 0.9);
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #9633f5 0%, #29cbff 50%, #ffc638 100%);
   outline: none;
   -webkit-appearance: none;
-  border: 1px solid var(--border);
+  cursor: pointer;
 }
 
-.calc-slider input[type="range"]::-webkit-slider-thumb {
+.calc-slider-container input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--gold-gradient);
+  cursor: grab;
+  box-shadow: 0 0 16px rgba(255, 198, 56, 0.7);
+  border: 3px solid #ffffff;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.calc-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 22px rgba(255, 198, 56, 0.9);
+}
+
+.slider-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.slider-marks .mark-min {
+  color: var(--coin-gold);
+}
+
+/* Preset Buttons */
+.calc-presets {
+  margin-bottom: 26px;
+}
+
+.preset-label {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preset-btn {
+  background: rgba(8, 11, 32, 0.8);
+  border: 1px solid rgba(56, 60, 117, 0.6);
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: 9999px;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: var(--glow-gold);
-  border: 2px solid #ffffff;
-  transition: transform 0.15s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
 }
 
-.calc-slider input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.18);
+.preset-btn:hover {
+  border-color: var(--radiant-purple-light);
+  color: #ffffff;
+  background: rgba(150, 51, 245, 0.15);
+  transform: translateY(-1px);
 }
 
-.calc-results {
-  background: rgba(8, 11, 32, 0.7);
+.preset-btn.active {
+  background: var(--purple-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(150, 51, 245, 0.4);
+}
+
+/* Payout Progress Bar */
+.payout-progress-box {
+  background: rgba(8, 11, 32, 0.65);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 18px;
+  padding: 16px 18px;
 }
 
-.result-item {
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+#calcProgressPercent {
+  color: var(--emerald-green);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9633f5, #29cbff, #28d991);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.progress-hint {
+  font-size: 0.8rem;
+  color: var(--emerald-green);
+  margin: 0;
+  font-weight: 500;
+}
+
+.progress-hint.ineligible {
+  color: var(--text-muted);
+}
+
+/* Right Column: Live Holographic UPI Transfer Card */
+.calc-preview-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.upi-card-inner {
+  background: linear-gradient(150deg, #181c48 0%, #0f1233 50%, #080b20 100%);
+  border: 1.5px solid rgba(56, 60, 117, 0.7);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(150, 51, 245, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.upi-card-inner::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(41, 203, 255, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.upi-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 24px;
 }
 
-.result-item:last-child {
-  border-bottom: none;
+.upi-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.res-label {
-  color: var(--text-secondary);
-  font-size: 0.94rem;
+.chip-sim {
+  width: 36px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  position: relative;
 }
 
-.res-value {
+.chip-sim::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.upi-network-badge {
+  font-size: 0.76rem;
   font-weight: 800;
-  font-size: 1.22rem;
-  color: var(--text-primary);
-}
-
-#inrValue {
-  color: var(--emerald-green);
-  text-shadow: 0 0 10px rgba(40, 217, 145, 0.3);
-}
-
-#paiseValue {
+  letter-spacing: 0.08em;
   color: var(--electric-cyan);
+  text-transform: uppercase;
 }
 
-.status-tag {
+.upi-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: all 0.25s;
+}
+
+.upi-status-pill.eligible {
+  background: rgba(40, 217, 145, 0.16);
+  border: 1px solid rgba(40, 217, 145, 0.4);
   color: var(--emerald-green);
-  font-size: 0.92rem;
 }
 
-.status-tag.ineligible {
-  color: var(--error-red);
+.upi-status-pill.ineligible {
+  background: rgba(255, 77, 77, 0.14);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  color: #ff6b6b;
 }
 
-.calc-note {
-  font-size: 0.86rem;
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.upi-card-amount {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.amount-label {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.amount-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.currency-symbol {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--emerald-green);
+}
+
+.amount-number {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(40, 217, 145, 0.35);
+  letter-spacing: -0.02em;
+}
+
+.amount-paise {
+  font-size: 0.95rem;
+  color: var(--electric-cyan);
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.upi-card-details {
+  background: rgba(8, 11, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.card-detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 0.72rem;
   color: var(--text-muted);
-  text-align: center;
-  line-height: 1.5;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.detail-val {
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.upi-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.vpa-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.vpa-icon {
+  font-size: 1rem;
+  color: var(--coin-gold);
+}
+
+.upi-sim-btn {
+  padding: 10px 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Safeguards Row Underneath */
+.calc-safeguards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1080px;
+  margin: 30px auto 0;
+}
+
+.safeguard-chip {
+  background: rgba(18, 21, 54, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
+}
+
+.safeguard-chip:hover {
+  border-color: var(--border-highlight);
+  background: rgba(26, 30, 74, 0.65);
+  transform: translateY(-2px);
+}
+
+.safeguard-icon {
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.safeguard-chip strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.safeguard-chip span {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+@media (max-width: 992px) {
+  .calculator-wrapper {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .calc-safeguards-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Transparency Grid */
@@ -1763,13 +2152,25 @@ p {
   .nav-links {
     display: none;
   }
-  .calc-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .calc-controls-card,
+  .upi-card-inner {
+    padding: 24px 18px;
   }
-  .calc-row input[type="number"] {
+  .amount-number {
+    font-size: 2.7rem;
+  }
+  .upi-card-details {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .upi-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .upi-sim-btn {
     width: 100%;
+    text-align: center;
   }
   .notice-box {
     flex-direction: column;
