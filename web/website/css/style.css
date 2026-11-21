@@ -969,52 +969,224 @@ p {
   font-size: 1.02rem;
 }
 
-/* Steps Grid */
+/* How It Works (Redesigned Interactive Workflow Protocol) */
+.how-it-works-section {
+  position: relative;
+  padding: 85px 0 95px;
+}
+
+.workflow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(150, 51, 245, 0.12);
+  border: 1px solid rgba(150, 51, 245, 0.35);
+  color: #c084fc;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.workflow-pipeline {
+  position: relative;
+  margin: 36px 0 32px;
+}
+
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
+  position: relative;
 }
 
 .step-card {
-  background: var(--bg-dark-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 28px 22px;
+  background: rgba(18, 21, 54, 0.75);
+  border: 1.5px solid rgba(56, 60, 117, 0.55);
+  border-radius: 22px;
+  padding: 26px 22px 24px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 30px rgba(8, 11, 32, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  position: relative;
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .step-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--radiant-purple-light);
-  box-shadow: var(--glow-purple), 0 14px 28px rgba(0, 0, 0, 0.5);
+  transform: translateY(-8px);
 }
 
-.step-num {
-  width: 42px;
-  height: 42px;
-  background: var(--purple-gradient);
-  color: #ffffff;
+.step-card-1:hover {
+  border-color: #9633f5;
+  box-shadow: 0 16px 36px rgba(150, 51, 245, 0.35);
+}
+
+.step-card-2:hover {
+  border-color: #29cbff;
+  box-shadow: 0 16px 36px rgba(41, 203, 255, 0.35);
+}
+
+.step-card-3:hover {
+  border-color: #5e17eb;
+  box-shadow: 0 16px 36px rgba(94, 23, 235, 0.35);
+}
+
+.step-card-4:hover {
+  border-color: #28d991;
+  box-shadow: 0 16px 36px rgba(40, 217, 145, 0.35);
+}
+
+.step-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.step-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(150, 51, 245, 0.16);
+  border: 1px solid rgba(150, 51, 245, 0.35);
+  color: #c084fc;
+  letter-spacing: 0.06em;
+}
+
+.step-pill-success {
+  background: rgba(40, 217, 145, 0.16);
+  border-color: rgba(40, 217, 145, 0.4);
+  color: #28d991;
+}
+
+.step-icon-wrap {
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(150, 51, 245, 0.4);
+  font-size: 1.35rem;
 }
 
-.step-card h3 {
+.icon-purple {
+  background: linear-gradient(135deg, rgba(150, 51, 245, 0.35), rgba(94, 23, 235, 0.5));
+  box-shadow: 0 4px 14px rgba(150, 51, 245, 0.3);
+}
+
+.icon-cyan {
+  background: linear-gradient(135deg, rgba(41, 203, 255, 0.35), rgba(0, 150, 255, 0.5));
+  box-shadow: 0 4px 14px rgba(41, 203, 255, 0.3);
+}
+
+.icon-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(37, 99, 235, 0.5));
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.icon-emerald {
+  background: linear-gradient(135deg, rgba(40, 217, 145, 0.35), rgba(16, 185, 129, 0.5));
+  box-shadow: 0 4px 14px rgba(40, 217, 145, 0.3);
+}
+
+.step-card-body h3 {
   font-size: 1.15rem;
-  color: var(--text-primary);
-  margin-bottom: 10px;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
-.step-card p {
-  font-size: 0.9rem;
-  line-height: 1.6;
+.step-card-body p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.step-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.step-tag.tag-success {
+  background: rgba(40, 217, 145, 0.12);
+  border-color: rgba(40, 217, 145, 0.35);
+  color: #28d991;
+}
+
+.step-connector-arrow {
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0f1236;
+  border: 1.5px solid rgba(56, 60, 117, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--electric-cyan);
+  font-weight: 800;
+  font-size: 0.85rem;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Trust Bar Underneath */
+.workflow-trust-bar {
+  background: rgba(18, 21, 54, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  gap: 20px;
+}
+
+.trust-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.trust-bar-item strong {
+  color: #ffffff;
+}
+
+.trust-bar-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.trust-bar-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Interactive Calculator (High-Tech FinTech Gaming Redesign) */
@@ -2103,6 +2275,17 @@ p {
   }
   .steps-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .step-connector-arrow {
+    display: none;
+  }
+  .workflow-trust-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .trust-bar-divider {
+    display: none;
   }
   .hero-content {
     max-width: 100%;

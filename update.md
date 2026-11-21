@@ -313,6 +313,19 @@ Each update entry follows this standard structure:
   - Validated JavaScript syntax (`node -c web/website/js/app.js`).
   - Tested responsive collapsing on desktop (2-column grid), tablet, and mobile (stacked cards with full-width CTA).
 
+### [2026-11-21 14:09:00 IST] - High-Tech Redesign of "How It Works" 4-Step Protocol Pipeline
+- **Type**: UI / UX Major Overhaul & Visual Polish
+- **Components / Modules**: Website Workflow Pipeline (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Redesigned `#how-it-works` with step sequence badges (`STEP 01` to `STEP 04`), themed 3D icon bubbles (📱, 🎯, 🔒, ⚡), step tags (`Instant SMS OTP`, `Disclosed Coins`, `HMAC Postback`, `Direct to Bank`), visual directional connector arrows (`→`), and a bottom trust/integrity banner.
+  - `web/website/css/style.css` - Crafted glassmorphic step cards (`.step-card`) with custom neon hover lighting for each step (purple, cyan, blue, emerald), connecting circular indicator arrows (`.step-connector-arrow`), and horizontal trust bar (`.workflow-trust-bar`).
+- **Summary of Changes**:
+  - Replaced the disconnected flat boxes with an interconnected, high-tech sequential journey illustrating the user progression from OTP login to verified UPI cashout.
+  - Added micro-badges on each card highlighting key consumer transparency promises (fair caps, integer precision, 100% voluntary participation).
+- **Verification / Testing**:
+  - Verified responsive grid behavior across desktop (4-card pipeline with arrows), tablet (2-card grid), and mobile (stacked cards).
+
+
 
 
 
