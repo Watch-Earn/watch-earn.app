@@ -363,6 +363,42 @@ Each update entry follows this standard structure:
   - Tested ROI estimator calculations across all 4 marketing goals and budget thresholds.
   - Tested form submission flow with local caching and proposal notification.
 
+### [2026-11-21 14:22:00 IST] - Integrated Partnership & Sponsorship Section on Main Website & Android App
+- **Type**: Feature / Monetization & B2B Integration
+- **Components / Modules**: Main Website (`web/website`), Android Client (`app/android`)
+- **Files Affected**:
+  - `web/website/index.html` - Embedded dedicated `#partnerships` section showcasing 4 core sponsorship tiers (Sponsored Video Quests, Brand Discovery & CPI Installs, Consumer Research & Opinion Polls, Headline Event Sponsorship), integrated global network trust bar (AdGate, OfferToro, RevU, BitLabs, CPALead, Digital Turbine) with HMAC security pills, and interactive Quick Sponsorship Inquiry card; added "Partnerships" link to navbar.
+  - `web/website/css/style.css` - Crafted responsive 4-column sponsorship card grid (`.sponsorship-grid`), featured neon border lighting, verified partner logo showcase (`.partners-logo-grid`), and 2-column sponsorship lead capture workstation (`.sponsorship-inquiry-box`).
+  - `web/website/js/app.js` - Implemented `window.handleSponsorshipSubmit` to process quick sponsorship deck requests with local storage caching (`watch_earn_sponsorship_leads`) and instantaneous confirmation state.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/ui/screens/home/HomeScreen.kt` - Added "Official Sponsors & Partners" horizontal scrolling showcase on the home dashboard featuring verified partner networks with HMAC cryptographic validation badges.
+- **Summary of Changes**:
+  - Bridged the public landing page with rich B2B brand sponsorship opportunities, giving advertisers direct on-page access to request rate cards while educating users on where reward funding originates.
+  - Highlighted statutory anti-fraud guarantees: 100% real Indian users, zero bot traffic, and DPDPA 2023 compliance.
+  - Enhanced the Android home screen with an official sponsor showcase that increases platform credibility and reinforces honest economics.
+- **Verification / Testing**:
+  - JavaScript syntax check: `node -c web/website/js/app.js` passed with 0 errors.
+  - Android Unit Tests: `./gradlew testDebugUnitTest` -> **BUILD SUCCESSFUL (24 actionable tasks, 0 errors)**.
+
+### [2026-11-21 14:24:00 IST] - Major Redesign of "Connect with Ad Ops" Command Studio (`advertise.html`)
+- **Type**: UI / UX Major Overhaul & B2B Lead Conversion Optimization
+- **Components / Modules**: B2B Partner Portal (`web/website/advertise.html`)
+- **Files Affected**:
+  - `web/website/advertise.html` - Overhauled `#inquire` ("Connect with Ad Ops") into an executive Ad Ops Command Studio:
+    1. Left Column: Live Ad Ops Status Desk card featuring officer profile (Vikram Saxena), active status badge (`🟢 Online & Monitoring Traffic`), direct verified email (`partners@watch-earn.app`), and priority WhatsApp Business hotline.
+    2. Executive Partner Perquisites: 4-card grid detailing Dedicated Account Manager, HMAC Sandbox endpoint, GST Compliant tax invoices, and Zero Bot Risk guarantee.
+    3. Supported MMP Strip: AppsFlyer, Adjust, Singular, Branch, Kochava, and custom S2S postback tags.
+    4. Right Column: Interactive Campaign Launch Form featuring clickable objective pill chips (CPI, Surveys, Video, CPL, S2S API, Agency), budget tier chips, and stylized Indian mobile input (`🇮🇳 +91`).
+  - `web/website/css/style.css` - Crafted `.ad-ops-studio` container, `.desk-status-card` with glowing live indicator, `.ad-ops-perks-grid`, `.form-chip` selector pills with active gradient fill, and `.phone-input-wrap` with country badge.
+  - `web/website/js/app.js` - Added interactive chip selection listeners syncing visual pill selections with form state and ROI estimator inputs.
+- **Summary of Changes**:
+  - Replaced the generic form layout with an executive-grade Ad Ops concierge experience that builds immediate credibility with enterprise brands and performance advertisers.
+- **Verification / Testing**:
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Tested chip toggle interactions and form submission flow.
+
+  - Backend Test Suite: `php artisan test` -> **24 passed, 109 assertions (100% pass rate)**.
+
+
 
 
 

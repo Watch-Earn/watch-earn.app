@@ -653,12 +653,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (advGoalSelect) advGoalSelect.value = currentGoalKey;
 
-        if (advBudgetSelect) {
-          if (budgetVal <= 50000) advBudgetSelect.value = 'starter';
-          else if (budgetVal <= 200000) advBudgetSelect.value = 'growth';
-          else if (budgetVal <= 1000000) advBudgetSelect.value = 'scale';
-          else advBudgetSelect.value = 'enterprise';
-        }
+        let budgetKey = 'growth';
+        if (budgetVal <= 50000) budgetKey = 'starter';
+        else if (budgetVal <= 200000) budgetKey = 'growth';
+        else if (budgetVal <= 1000000) budgetKey = 'scale';
+        else budgetKey = 'enterprise';
+
+        if (advBudgetSelect) advBudgetSelect.value = budgetKey;
+
+        // Sync visual chips in the Ad Ops studio
+        const goalChips = document.querySelectorAll('#advGoalChips .form-chip');
+        goalChips.forEach(c => {
+          c.classList.toggle('active', c.getAttribute('data-val') === currentGoalKey);
+        });
+
+        const budgetChips = document.querySelectorAll('#advBudgetChips .form-chip');
+        budgetChips.forEach(c => {
+          c.classList.toggle('active', c.getAttribute('data-val') === budgetKey);
+        });
 
         const leadSection = document.getElementById('inquire');
         if (leadSection) {
@@ -667,4 +679,83 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // --- Form Chip Selectors for Ad Ops Studio ---
+  const advGoalChips = document.getElementById('advGoalChips');
+  const advBudgetChips = document.getElementById('advBudgetChips');
+  const advGoalSelect = document.getElementById('advGoal');
+  const advBudgetSelect = document.getElementById('advBudget');
+
+  if (advGoalChips && advGoalSelect) {
+    const chips = advGoalChips.querySelectorAll('.form-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const val = chip.getAttribute('data-val');
+        if (val) advGoalSelect.value = val;
+      });
+    });
+  }
+
+  if (advBudgetChips && advBudgetSelect) {
+    const chips = advBudgetChips.querySelectorAll('.form-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const val = chip.getAttribute('data-val');
+        if (val) advBudgetSelect.value = val;
+      });
+    });
+  }
+
+  // Sponsorship & Partnership Inquiry Submission Handler
+  window.handleSponsorshipSubmit = function () {
+    const brandInput = document.getElementById('sponsorBrand');
+    const emailInput = document.getElementById('sponsorEmail');
+    const typeInput = document.getElementById('sponsorType');
+    const budgetInput = document.getElementById('sponsorBudget');
+    const form = document.getElementById('sponsorshipInquiryForm');
+    const successMsg = document.getElementById('sponsorSuccessMsg');
+    const btn = document.getElementById('btnSubmitSponsor');
+
+    if (!brandInput || !emailInput) return;
+
+    const brand = brandInput.value.trim();
+    const contact = emailInput.value.trim();
+    const type = typeInput ? typeInput.value : 'video';
+    const budget = budgetInput ? budgetInput.value : '50k-2L';
+
+    if (!brand || !contact) {
+      alert('Please provide your brand name and work email or WhatsApp.');
+      return;
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> Processing...';
+    }
+
+    const inquiry = {
+      brand: brand,
+      contact: contact,
+      type: type,
+      budget: budget,
+      submitted_at: new Date().toISOString()
+    };
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('watch_earn_sponsorship_leads') || '[]');
+      stored.push(inquiry);
+      localStorage.setItem('watch_earn_sponsorship_leads', JSON.stringify(stored));
+    } catch (e) {
+      console.warn('Storage fallback', e);
+    }
+
+    setTimeout(function () {
+      if (form) form.style.display = 'none';
+      if (successMsg) successMsg.style.display = 'block';
+    }, 450);
+  };
 });
