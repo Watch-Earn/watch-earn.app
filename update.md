@@ -299,5 +299,17 @@ Each update entry follows this standard structure:
   - Validated JavaScript syntax (`node -c web/website/js/app.js`).
   - Tested navigation flow: clicking "For Brands" or "Partner With Us" opens `advertise.html`, and clicking "← Back to App" returns to `index.html`.
 
+### [2026-11-21 13:59:00 IST] - Streamlined Navbar by Removing Redundant "For Brands" Pill
+- **Type**: UI / UX Refactor
+- **Components / Modules**: Website Navigation (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Removed the redundant "For Brands B2B" link from inside the main nav links capsule. B2B / advertiser navigation is cleanly represented by the dedicated "Partner With Us" action button in `.nav-right`.
+- **Summary of Changes**:
+  - Cleaned up navigation capsule to strictly contain user-facing sections (How It Works, App Experience, Coin Calculator, Transparency, FAQ).
+  - Kept "Partner With Us" secondary button on the right for brand partners, preventing duplicate buttons in the header.
+- **Verification / Testing**:
+  - Verified navbar layout and responsiveness across desktop and mobile.
+
+
 
 
