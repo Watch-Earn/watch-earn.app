@@ -34,8 +34,11 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Hero Section (Interactive 3D Simulation & Screen Switcher) -->
+  <section class="hero" id="heroSection">
+    <!-- Interactive Ambient Cursor Spotlight -->
+    <div class="hero-spotlight" id="heroSpotlight"></div>
+
     <div class="container hero-container">
       <div class="hero-content">
         <div class="badge">
@@ -48,9 +51,18 @@
         <p class="hero-desc">
           Voluntarily participate in verified sponsor questionnaires and partner activities. Earn virtual coins with a fixed, publicly disclosed conversion rate. No guaranteed income claims. No upfront fees.
         </p>
-        <div class="exchange-pill">
-          <span>⚡ <strong>Fixed Conversion Rate:</strong> 1,000 Coins = ₹1.00 (100 Paise)</span>
+
+        <!-- Interactive Exchange Row & Reward Simulator -->
+        <div class="hero-interactive-row">
+          <div class="exchange-pill">
+            <span>⚡ <strong>Fixed Conversion Rate:</strong> 1,000 Coins = ₹1.00 (100 Paise)</span>
+          </div>
+          <button type="button" class="btn-simulate-credit" id="heroSimulateBtn" title="Click to test live reward verification">
+            <span class="sim-icon">✨</span>
+            <span>Test Reward Credit (+20 Coins)</span>
+          </button>
         </div>
+
         <div class="hero-actions" id="download">
           <a href="#download-info" class="btn btn-primary btn-large">Get on Google Play / App Store</a>
           <a href="#calculator" class="btn btn-outline btn-large">Calculate Rewards</a>
@@ -73,30 +85,50 @@
         </div>
       </div>
 
-      <!-- Hero Smartphone Mockup with Floating Interactive Badges -->
-      <div class="phone-mockup-wrapper">
-        <div class="floating-badge badge-top">
-          <div class="badge-icon-box">✨</div>
+      <!-- Hero Smartphone Mockup with 3D Parallax & Interactive Screen Dock -->
+      <div class="phone-mockup-wrapper" id="heroPhoneWrapper">
+        <!-- Floating Interactive Badge (Top) -->
+        <div class="floating-badge badge-top" id="heroBadgeTop">
+          <div class="badge-icon-box" id="heroTopBadgeIcon">✨</div>
           <div>
-            <strong>+20 Coins Verified</strong>
-            <small>Partner Postback Received</small>
+            <strong id="heroTopBadgeTitle">+20 Coins Verified</strong>
+            <small id="heroTopBadgeSub">Partner Postback Received</small>
           </div>
         </div>
 
-        <div class="phone-mockup">
+        <!-- Phone Device Frame with 3D Gyro/Tilt -->
+        <div class="phone-mockup" id="heroPhoneDevice">
+          <div class="phone-glass-glare"></div>
           <div class="phone-island">
             <div class="camera-lens"></div>
           </div>
           <div class="phone-screen">
-            <img src="images/app_hero_mockup.png" alt="Watch & Earn Android App Home Screen">
+            <img src="images/screen_tab_home.png" id="heroPhoneScreenImg" alt="Watch & Earn Android App Home Screen">
+          </div>
+
+          <!-- Interactive Screen Dock inside Phone Frame -->
+          <div class="phone-screen-dock">
+            <button type="button" class="dock-btn active" data-screen="home" title="Home Dashboard">
+              <span>🏠</span>
+            </button>
+            <button type="button" class="dock-btn" data-screen="tasks" title="Sponsored Tasks">
+              <span>🎯</span>
+            </button>
+            <button type="button" class="dock-btn" data-screen="reward" title="Reward Verification">
+              <span>🎁</span>
+            </button>
+            <button type="button" class="dock-btn" data-screen="wallet" title="UPI Wallet">
+              <span>💳</span>
+            </button>
           </div>
         </div>
 
-        <div class="floating-badge badge-bottom">
+        <!-- Floating Interactive Badge (Bottom) -->
+        <div class="floating-badge badge-bottom" id="heroBadgeBottom">
           <div class="badge-icon-box gold">⚡</div>
           <div>
-            <strong style="color: var(--emerald-green);">₹12.50 Ready</strong>
-            <small>Direct to UPI VPA</small>
+            <strong style="color: var(--emerald-green);" id="heroBottomBadgeTitle">₹12.50 Ready</strong>
+            <small id="heroBottomBadgeSub">Direct to UPI VPA</small>
           </div>
         </div>
       </div>

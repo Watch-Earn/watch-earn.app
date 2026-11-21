@@ -309,6 +309,21 @@ p {
   overflow: hidden;
 }
 
+/* Interactive Cursor Ambient Spotlight */
+.hero-spotlight {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(150, 51, 245, 0.16) 0%, rgba(41, 203, 255, 0.10) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  filter: blur(25px);
+  opacity: 0;
+}
+
 .hero-container {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -356,7 +371,16 @@ p {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+}
+
+/* Interactive Exchange Row & Reward Simulator */
+.hero-interactive-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
 }
 
 .exchange-pill {
@@ -367,14 +391,54 @@ p {
   border: 1px solid var(--border-highlight);
   padding: 10px 18px;
   border-radius: 12px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-primary);
-  margin-bottom: 28px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .exchange-pill strong {
   color: var(--coin-gold);
+}
+
+/* Interactive Simulation Button */
+.btn-simulate-credit {
+  background: rgba(150, 51, 245, 0.18);
+  border: 1.5px solid rgba(168, 85, 247, 0.55);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 18px rgba(150, 51, 245, 0.25);
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.btn-simulate-credit:hover {
+  background: var(--purple-gradient);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.55);
+}
+
+.btn-simulate-credit:active {
+  transform: scale(0.96);
+}
+
+.sim-icon {
+  font-size: 1.1rem;
+  animation: spark-pulse 2s infinite alternate;
+}
+
+@keyframes spark-pulse {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.25) rotate(15deg); }
 }
 
 .hero-actions {
@@ -406,12 +470,18 @@ p {
   color: var(--text-muted);
 }
 
-/* Smartphone Device Mockup (3D Framed) */
+/* Smartphone Device Mockup with 3D Parallax & Interactive Screen Dock */
 .phone-mockup-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 1200px;
+  cursor: grab;
+}
+
+.phone-mockup-wrapper:active {
+  cursor: grabbing;
 }
 
 .phone-mockup {
@@ -425,13 +495,10 @@ p {
     0 0 0 2px #343a75,
     0 0 0 4px #121536,
     0 25px 50px -10px rgba(0, 0, 0, 0.9),
-    0 0 45px rgba(150, 51, 245, 0.3);
+    0 0 45px rgba(150, 51, 245, 0.35);
   border: 2px solid rgba(255, 255, 255, 0.15);
-  transition: transform 0.3s ease;
-}
-
-.phone-mockup:hover {
-  transform: translateY(-4px);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.25s ease;
 }
 
 .phone-screen {
@@ -449,6 +516,74 @@ p {
   object-fit: cover;
   object-position: top center;
   display: block;
+  transition: opacity 0.25s ease-in-out;
+}
+
+/* Glass Reflection Highlight */
+.phone-glass-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  border-radius: 32px 32px 0 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 12;
+}
+
+/* Interactive Screen Switcher Dock inside Phone Frame */
+.phone-screen-dock {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 11, 32, 0.92);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 5px 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 15;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+}
+
+.dock-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.92rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-secondary);
+}
+
+.dock-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.dock-btn.active {
+  background: var(--purple-gradient);
+  box-shadow: 0 0 14px rgba(150, 51, 245, 0.7);
+  transform: scale(1.15);
+  color: #ffffff;
+}
+
+/* Dynamic Flying Coin Animation */
+.flying-coin-particle {
+  position: fixed;
+  font-size: 1.6rem;
+  z-index: 9999;
+  pointer-events: none;
+  transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 4px 10px rgba(255, 198, 56, 0.6));
 }
 
 /* Dynamic Island / Notch */

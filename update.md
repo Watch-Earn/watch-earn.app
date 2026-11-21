@@ -325,6 +325,24 @@ Each update entry follows this standard structure:
 - **Verification / Testing**:
   - Verified responsive grid behavior across desktop (4-card pipeline with arrows), tablet (2-card grid), and mobile (stacked cards).
 
+### [2026-11-21 14:13:00 IST] - Interactive Hero Section with 3D Parallax, Screen Switcher Dock & Reward Simulator
+- **Type**: Feature / Interactive Experience & UI Overhaul
+- **Components / Modules**: Website Hero Section (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Added interactive ambient spotlight canvas (`#heroSpotlight`), interactive reward simulation trigger (`#heroSimulateBtn`), 3D gyro tilt wrappers on phone mockup (`#heroPhoneWrapper`), and an in-phone floating screen dock (🏠 Home, 🎯 Tasks, 🎁 Reward, 💳 Wallet).
+  - `web/website/css/style.css` - Crafted 3D perspective styling (`perspective: 1200px`), cursor spotlight blur filter, glossy reflection highlight (`.phone-glass-glare`), dynamic floating coin trajectory animation (`.flying-coin-particle`), and floating screen dock pill styling (`.phone-screen-dock`).
+  - `web/website/js/app.js` - Built interactive hero engine:
+    1. Ambient cursor spotlight tracking across the hero background.
+    2. Dynamic 3D gyroscope/perspective mouse parallax tilt on the smartphone device and floating notification badges.
+    3. Interactive screen dock switcher updating phone screens (`screen_tab_home.png`, `screen_tab_tasks.png`, `screen_tab_earn.png`, `screen_tab_upi.png`) and contextual floating badges with smooth crossfades.
+    4. "Test Reward Credit (+20 Coins)" simulation trigger with animated flying golden coin particle, real-time balance increments, and celebratory badge flash.
+- **Summary of Changes**:
+  - Made the hero section completely interactive, engaging users right upon landing with live simulated rewards and realistic 3D hardware perspective.
+- **Verification / Testing**:
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Verified 3D rotation tracking, screen switcher transitions, and particle animations.
+
+
 
 
 

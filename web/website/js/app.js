@@ -91,6 +91,173 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculator(coinInput.value);
   }
 
+  // --- 1.5. Interactive Hero Section (3D Parallax, Screen Dock & Reward Simulator) ---
+  const heroSection = document.getElementById('heroSection');
+  const heroSpotlight = document.getElementById('heroSpotlight');
+  const heroPhoneWrapper = document.getElementById('heroPhoneWrapper');
+  const heroPhoneDevice = document.getElementById('heroPhoneDevice');
+  const heroPhoneScreenImg = document.getElementById('heroPhoneScreenImg');
+  const heroBadgeTop = document.getElementById('heroBadgeTop');
+  const heroBadgeBottom = document.getElementById('heroBadgeBottom');
+  const heroTopBadgeTitle = document.getElementById('heroTopBadgeTitle');
+  const heroTopBadgeSub = document.getElementById('heroTopBadgeSub');
+  const heroBottomBadgeTitle = document.getElementById('heroBottomBadgeTitle');
+  const heroBottomBadgeSub = document.getElementById('heroBottomBadgeSub');
+  const heroSimulateBtn = document.getElementById('heroSimulateBtn');
+  const dockButtons = document.querySelectorAll('.dock-btn');
+
+  // Ambient Spotlight tracking on Hero Section
+  if (heroSection && heroSpotlight) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      heroSpotlight.style.left = `${x}px`;
+      heroSpotlight.style.top = `${y}px`;
+      heroSpotlight.style.opacity = '1';
+    });
+    heroSection.addEventListener('mouseleave', () => {
+      heroSpotlight.style.opacity = '0';
+    });
+  }
+
+  // 3D Parallax Tilt on Smartphone Mockup
+  if (heroPhoneWrapper && heroPhoneDevice) {
+    heroPhoneWrapper.addEventListener('mousemove', (e) => {
+      const rect = heroPhoneWrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -14;
+      const rotateY = ((x - centerX) / centerX) * 14;
+
+      heroPhoneDevice.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+      if (heroBadgeTop) {
+        heroBadgeTop.style.transform = `translateY(${rotateX * 0.8}px) translateX(${rotateY * 0.8}px) translateZ(40px)`;
+      }
+      if (heroBadgeBottom) {
+        heroBadgeBottom.style.transform = `translateY(${rotateX * 1.1}px) translateX(${rotateY * 1.1}px) translateZ(50px)`;
+      }
+    });
+
+    heroPhoneWrapper.addEventListener('mouseleave', () => {
+      heroPhoneDevice.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (heroBadgeTop) {
+        heroBadgeTop.style.transform = '';
+      }
+      if (heroBadgeBottom) {
+        heroBadgeBottom.style.transform = '';
+      }
+    });
+  }
+
+  // Interactive Screen Dock Switcher
+  const screenMap = {
+    home: {
+      img: 'images/screen_tab_home.png',
+      topTitle: '+20 Coins Verified',
+      topSub: 'Partner Postback Received',
+      bottomTitle: '₹12.50 Ready',
+      bottomSub: 'Direct to UPI VPA'
+    },
+    tasks: {
+      img: 'images/screen_tab_tasks.png',
+      topTitle: '🎯 20 Coins / Survey',
+      topSub: 'Commercial Offerwall Tasks',
+      bottomTitle: '8/10 Tasks Left',
+      bottomSub: 'Daily Cap Protection'
+    },
+    reward: {
+      img: 'images/screen_tab_earn.png',
+      topTitle: '✨ Cryptographic Verification',
+      topSub: 'HMAC SHA-256 Validated',
+      bottomTitle: 'Double-Entry Sealed',
+      bottomSub: 'Paise Integer Guard'
+    },
+    wallet: {
+      img: 'images/screen_tab_upi.png',
+      topTitle: '💳 Instant UPI Payout',
+      topSub: 'GPay, PhonePe, Paytm, BHIM',
+      bottomTitle: '₹10.00 Min Payout',
+      bottomSub: 'Zero Withdrawal Fees'
+    }
+  };
+
+  if (dockButtons && heroPhoneScreenImg) {
+    dockButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const screenKey = btn.getAttribute('data-screen');
+        const screenData = screenMap[screenKey];
+        if (!screenData) return;
+
+        dockButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Crossfade screen image
+        heroPhoneScreenImg.style.opacity = '0.3';
+        setTimeout(() => {
+          heroPhoneScreenImg.src = screenData.img;
+          heroPhoneScreenImg.style.opacity = '1';
+
+          if (heroTopBadgeTitle) heroTopBadgeTitle.textContent = screenData.topTitle;
+          if (heroTopBadgeSub) heroTopBadgeSub.textContent = screenData.topSub;
+          if (heroBottomBadgeTitle) heroBottomBadgeTitle.textContent = screenData.bottomTitle;
+          if (heroBottomBadgeSub) heroBottomBadgeSub.textContent = screenData.bottomSub;
+        }, 150);
+      });
+    });
+  }
+
+  // Interactive Reward Simulation Trigger
+  let simulatedBalance = 12500;
+  if (heroSimulateBtn) {
+    heroSimulateBtn.addEventListener('click', () => {
+      simulatedBalance += 20;
+      const inr = (simulatedBalance / 1000).toFixed(2);
+
+      // Flying coin particle animation
+      const coin = document.createElement('div');
+      coin.className = 'flying-coin-particle';
+      coin.textContent = '🪙';
+      document.body.appendChild(coin);
+
+      const btnRect = heroSimulateBtn.getBoundingClientRect();
+      const phoneRect = heroPhoneDevice ? heroPhoneDevice.getBoundingClientRect() : btnRect;
+
+      coin.style.left = `${btnRect.left + btnRect.width / 2}px`;
+      coin.style.top = `${btnRect.top}px`;
+
+      requestAnimationFrame(() => {
+        coin.style.left = `${phoneRect.left + phoneRect.width / 2}px`;
+        coin.style.top = `${phoneRect.top + phoneRect.height / 3}px`;
+        coin.style.transform = 'scale(1.5) rotate(360deg)';
+        coin.style.opacity = '0';
+      });
+
+      setTimeout(() => {
+        coin.remove();
+
+        // Flash badge feedback
+        if (heroTopBadgeTitle) {
+          heroTopBadgeTitle.textContent = '+20 Coins Verified! 🎉';
+          heroTopBadgeTitle.style.color = 'var(--coin-gold)';
+        }
+        if (heroTopBadgeSub) {
+          heroTopBadgeSub.textContent = `Balance: ${simulatedBalance.toLocaleString('en-IN')} Coins`;
+        }
+        if (heroBottomBadgeTitle) {
+          heroBottomBadgeTitle.textContent = `₹${inr} Ready`;
+        }
+
+        setTimeout(() => {
+          if (heroTopBadgeTitle) heroTopBadgeTitle.style.color = '';
+        }, 1200);
+      }, 700);
+    });
+  }
+
   // --- 2. Interactive Swipeable App Showcase ---
   const showcaseData = [
     {
