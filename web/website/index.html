@@ -49,7 +49,7 @@
           <span>⚡ <strong>Fixed Conversion Rate:</strong> 1,000 Coins = ₹1.00 (100 Paise)</span>
         </div>
         <div class="hero-actions" id="download">
-          <a href="#download-info" class="btn btn-primary btn-large">Download Android APK</a>
+          <a href="#download-info" class="btn btn-primary btn-large">Get on Google Play / App Store</a>
           <a href="#calculator" class="btn btn-outline btn-large">Calculate Rewards</a>
         </div>
         
@@ -376,7 +376,45 @@
         <p><strong>Version:</strong> 1.0.0-mvp (Build 1)</p>
         <p><strong>Architecture:</strong> Kotlin, Jetpack Compose, MVVM, Retrofit</p>
         <p><strong>Compatibility:</strong> Android 8.0+ (API 26) up to Android 15 (API 35)</p>
-        <a href="#" class="btn btn-primary btn-large" onclick="alert('The Android project is ready to compile in app/android/. You can build and run via Android Studio or the android CLI.'); return false;">Install Android APK</a>
+
+        <!-- Official App Store & Google Play Badges -->
+        <div class="store-buttons-wrap">
+          <!-- Google Play Store Button -->
+          <a href="https://play.google.com/store/apps/details?id=com.watchearn.app" target="_blank" rel="noopener" class="btn-store btn-playstore">
+            <div class="store-icon">
+              <svg viewBox="0 0 512 512" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#0086F8" d="M47.7 20.3c-4.4 4.8-7 12.1-7 21.2v429c0 9.1 2.6 16.4 7 21.2l2.3 2.1 240.4-240.4v-5.6L50 18.2l-2.3 2.1z"/>
+                <path fill="#00E377" d="M370.7 325.2l-80.3-80.3-240.4 240.4c6.8 7.3 18.1 8.2 30.9 0.9l289.8-161z"/>
+                <path fill="#FF334B" d="M370.7 186.8L80.9 25.8C68.1 18.5 56.8 19.4 50 26.7l240.4 240.4 80.3-80.3z"/>
+                <path fill="#FFBE00" d="M369.4 324l82.7-46c19.3-10.7 19.3-28.3 0-39l-82.7-46-24.1 24.1 24.1 66.9z"/>
+              </svg>
+            </div>
+            <div class="store-text">
+              <span class="store-subtitle">GET IT ON</span>
+              <span class="store-title">Google Play</span>
+            </div>
+          </a>
+
+          <!-- Apple App Store Button -->
+          <a href="#" class="btn-store btn-appstore" onclick="alert('iOS version is currently in closed testflight beta. Contact support@watch-earn.app for early access!'); return false;">
+            <div class="store-icon">
+              <svg viewBox="0 0 170 170" width="28" height="28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.08-7.77-7.93-12.24-14.54-6.49-9.61-11.7-20.73-15.65-33.37-3.94-12.64-5.91-24.49-5.91-35.56 0-14.56 3.65-26.68 10.94-36.37 7.29-9.69 16.5-14.65 27.63-14.88 4.91 0 10.38 1.34 16.42 4.02 6.04 2.68 9.94 4.09 11.69 4.23 1.55-.26 5.67-1.74 12.35-4.43 6.68-2.69 12.28-3.87 16.8-3.55 12.63.78 22.8 5.22 30.5 13.34-11.01 6.64-16.36 15.86-16.05 27.65.31 9.4 3.96 17.15 10.95 23.27 7 6.12 15.06 9.69 24.19 10.72-2.13 6.54-4.59 13.12-7.39 19.74zM119.22 31.81c0-7.39 2.64-14.37 7.92-20.94 5.28-6.57 11.83-10.53 19.65-11.87.26 1.05.39 2.05.39 3 0 7.39-2.73 14.47-8.19 21.24-5.46 6.77-12.02 10.59-19.68 11.46-.09-.96-.09-1.92-.09-2.89z"/>
+              </svg>
+            </div>
+            <div class="store-text">
+              <span class="store-subtitle">Download on the</span>
+              <span class="store-title">App Store</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="apk-download-alternative">
+          <span>Or install directly:</span>
+          <a href="#" class="apk-pill" onclick="alert('The Android APK project is available in app/android/. Compile with ./gradlew assembleDebug to install directly.'); return false;">
+            📥 Direct APK (v1.0.0-mvp)
+          </a>
+        </div>
       </div>
     </div>
   </section>

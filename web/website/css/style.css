@@ -1182,16 +1182,17 @@ p {
   padding-top: 12px;
 }
 
-/* Download Terminal Box */
+/* Download Terminal Box & Official Store Badges */
 .download-box {
-  max-width: 580px;
+  max-width: 620px;
   margin: 30px auto 0;
   background: var(--card-gradient);
   border: 1px solid var(--border-highlight);
-  border-radius: 24px;
-  padding: 32px;
+  border-radius: 26px;
+  padding: 36px 32px;
   text-align: left;
-  box-shadow: var(--glow-card);
+  box-shadow: var(--glow-card), 0 0 40px rgba(94, 23, 235, 0.15);
+  backdrop-filter: blur(12px);
 }
 
 .download-box p {
@@ -1201,7 +1202,7 @@ p {
 }
 
 .download-box code {
-  background: rgba(8, 11, 32, 0.8);
+  background: rgba(8, 11, 32, 0.85);
   padding: 3px 8px;
   border-radius: 6px;
   color: var(--electric-cyan);
@@ -1209,9 +1210,103 @@ p {
   border: 1px solid var(--border);
 }
 
-.download-box .btn {
-  margin-top: 22px;
-  width: 100%;
+.store-buttons-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 12px 24px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  min-width: 200px;
+}
+
+.btn-store:hover {
+  background: #090c24;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+}
+
+.btn-playstore:hover {
+  border-color: #00E377;
+  box-shadow: 0 0 22px rgba(0, 227, 119, 0.35);
+}
+
+.btn-appstore:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.25);
+}
+
+.store-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.store-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.15;
+}
+
+.store-subtitle {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aab4db;
+  font-weight: 600;
+}
+
+.store-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.apk-download-alternative {
+  margin-top: 20px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.apk-pill {
+  color: var(--electric-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  background: rgba(41, 203, 255, 0.1);
+  border: 1px solid rgba(41, 203, 255, 0.3);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  transition: all 0.2s;
+}
+
+.apk-pill:hover {
+  background: rgba(41, 203, 255, 0.22);
+  border-color: var(--electric-cyan);
+  color: #ffffff;
 }
 
 .text-center {

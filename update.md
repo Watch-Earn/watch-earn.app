@@ -164,3 +164,18 @@ Each update entry follows this standard structure:
   - Validated responsive layout on desktop and mobile viewports.
 - **Next Steps / Remarks**:
   - Refresh [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the single-line scrolling ticker.
+
+### [2026-11-21 13:24:00 IST] - Official Google Play & Apple App Store Buttons
+- **Type**: Feature / UX Enhancement
+- **Components / Modules**: Website (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Replaced generic purple "Install Android APK" button with official vector **Google Play** and **Apple App Store** badges, plus a clean direct APK download pill
+  - `web/website/css/style.css` - Added dark glassmorphic badge styling (`.btn-store`, `.btn-playstore`, `.btn-appstore`), hover elevation, and brand glowing borders
+- **Summary of Changes**:
+  - Embedded pixel-perfect vector badges for **Google Play** (multicolor triangle) and **Apple App Store** (monochrome Apple icon).
+  - Maintained direct APK option (`.apk-pill`) for developers and direct testers.
+  - Linked Hero CTA button to smoothly jump to the official store section.
+- **Verification / Testing**:
+  - Validated SVG rendering and CSS responsiveness across desktop and mobile.
+- **Next Steps / Remarks**:
+  - Refresh [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the new store badges in the Download section.
