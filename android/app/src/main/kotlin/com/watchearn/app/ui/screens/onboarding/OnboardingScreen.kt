@@ -62,15 +62,14 @@ fun OnboardingScreen(onFinish: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(DarkNavyBg)
-            .padding(24.dp),
+            .statusBarsPadding()
+            .padding(horizontal = 24.dp, vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         // Top Bar: Brand Logo & Skip Button
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
