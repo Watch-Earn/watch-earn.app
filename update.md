@@ -115,3 +115,52 @@ Each update entry follows this standard structure:
   - Verified touch and mouse drag handling and slide snap logic.
 - **Next Steps / Remarks**:
   - Users can now swipe with a touch gesture, drag with a mouse, click the side arrows (`‹` / `›`), or click the tabs/dots to navigate screens.
+
+
+### [2026-11-21 13:12:00 IST] - Complete Web Admin Control Center Implementation
+- **Type**: Feature / Architecture & Operations
+- **Components / Modules**: Web Admin (`web/admin`), Backend (`web/backend`)
+- **Files Affected**:
+  - `web/admin/index.html` - Created full-featured Single-Page Admin Application HUD matching dark gaming cyber theme.
+  - `web/admin/css/admin.css` - Created comprehensive dark cyber theme stylesheet (variables, glassmorphic HUD cards, glowing telemetry, responsive tables, modals, toast system).
+  - `web/admin/js/admin.js` - Created dual-mode operations engine, live backend fetcher, interactive mock state store, withdrawal approval/rejection workflows, and HMAC simulator.
+  - `web/admin/images/brand_emblem.png`, `brand_wordmark.png` - Mirrored high-definition brand identity assets.
+  - `web/admin/README.md` - Overhauled administrative operations manual and runbook.
+  - `web/backend/app/Http/Controllers/Api/AdminController.php` - Extended admin endpoints for users, user status toggle, partners, ledger transactions, support tickets, and double-entry integrity check.
+  - `web/backend/routes/api.php` - Registered new administrative REST API routes.
+  - `web/backend/resources/views/admin/dashboard.blade.php` - Synchronized backend Blade template with new Admin HUD and asset paths.
+  - `web/backend/public/admin/` - Mirrored static assets for direct backend serving.
+  - `web/backend/tests/Feature/AdminPortalTest.php` - Created feature test verifying admin overview, integrity check, user status updates, and withdrawal approval workflows.
+- **Summary of Changes**:
+  - Built an administrative console for Watch & Earn in `web/admin`:
+    - Executive Overview HUD: Real-time double-entry balances, liability breakdown, and Google AdMob non-cash compliance gate enforcement.
+    - Withdrawals Queue: Status filters (`requested`, `under_review`, `approved`, `paid`, `rejected`), UPI VPA inspector, CSV export, and approval/rejection modal with mandatory audit reasons and atomic compensating refunds.
+    - User Directory: KYC age gating (18+ verified), DPDPA consent tracking, and account suspension controls.
+    - Double-Entry Ledger: Chronological journal enforcing $\text{paise} = \lfloor\text{coins}/10\rfloor$ and real-time mathematical invariant audit.
+    - Partner & Webhooks: Catalog of offerwalls and interactive HMAC-SHA256 postback simulator.
+    - Fraud & Velocity Controls: Automated anti-cheat monitors, emulator sandboxing flags, and rate limits.
+    - Support Tickets: Dispute handling with resolution logging.
+    - Audit Trail: Immutable append-only record of all administrative actions.
+- **Verification / Testing**:
+  - Ran backend test suite (`php artisan test`): 19 passed, 85 assertions (100% pass rate).
+  - Verified JavaScript syntax with `node -c web/admin/js/admin.js`.
+  - Verified cross-browser standalone operation and live backend integration.
+- **Next Steps / Remarks**:
+  - The admin panel can be launched standalone via `web/admin/index.html` or served live at `http://localhost:8000/admin`.
+
+### [2026-11-21 13:14:00 IST] - Regulatory Notice Single-Line Moving Ticker & Copy Cleanup
+- **Type**: UI / Compliance Refinement
+- **Components / Modules**: Website (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Converted static compliance box into continuous single-line right-to-left marquee ticker (`.policy-notice-ticker`); removed specific sentence regarding AdMob cash-redeemable paths.
+  - `web/website/css/style.css` - Added continuous linear keyframe animation (`ticker-scroll`), smooth gradient edge masks, fixed pulse badge, and hover pause.
+  - `web/website/terms.html` - Harmonized copy across terms to maintain uniform compliance posture.
+- **Summary of Changes**:
+  - Replaced the large static regulatory box with a sleek, single-line ticker that scrolls smoothly from right to left across the screen.
+  - Completely removed the phrase "Google AdMob rewarded ad inventory is strictly barred from cash-redeemable paths."
+  - Added pause-on-hover capability and edge gradient masks for readability.
+- **Verification / Testing**:
+  - Verified animation keyframes and seamless loop in CSS.
+  - Validated responsive layout on desktop and mobile viewports.
+- **Next Steps / Remarks**:
+  - Refresh [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the single-line scrolling ticker.
