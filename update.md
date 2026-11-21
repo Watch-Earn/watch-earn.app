@@ -249,3 +249,55 @@ Each update entry follows this standard structure:
   - Verified layout across desktop, tablet (links hide gracefully), and mobile screen widths.
   - Confirmed logo hover scales smoothly and link interactions provide fluid visual feedback.
 
+### [2026-11-21 14:00:00 IST] - Complete End-to-End FCM HTTP v1 Notification System & Admin Push Campaign Center
+- **Type**: Feature / Integration & Full-Stack Implementation
+- **Components / Modules**: Backend (`web/backend`), Android Client (`app/android`), Web Admin Control Center (`web/admin`, `web/backend/public/admin`)
+- **Files Affected**:
+  - `web/backend/database/migrations/2026_11_21_080000_create_fcm_notifications_tables.php` - Created database tables: `push_devices`, `notifications`, `notification_recipients`, `notification_preferences`, `push_campaigns`, and `push_delivery_logs`.
+  - `web/backend/app/Models/*` - Created Eloquent models: `PushDevice`, `AppNotification`, `NotificationRecipient`, `NotificationPreference`, `PushCampaign`, `PushDeliveryLog`, and updated `User` relations.
+  - `web/backend/app/Services/FcmService.php` - Authoritative Google FCM HTTP v1 dispatch engine with OAuth2 Bearer token generation and seamless development simulation fallback.
+  - `web/backend/app/Services/NotificationService.php` - Token registration, logout revocation, quiet hours compliance (22:00–08:00 IST), promotional opt-out checks, inbox pagination, and broadcast campaign pipeline.
+  - `web/backend/app/Services/WithdrawalService.php` - Automated notification triggers for `WITHDRAWAL_REQUESTED`, `WITHDRAWAL_PAID`, and `WITHDRAWAL_FAILED`.
+  - `web/backend/app/Services/RewardVerificationService.php` - Automated notification trigger for `REWARD_CREDIT`.
+  - `web/backend/app/Http/Controllers/Api/AdminController.php` - Automated notification triggers on admin withdrawal approval and rejection with refund.
+  - `web/backend/app/Http/Controllers/Api/NotificationController.php` - Client endpoints for device token registration, inbox listing, read markers, and user preferences.
+  - `web/backend/app/Http/Controllers/Api/AdminNotificationController.php` - Admin endpoints for immediate broadcasts, scheduling, campaign listing, cancellation, and delivery stats.
+  - `web/backend/routes/api.php` - Registered all client `/push/*`, `/notifications/*` and admin `/admin/push/*` routes.
+  - `web/backend/tests/Feature/NotificationAndFcmTest.php` - Comprehensive PHPUnit test suite covering token lifecycle, notifications inbox, preferences, and admin broadcasts.
+  - `app/android/gradle.properties` - Configured `org.gradle.java.home` to Android Studio JBR (JVM 25) resolving Gradle 9.0 requirements.
+  - `app/android/app/src/main/AndroidManifest.xml` - Added Android 13+ `POST_NOTIFICATIONS` runtime permission.
+  - `app/android/app/google-services.json` - Registered Firebase configuration for `com.watchearn.app`.
+  - `app/android/app/src/main/res/drawable/ic_notification.xml` - Created clean vector notification bell icon.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/data/model/Models.kt` - Added `NotificationItem`, `NotificationCategory`, and `NotificationPreference`.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/data/repository/WatchEarnRepository.kt` - Added notification flows, unread counters, preferences, read markers, token lifecycle methods, and automatic ad/withdrawal notification emitters.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/ui/screens/notifications/NotificationScreen.kt` - Built dark neon gaming Notification Center (`DarkNavyBg`, `DarkCardSurfaceElevated`, `RadiantPurple`, `ElectricCyan`, `CoinGold`) with category tabs (All, Rewards, Wallet, Announcements), unread indicators, preference modal, empty states, and deep-link routing.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/ui/screens/home/HomeScreen.kt` - Wired clickable bell icon with live unread counter badge.
+  - `app/android/app/src/main/kotlin/com/watchearn/app/ui/main/MainScreen.kt` - Integrated `ScreenRoute.Notifications` with target screen routing (`WATCH_ADS`, `REWARDS_HUB`, `WALLET`, `TASKS`, `WITHDRAW`).
+  - `web/admin/notifications.html` - Created dedicated FCM Push Campaigns & Broadcast Dispatch HUD.
+  - `web/admin/js/admin.js` - Added campaign composer, audience estimation, pre-approved templates, immediate/scheduled dispatch, live telemetry stream, and backend API integration.
+  - `web/admin/*.html` - Added "Messaging & Push" link across all 10 admin sidebar menus and synchronized with `web/backend/public/admin/`.
+- **Summary of Changes**:
+  - Implemented the complete 12-section architecture from `WATCH_AND_EARN_FCM_INTEGRATION_PLAN.md` across backend, Android app, and admin HUD.
+  - Preserved strict server-authoritative economic invariants: opening a notification or deep-link never credits coins directly on the client.
+  - Designed user-respectful quiet hours safeguards (22:00–08:00 IST) and promotional opt-out controls.
+- **Verification / Testing**:
+  - Backend PHPUnit: `php artisan test` -> **24 passed, 109 assertions (100% pass rate)**.
+  - Android Gradle: `./gradlew testDebugUnitTest` -> **BUILD SUCCESSFUL (24 actionable tasks, 0 errors)**.
+  - Web Admin: Verified all 10 sidebar links and interactive campaign dispatches in live API and simulation modes.
+
+### [2026-11-21 13:57:00 IST] - Dedicated B2B Landing Page (`advertise.html`) & Landing Page Separation
+- **Type**: Feature / Page Architecture & Separation
+- **Components / Modules**: Website Navigation & B2B Portal (`web/website`)
+- **Files Affected**:
+  - `web/website/advertise.html` - Created dedicated, standalone B2B landing page for "Scale Your Business with Verified Indian Attention" with hero section, client inquiry lead capture form, trust metric cards, 6 enterprise ad format solutions (CPI, surveys, video, CPL, offerwall, agency), anti-fraud hardware guarantees, and footer navigation.
+  - `web/website/index.html` - Removed the embedded `#advertise` section to keep the consumer landing page streamlined and clean; updated navbar links ("For Brands B2B" and "Partner With Us") and footer links to route cleanly to `advertise.html`.
+- **Summary of Changes**:
+  - Separated the brand and business promotion content from the consumer app landing page into its own dedicated high-converting B2B page (`advertise.html`).
+  - Maintained complete visual styling consistency with the app's dark gaming theme, glassmorphic card elements, and electric-cyan accents.
+  - The client connection form on `advertise.html` processes inquiries, saves leads to local cache (`watch_earn_partner_leads`), and presents confirmation feedback.
+- **Verification / Testing**:
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Tested navigation flow: clicking "For Brands" or "Partner With Us" opens `advertise.html`, and clicking "← Back to App" returns to `index.html`.
+
+
+
