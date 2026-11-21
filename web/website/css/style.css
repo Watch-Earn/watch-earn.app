@@ -529,7 +529,149 @@ p {
 
 .stage-phone-col {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.swipeable-phone-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-mockup.swipeable {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.phone-mockup.swipeable.is-dragging {
+  cursor: grabbing;
+}
+
+.phone-track-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  touch-action: pan-y;
+}
+
+.phone-track {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.phone-track.is-dragging {
+  transition: none !important;
+}
+
+.phone-slide {
+  width: 25%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.phone-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* Arrow Navigation */
+.stage-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(18, 21, 54, 0.92);
+  border: 1px solid var(--border-highlight);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 10px rgba(150, 51, 245, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  line-height: 1;
+}
+
+.stage-arrow-btn:hover {
+  background: var(--purple-gradient);
+  border-color: transparent;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--glow-purple);
+  color: #ffffff;
+}
+
+.stage-arrow-btn.prev {
+  left: -20px;
+}
+
+.stage-arrow-btn.next {
+  right: -20px;
+}
+
+/* Pagination Dots */
+.stage-dots-nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+  justify-content: center;
+  align-items: center;
+}
+
+.stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(170, 180, 219, 0.3);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stage-dot:hover {
+  background: rgba(170, 180, 219, 0.6);
+}
+
+.stage-dot.active {
+  width: 24px;
+  background: var(--purple-gradient);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}
+
+.swipe-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--electric-cyan);
+  background: rgba(41, 203, 255, 0.08);
+  border: 1px solid rgba(41, 203, 255, 0.22);
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-top: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  user-select: none;
 }
 
 .stage-info-col {

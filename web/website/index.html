@@ -142,12 +142,43 @@
       <!-- Active Showcase Stage (Split Phone + Feature Details) -->
       <div class="showcase-stage">
         <div class="stage-phone-col">
-          <div class="phone-mockup" style="width: 260px; height: 530px;">
-            <div class="phone-island">
-              <div class="camera-lens"></div>
+          <div class="swipeable-phone-wrap">
+            <button class="stage-arrow-btn prev" id="phonePrevBtn" aria-label="Previous Screen">‹</button>
+            <button class="stage-arrow-btn next" id="phoneNextBtn" aria-label="Next Screen">›</button>
+
+            <div class="phone-mockup swipeable" id="phoneShowcaseMockup" style="width: 260px; height: 530px;">
+              <div class="phone-island">
+                <div class="camera-lens"></div>
+              </div>
+              <div class="phone-track-wrapper" id="phoneTrackWrapper">
+                <div class="phone-track" id="phoneTrack">
+                  <div class="phone-slide" data-index="0">
+                    <img src="images/screen_tab_home.png" alt="Home Dashboard" draggable="false">
+                  </div>
+                  <div class="phone-slide" data-index="1">
+                    <img src="images/screen_tab_tasks.png" alt="Sponsored Tasks" draggable="false">
+                  </div>
+                  <div class="phone-slide" data-index="2">
+                    <img src="images/screen_tab_earn.png" alt="Task Verification" draggable="false">
+                  </div>
+                  <div class="phone-slide" data-index="3">
+                    <img src="images/screen_tab_upi.png" alt="UPI Wallet Payout" draggable="false">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="phone-screen">
-              <img id="showcaseScreenImg" src="images/screen_tab_home.png" alt="App Screen Preview">
+
+            <!-- Interactive Pagination Dots -->
+            <div class="stage-dots-nav" id="stageDots">
+              <span class="stage-dot active" data-index="0"></span>
+              <span class="stage-dot" data-index="1"></span>
+              <span class="stage-dot" data-index="2"></span>
+              <span class="stage-dot" data-index="3"></span>
+            </div>
+
+            <!-- Swipe Instruction Pill -->
+            <div class="swipe-hint-pill">
+              <span>👈 Swipe to Move Screen 👉</span>
             </div>
           </div>
         </div>

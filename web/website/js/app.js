@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Calculator Logic
+  // --- 1. Interactive Coin & Rupee Calculator ---
   const coinInput = document.getElementById('coinInput');
   const coinSlider = document.getElementById('coinSlider');
   const inrValue = document.getElementById('inrValue');
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculator(coinInput.value);
   }
 
-  // Showcase Tabs Switching Logic
-  const tabData = {
-    home: {
-      img: 'images/screen_tab_home.png',
+  // --- 2. Interactive Swipeable App Showcase ---
+  const showcaseData = [
+    {
+      key: 'home',
       tag: 'FEATURE 01 • OVERVIEW',
       title: 'Home Dashboard & Balances',
       desc: 'Get instant visibility into your available coins, pending hold balance, daily activity completions, and live rupee valuation computed to the exact paise.',
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
       statVal: '₹10.00 Min Payout',
       statSub: '10,000 Coins Threshold'
     },
-    tasks: {
-      img: 'images/screen_tab_tasks.png',
+    {
+      key: 'tasks',
       tag: 'FEATURE 02 • ACTIVITIES',
       title: 'Sponsored Partner Tasks',
       desc: 'Browse advertiser-sponsored surveys, feedback questionnaires, and brand tasks with fully disclosed duration and reward amounts prior to starting.',
@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
       statVal: '20 Coins / Task',
       statSub: 'Verified Partner Offerwalls'
     },
-    earn: {
-      img: 'images/screen_tab_earn.png',
+    {
+      key: 'earn',
       tag: 'FEATURE 03 • SECURITY',
       title: 'Cryptographic Verification',
       desc: 'Completions are authenticated via HMAC SHA-256 partner postbacks. Coins are placed into a temporary hold before being released to available balance.',
@@ -89,8 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
       statVal: '24h Hold Period',
       statSub: 'Fraud Protection Window'
     },
-    upi: {
-      img: 'images/screen_tab_upi.png',
+    {
+      key: 'upi',
       tag: 'FEATURE 04 • WITHDRAWALS',
       title: 'Direct UPI Bank Transfers',
       desc: 'Once you accumulate 10,000 coins (₹10.00), submit your Indian UPI ID for automated, transparent payout processing straight to your bank account.',
@@ -102,10 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
       statVal: '100% Payout Rate',
       statSub: 'Verified Indian UPI'
     }
-  };
+  ];
 
+  let currentSlide = 0;
+  const totalSlides = showcaseData.length;
+
+  const phoneTrack = document.getElementById('phoneTrack');
+  const phoneMockup = document.getElementById('phoneShowcaseMockup');
   const tabButtons = document.querySelectorAll('.tab-btn');
-  const screenImg = document.getElementById('showcaseScreenImg');
+  const stageDots = document.querySelectorAll('.stage-dot');
+  const prevBtn = document.getElementById('phonePrevBtn');
+  const nextBtn = document.getElementById('phoneNextBtn');
+
   const stageTag = document.getElementById('showcaseTag');
   const stageTitle = document.getElementById('showcaseTitle');
   const stageDesc = document.getElementById('showcaseDesc');
@@ -113,38 +121,188 @@ document.addEventListener('DOMContentLoaded', () => {
   const stageStatVal = document.getElementById('showcaseStatVal');
   const stageStatSub = document.getElementById('showcaseStatSub');
 
-  if (tabButtons && screenImg) {
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const key = btn.getAttribute('data-tab');
-        const data = tabData[key];
-        if (!data) return;
+  function updateInfo(index) {
+    const data = showcaseData[index];
+    if (!data) return;
 
-        tabButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    if (stageTag) stageTag.textContent = data.tag;
+    if (stageTitle) stageTitle.textContent = data.title;
+    if (stageDesc) stageDesc.textContent = data.desc;
+    if (stageStatVal) stageStatVal.textContent = data.statVal;
+    if (stageStatSub) stageStatSub.textContent = data.statSub;
 
-        // Smooth transition
-        screenImg.style.opacity = '0';
-        setTimeout(() => {
-          screenImg.src = data.img;
-          screenImg.style.opacity = '1';
-        }, 150);
+    if (stageBullets) {
+      stageBullets.innerHTML = data.bullets.map(b => `
+        <li>
+          <span class="check-icon">✓</span>
+          <span>${b}</span>
+        </li>
+      `).join('');
+    }
+  }
 
-        if (stageTag) stageTag.textContent = data.tag;
-        if (stageTitle) stageTitle.textContent = data.title;
-        if (stageDesc) stageDesc.textContent = data.desc;
-        if (stageStatVal) stageStatVal.textContent = data.statVal;
-        if (stageStatSub) stageStatSub.textContent = data.statSub;
+  function goToSlide(index, animate = true) {
+    // Clamp
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
 
-        if (stageBullets) {
-          stageBullets.innerHTML = data.bullets.map(b => `
-            <li>
-              <span class="check-icon">✓</span>
-              <span>${b}</span>
-            </li>
-          `).join('');
+    currentSlide = index;
+
+    // Update track position
+    if (phoneTrack) {
+      if (animate) {
+        phoneTrack.classList.remove('is-dragging');
+      } else {
+        phoneTrack.classList.add('is-dragging');
+      }
+      phoneTrack.style.transform = `translateX(-${currentSlide * 25}%)`;
+    }
+
+    // Update Tabs
+    tabButtons.forEach((btn, idx) => {
+      btn.classList.toggle('active', idx === currentSlide);
+    });
+
+    // Update Dots
+    stageDots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentSlide);
+    });
+
+    // Update Text Details
+    updateInfo(currentSlide);
+  }
+
+  // Tab button click handlers
+  tabButtons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => goToSlide(idx));
+  });
+
+  // Dots click handlers
+  stageDots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => goToSlide(idx));
+  });
+
+  // Prev / Next button click handlers
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentSlide > 0) goToSlide(currentSlide - 1);
+      else goToSlide(totalSlides - 1); // loop
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+      else goToSlide(0); // loop
+    });
+  }
+
+  // --- SWIPE & DRAG GESTURE HANDLERS ---
+  if (phoneMockup && phoneTrack) {
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let isTouch = false;
+
+    // Helper: start drag
+    function startDrag(clientX, clientY, touch = false) {
+      isDragging = true;
+      isTouch = touch;
+      startX = clientX;
+      startY = clientY;
+      currentX = clientX;
+      phoneTrack.classList.add('is-dragging');
+      phoneMockup.classList.add('is-dragging');
+    }
+
+    // Helper: move drag
+    function moveDrag(clientX, clientY, event) {
+      if (!isDragging) return;
+      currentX = clientX;
+      const diffX = currentX - startX;
+      const diffY = clientY - startY;
+
+      // If vertical scroll is dominant on touch, allow browser to scroll
+      if (isTouch && Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffX) < 10) {
+        return;
+      }
+
+      if (event && event.cancelable) {
+        event.preventDefault();
+      }
+
+      const mockupWidth = phoneMockup.offsetWidth || 260;
+      const percentOffset = (diffX / mockupWidth) * 25; // 25% is one slide
+      const basePercent = -(currentSlide * 25);
+      phoneTrack.style.transform = `translateX(${basePercent + percentOffset}%)`;
+    }
+
+    // Helper: end drag
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      phoneTrack.classList.remove('is-dragging');
+      phoneMockup.classList.remove('is-dragging');
+
+      const diffX = currentX - startX;
+      const threshold = 40; // min 40px drag to switch
+
+      if (diffX < -threshold && currentSlide < totalSlides - 1) {
+        goToSlide(currentSlide + 1);
+      } else if (diffX > threshold && currentSlide > 0) {
+        goToSlide(currentSlide - 1);
+      } else {
+        // Snap back
+        goToSlide(currentSlide);
+      }
+    }
+
+    // Touch events
+    phoneMockup.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        startDrag(e.touches[0].clientX, e.touches[0].clientY, true);
+      }
+    }, { passive: true });
+
+    phoneMockup.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches.length === 1) {
+        moveDrag(e.touches[0].clientX, e.touches[0].clientY, e);
+      }
+    }, { passive: false });
+
+    phoneMockup.addEventListener('touchend', endDrag);
+    phoneMockup.addEventListener('touchcancel', endDrag);
+
+    // Mouse drag events
+    phoneMockup.addEventListener('mousedown', (e) => {
+      startDrag(e.clientX, e.clientY, false);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging && !isTouch) {
+        moveDrag(e.clientX, e.clientY, e);
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging && !isTouch) {
+        endDrag();
+      }
+    });
+
+    // Keyboard navigation (Left / Right arrow keys)
+    window.addEventListener('keydown', (e) => {
+      // Check if showcase is in viewport or active
+      const rect = phoneMockup.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        if (e.key === 'ArrowLeft') {
+          if (currentSlide > 0) goToSlide(currentSlide - 1);
+        } else if (e.key === 'ArrowRight') {
+          if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
         }
-      });
+      }
     });
   }
 });

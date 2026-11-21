@@ -98,3 +98,20 @@ Each update entry follows this standard structure:
   - Verified tab switching interaction and calculator functionality in browser.
 - **Next Steps / Remarks**:
   - Refresh or view [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the upgraded layout.
+
+### [2026-11-21 13:03:00 IST] - Swipe-to-Move Gestures & Slide Carousel for App Showcase
+- **Type**: Feature / Interactive UX
+- **Components / Modules**: Web (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Embedded sliding phone screen track, prev/next bezel arrows, pagination dots, and swipe hint badge
+  - `web/website/css/style.css` - Configured 400% flex sliding track, hardware-accelerated transitions, grab cursor states, and arrow buttons
+  - `web/website/js/app.js` - Implemented touch swipe (`touchstart`, `touchmove`, `touchend`), mouse drag gestures, arrow/dot click listeners, and keyboard arrow key navigation
+- **Summary of Changes**:
+  - Enabled intuitive swipe-to-move interactions on the phone mockup across mobile touchscreens and desktop mouse drags.
+  - Added real-time tracking during drag with auto-snap threshold.
+  - Linked swipe motions to synchronously cycle the active tab buttons, feature descriptions, checklist bullets, and pagination dots.
+- **Verification / Testing**:
+  - Validated syntax with `node -c web/website/js/app.js`.
+  - Verified touch and mouse drag handling and slide snap logic.
+- **Next Steps / Remarks**:
+  - Users can now swipe with a touch gesture, drag with a mouse, click the side arrows (`‹` / `›`), or click the tabs/dots to navigate screens.
