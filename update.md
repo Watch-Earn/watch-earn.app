@@ -179,3 +179,58 @@ Each update entry follows this standard structure:
   - Validated SVG rendering and CSS responsiveness across desktop and mobile.
 - **Next Steps / Remarks**:
   - Refresh [web/website/index.html](file:///Users/apple/Documents/DND/watch-earn.app/web/website/index.html) to see the new store badges in the Download section.
+
+
+### [2026-11-21 13:30:00 IST] - Multi-Page Administration Architecture as per Side Navigation Bar
+- **Type**: Feature / Navigation & UI Expansion
+- **Components / Modules**: Web Admin (`web/admin`), Backend Public (`web/backend/public/admin`)
+- **Files Affected**:
+  - `web/admin/index.html` - Overview & Executive Liabilities HUD page (`data-page="overview"`).
+  - `web/admin/withdrawals.html` - Dedicated Withdrawals & Approval Queue page with batch actions and CSV export (`data-page="withdrawals"`).
+  - `web/admin/users.html` - Dedicated Users & Security Directory page with user detail drawer (`data-page="users"`).
+  - `web/admin/ledger.html` - Dedicated Double-Entry Ledger Journal page with one-click mathematical invariant audit (`data-page="ledger"`).
+  - `web/admin/partners.html` - Dedicated Partner Integrations & HMAC Postback Simulator page (`data-page="partners"`).
+  - `web/admin/fraud.html` - Dedicated Fraud Signals & Velocity Guardrails page (`data-page="fraud"`).
+  - `web/admin/support.html` - Dedicated Player Disputes & Support Queue page (`data-page="support"`).
+  - `web/admin/audit.html` - Dedicated Immutable Administrative Audit Trail page (`data-page="audit"`).
+  - `web/admin/settings.html` - Dedicated Statutory Compliance & Economic Constants page (`data-page="settings"`).
+  - `web/admin/css/admin.css` - Added styles for batch toolbars, pagination, setting switches, and user inspection drawers.
+  - `web/admin/js/admin.js` - Upgraded engine to support multi-page context detection, persistent cross-page state (`localStorage`), and batch actions.
+  - `web/backend/public/admin/*.html` - Mirrored all 9 dedicated pages to backend public directory for live serving.
+- **Summary of Changes**:
+  - Transformed the admin panel into dedicated individual pages matching each item in the side navigation bar:
+    1. `index.html`: Executive Overview HUD & Invariant Equations.
+    2. `withdrawals.html`: Payout approvals, batch actions, filters, search, and CSV export.
+    3. `users.html`: KYC verification, balance inspector drawer, and account suspensions.
+    4. `ledger.html`: Append-only journal with real-time double-entry conservation seal.
+    5. `partners.html`: HMAC postback simulator and AdMob isolation policy monitor.
+    6. `fraud.html`: Anomaly detection telemetry, emulator sandbox alerts, and velocity caps.
+    7. `support.html`: Dispute queues with one-click resolutions and audit logging.
+    8. `audit.html`: Immutable cryptographic event stream.
+    9. `settings.html`: Economic ratio locks, paise integer rules, and DPDPA compliance toggles.
+  - All pages maintain uniform sidebar navigation, active page highlighting, breadcrumbs, live sync, and mobile responsiveness.
+- **Verification / Testing**:
+  - Verified JavaScript syntax across all files (`node -c web/admin/js/admin.js`).
+  - Ran backend test suite (`php artisan test`): 19 passed, 85 assertions (100% pass rate).
+  - Verified cross-page navigation, active nav indicator state, and persistent data across pages.
+- **Next Steps / Remarks**:
+  - Navigate directly to any `.html` page in `web/admin/` to access its dedicated interface.
+
+### [2026-11-21 13:45:00 IST] - B2B Business Promotion & Advertiser Partnership Section
+- **Type**: Feature / B2B Expansion & Monetization
+- **Components / Modules**: Website (`web/website`)
+- **Files Affected**:
+  - `web/website/index.html` - Created dedicated "For Brands / Promote Business" section (`#advertise`) featuring advertiser value propositions and interactive client inquiry form; updated navbar and footer navigation
+  - `web/website/css/style.css` - Crafted responsive 2-column grid (`.advertise-grid`), glassmorphic lead capture form (`.advertise-form-card`), input focus rings, and mobile collapsing rules
+  - `web/website/js/app.js` - Implemented client inquiry submission handler, loading states, persistent local storage (`watch_earn_partner_leads`), and confirmation toast screen
+- **Summary of Changes**:
+  - Added a dedicated B2B portal on the landing page for businesses, agency clients, and advertisers looking to promote products or run research surveys.
+  - Highlighted advertiser key advantages: performance CPA/CPI pricing, HMAC SHA-256 postback validation, 100% human 18+ verified Indian audiences, and zero bot fraud.
+  - Provided direct contact options (`partners@watch-earn.app`) with a guaranteed 24 business hour SLA.
+  - Built an interactive client lead form capturing name, brand, business email, WhatsApp, campaign objective dropdown, estimated budget, and custom notes.
+- **Verification / Testing**:
+  - Validated JavaScript syntax (`node -c web/website/js/app.js`).
+  - Tested form submission flow, local storage caching, and instant success confirmation state.
+  - Verified responsive grid collapsing on desktop, tablet, and mobile.
+- **Next Steps / Remarks**:
+  - Brand clients can navigate directly to the section via the "For Brands" navbar link or jump directly to `#advertise`.

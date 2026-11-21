@@ -1182,6 +1182,265 @@ p {
   padding-top: 12px;
 }
 
+/* Advertise & Promote Business Section */
+.advertise-section {
+  padding: 95px 0;
+  position: relative;
+  background: radial-gradient(circle at 85% 30%, rgba(94, 23, 235, 0.16) 0%, transparent 50%),
+              radial-gradient(circle at 15% 70%, rgba(41, 203, 255, 0.14) 0%, transparent 55%),
+              linear-gradient(180deg, var(--bg-dark) 0%, rgba(18, 21, 54, 0.45) 50%, var(--bg-dark) 100%);
+  border-top: 1px solid rgba(36, 39, 82, 0.5);
+  border-bottom: 1px solid rgba(36, 39, 82, 0.5);
+}
+
+.advertise-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.advertise-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(41, 203, 255, 0.12);
+  border: 1px solid rgba(41, 203, 255, 0.35);
+  color: var(--electric-cyan);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.advertise-info-col h2 {
+  font-size: 2.35rem;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+
+.advertise-lead {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.advertise-value-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.adv-val-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(18, 21, 54, 0.6);
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  border-radius: 14px;
+  transition: all 0.25s;
+}
+
+.adv-val-item:hover {
+  border-color: var(--border-highlight);
+  background: rgba(26, 30, 74, 0.7);
+  transform: translateX(4px);
+}
+
+.adv-val-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--purple-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(150, 51, 245, 0.35);
+}
+
+.adv-val-content h4 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.adv-val-content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.advertise-direct-contacts {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.adv-contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.adv-contact-chip a {
+  color: var(--electric-cyan);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.adv-contact-chip a:hover {
+  text-decoration: underline;
+}
+
+/* Advertiser Lead Form Card */
+.advertise-form-card {
+  background: var(--card-gradient);
+  border: 1px solid var(--border-highlight);
+  border-radius: 26px;
+  padding: 36px;
+  box-shadow: var(--glow-card), 0 0 40px rgba(94, 23, 235, 0.18);
+  backdrop-filter: blur(16px);
+  position: relative;
+}
+
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-header h3 {
+  font-size: 1.45rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.form-header p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.adv-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+  margin-bottom: 0;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(8, 11, 32, 0.85);
+  border: 1px solid var(--border-highlight);
+  border-radius: 12px;
+  padding: 11px 14px;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--radiant-purple-light);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.35);
+  background: rgba(14, 18, 48, 0.95);
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group select option {
+  background: #080B20;
+  color: #F7F8FF;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.adv-submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.form-disclaimer {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Success Confirmation State */
+.form-success-state {
+  display: none;
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.form-success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(40, 217, 145, 0.15);
+  border: 2px solid var(--emerald-green);
+  color: var(--emerald-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 18px;
+  box-shadow: 0 0 25px rgba(40, 217, 145, 0.35);
+}
+
+.form-success-state h4 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.form-success-state p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
 /* Download Terminal Box & Official Store Badges */
 .download-box {
   max-width: 620px;
@@ -1370,6 +1629,10 @@ p {
     grid-template-columns: 1fr;
     gap: 45px;
   }
+  .advertise-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
   .showcase-stage {
     grid-template-columns: 1fr;
     padding: 32px 24px;
@@ -1409,6 +1672,15 @@ p {
   }
   h2 {
     font-size: 1.7rem;
+  }
+  .adv-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+  .advertise-form-card {
+    padding: 24px 18px;
   }
   .steps-grid {
     grid-template-columns: 1fr;

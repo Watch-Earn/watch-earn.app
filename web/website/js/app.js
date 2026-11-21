@@ -305,4 +305,77 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- 3. Advertiser & Brand Business Lead Form ---
+  const advForm = document.getElementById('advertiserLeadForm');
+  const advFormHeader = document.getElementById('advFormHeader');
+  const advSuccessState = document.getElementById('advSuccessState');
+  const advSuccessMsg = document.getElementById('advSuccessMsg');
+  const advResetBtn = document.getElementById('advResetBtn');
+  const advSubmitBtn = document.getElementById('advSubmitBtn');
+
+  if (advForm && advSuccessState) {
+    advForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('advName')?.value?.trim() || 'Partner';
+      const company = document.getElementById('advCompany')?.value?.trim() || 'Your Company';
+      const email = document.getElementById('advEmail')?.value?.trim() || 'your email';
+      const phone = document.getElementById('advPhone')?.value?.trim() || '';
+      const goal = document.getElementById('advGoal')?.value || 'General Promotion';
+      const budget = document.getElementById('advBudget')?.value || 'Growth';
+      const message = document.getElementById('advMessage')?.value?.trim() || '';
+
+      if (advSubmitBtn) {
+        advSubmitBtn.disabled = true;
+        advSubmitBtn.textContent = 'Submitting Proposal Request...';
+      }
+
+      // Simulate network submission and save to localStorage
+      setTimeout(() => {
+        try {
+          const lead = {
+            id: 'lead_' + Date.now(),
+            name,
+            company,
+            email,
+            phone,
+            goal,
+            budget,
+            message,
+            submittedAt: new Date().toISOString()
+          };
+
+          const existing = JSON.parse(localStorage.getItem('watch_earn_partner_leads') || '[]');
+          existing.unshift(lead);
+          localStorage.setItem('watch_earn_partner_leads', JSON.stringify(existing));
+        } catch (err) {
+          console.warn('LocalStorage unavailable for lead persistence:', err);
+        }
+
+        // Show customized success screen
+        if (advFormHeader) advFormHeader.style.display = 'none';
+        advForm.style.display = 'none';
+        advSuccessState.style.display = 'block';
+
+        if (advSuccessMsg) {
+          advSuccessMsg.innerHTML = `Thank you, <strong>${name}</strong>! We received your promotion inquiry for <strong>${company}</strong>. Our Partnerships team will review your objectives and email our Media Kit & customized CPA proposal to <strong>${email}</strong> within 24 business hours.`;
+        }
+
+        if (advSubmitBtn) {
+          advSubmitBtn.disabled = false;
+          advSubmitBtn.textContent = 'Submit Promotion Request 🚀';
+        }
+      }, 400);
+    });
+
+    if (advResetBtn) {
+      advResetBtn.addEventListener('click', () => {
+        advForm.reset();
+        advSuccessState.style.display = 'none';
+        if (advFormHeader) advFormHeader.style.display = 'block';
+        advForm.style.display = 'block';
+      });
+    }
+  }
 });
