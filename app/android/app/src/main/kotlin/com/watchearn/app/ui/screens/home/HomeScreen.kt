@@ -41,7 +41,9 @@ fun HomeScreen(
     onNavigateToWithdraw: () -> Unit,
     onNavigateToTasks: () -> Unit,
     onNavigateToRefer: () -> Unit,
-    onNavigateToNotifications: () -> Unit = {}
+    onNavigateToNotifications: () -> Unit = {},
+    onNavigateToSupport: () -> Unit = {},
+    onNavigateToEarnHub: () -> Unit = {}
 ) {
     val user by repository.user.collectAsState()
     val wallet by repository.wallet.collectAsState()
@@ -56,11 +58,11 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        Spacer(modifier = Modifier.height(2.dp))
-
         // Top Branding Bar
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -135,7 +137,8 @@ fun HomeScreen(
                         Brush.radialGradient(listOf(Color(0xFF6B21A8), Color(0xFF3B0764))),
                         CircleShape
                     )
-                    .border(2.dp, RadiantPurple, CircleShape),
+                    .border(2.dp, RadiantPurple, CircleShape)
+                    .clickable { onNavigateToSupport() },
                 contentAlignment = Alignment.Center
             ) {
                 Text("🎧", fontSize = 24.sp)
@@ -230,6 +233,7 @@ fun HomeScreen(
                 .clip(RoundedCornerShape(14.dp))
                 .background(DarkCardSurfaceElevated)
                 .border(1.dp, DarkBorder, RoundedCornerShape(14.dp))
+                .clickable { onNavigateToTasks() }
                 .padding(14.dp)
         ) {
             Column {
@@ -471,7 +475,14 @@ fun HomeScreen(
                     .clip(RoundedCornerShape(14.dp))
                     .background(DarkCardSurfaceElevated)
                     .border(1.dp, DarkBorder, RoundedCornerShape(14.dp))
-                    .clickable { onNavigateToWatchAds() }
+                    .clickable {
+                        when (title) {
+                            "Watch Ads" -> onNavigateToWatchAds()
+                            "Play Games" -> onNavigateToTasks()
+                            "Daily Check-in" -> onNavigateToTasks()
+                            else -> onNavigateToWatchAds()
+                        }
+                    }
                     .padding(12.dp)
             ) {
                 Row(

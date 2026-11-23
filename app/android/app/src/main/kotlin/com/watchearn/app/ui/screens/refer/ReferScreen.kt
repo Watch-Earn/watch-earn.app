@@ -3,6 +3,7 @@ package com.watchearn.app.ui.screens.refer
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,7 +52,7 @@ fun ReferScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AppHeader(title = "Refer & Earn", onBackClick = onBack)
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // 3D Gift Box Graphic (Matching 16_Refer_And_Earn.png)
             Box(
@@ -150,7 +151,25 @@ fun ReferScreen(
             // WhatsApp Invite Button (Green Gradient / Pill)
             Button(
                 onClick = {
-                    Toast.makeText(context, "Opening WhatsApp with invite link...", Toast.LENGTH_SHORT).show()
+                    val shareMsg = "Hey! Earn real money by watching simple ads on Watch & Earn! Use my invite code ${user.referralCode} to get 500 free bonus coins instantly: https://watchearn.app/join"
+                    val whatsappIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        setPackage("com.whatsapp")
+                        putExtra(Intent.EXTRA_TEXT, shareMsg)
+                    }
+                    try {
+                        context.startActivity(whatsappIntent)
+                    } catch (e: Exception) {
+                        // Fallback to generic share chooser if WhatsApp is not installed
+                        val chooser = Intent.createChooser(
+                            Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_TEXT, shareMsg)
+                            },
+                            "Share via"
+                        )
+                        context.startActivity(chooser)
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -179,7 +198,14 @@ fun ReferScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             IconButton(
-                onClick = { Toast.makeText(context, "Shared link!", Toast.LENGTH_SHORT).show() },
+                onClick = {
+                    val shareMsg = "Join Watch & Earn and make daily pocket money! Use code ${user.referralCode} to get free welcome coins: https://watchearn.app/join"
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, shareMsg)
+                    }
+                    context.startActivity(Intent.createChooser(shareIntent, "Share Referral Link"))
+                },
                 modifier = Modifier
                     .size(46.dp)
                     .background(DarkCardSurfaceElevated, CircleShape)

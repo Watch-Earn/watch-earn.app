@@ -35,13 +35,15 @@ fun LoginScreen(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var isLoading by remember { mutableStateOf(false) }
+    var showTermsDialog by remember { mutableStateOf(false) }
+    var showPrivacyDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(DarkNavyBg)
             .statusBarsPadding()
-            .padding(horizontal = 24.dp, vertical = 16.dp),
+            .padding(horizontal = 24.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -50,7 +52,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             // Main Brand Splash Logo
             Image(
@@ -194,9 +196,7 @@ fun LoginScreen(
                     fontSize = 12.sp,
                     color = RadiantPurpleLight,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.clickable {
-                        Toast.makeText(context, "Terms: 18+ eligible users only", Toast.LENGTH_SHORT).show()
-                    }
+                    modifier = Modifier.clickable { showTermsDialog = true }
                 )
                 Text(
                     text = "  •  ",
@@ -208,12 +208,58 @@ fun LoginScreen(
                     fontSize = 12.sp,
                     color = RadiantPurpleLight,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.clickable {
-                        Toast.makeText(context, "Privacy: Compliant with DPDPA 2023", Toast.LENGTH_SHORT).show()
-                    }
+                    modifier = Modifier.clickable { showPrivacyDialog = true }
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        if (showTermsDialog) {
+            AlertDialog(
+                onDismissRequest = { showTermsDialog = false },
+                containerColor = DarkCardSurfaceElevated,
+                title = { Text("Terms of Service", fontWeight = FontWeight.Bold, color = TextPrimary) },
+                text = {
+                    Text(
+                        text = "1. Age Eligibility: 18+ years only.\n2. Loyalty Micro-Rewards: 100 Coins = ₹0.10.\n3. Fair Play Policy: Automation, bots, or multiple accounts are strictly prohibited.\n4. Withdrawals: Processed via linked UPI.",
+                        color = TextSecondary,
+                        fontSize = 13.sp,
+                        lineHeight = 18.sp
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { showTermsDialog = false },
+                        colors = ButtonDefaults.buttonColors(containerColor = RadiantPurple)
+                    ) {
+                        Text("Close", color = Color.White)
+                    }
+                }
+            )
+        }
+
+        if (showPrivacyDialog) {
+            AlertDialog(
+                onDismissRequest = { showPrivacyDialog = false },
+                containerColor = DarkCardSurfaceElevated,
+                title = { Text("Privacy Policy", fontWeight = FontWeight.Bold, color = TextPrimary) },
+                text = {
+                    Text(
+                        text = "Watch & Earn is compliant with the Indian Digital Personal Data Protection Act (DPDPA 2023). We only collect your Google profile information (name, email) and UPI ID for processing rewards. Your personal data is never sold to third parties.",
+                        color = TextSecondary,
+                        fontSize = 13.sp,
+                        lineHeight = 18.sp
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { showPrivacyDialog = false },
+                        colors = ButtonDefaults.buttonColors(containerColor = RadiantPurple)
+                    ) {
+                        Text("Close", color = Color.White)
+                    }
+                }
+            )
         }
     }
 }

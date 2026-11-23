@@ -54,6 +54,10 @@
         <span class="nav-item-icon">🤝</span>
         <span>Partners &amp; Webhooks</span>
       </a>
+      <a href="sponsorships.html" class="nav-item" data-page="sponsorships">
+        <span class="nav-item-icon">🎯</span>
+        <span>Brand Sponsorships</span>
+      </a>
       <a href="fraud.html" class="nav-item" data-page="fraud">
         <span class="nav-item-icon">🛡️</span>
         <span>Fraud &amp; Velocity</span>
@@ -136,6 +140,48 @@
       <!-- Partner Cards Grid -->
       <div class="partner-grid" id="partnersGrid" style="margin-bottom: 28px;">
         <!-- Hydrated dynamically by admin.js -->
+      </div>
+
+      <!-- Webhook Dead-Letter Queue (DLQ) & Retry Monitor -->
+      <div class="hud-card" style="margin-bottom: 28px;">
+        <div class="hud-card-header">
+          <div class="hud-card-title">
+            <span>🚨</span>
+            <span>Webhook Dead-Letter Queue (DLQ) &amp; Retry Monitor</span>
+            <span class="nav-badge danger" id="dlqCountBadge" style="margin-left: 8px;">0</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Tamper-Resistant Ingestion Resilience</span>
+            <button class="btn-table btn-table-retry" id="btnRetryAllDlq" style="font-size: 0.72rem; padding: 4px 10px;">
+              ⚡ Retry All Failed
+            </button>
+          </div>
+        </div>
+        
+        <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Failed partner postbacks isolated due to signature timestamp drift, network latency, or ledger lock timeouts. Review failure reasons and trigger live HMAC re-evaluation to post verified credits into the double-entry ledger.
+        </p>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>DLQ ID</th>
+                <th>Partner</th>
+                <th>Event ID</th>
+                <th>User ID</th>
+                <th>Failure Reason</th>
+                <th>Retries</th>
+                <th>Status</th>
+                <th>Last Attempt</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dlqTableBody">
+              <!-- Hydrated dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Webhook Postback Simulator -->

@@ -49,7 +49,7 @@ fun WithdrawScreen(
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AppHeader(title = "Withdraw", onBackClick = onBack)
 
@@ -177,19 +177,66 @@ fun WithdrawScreen(
             )
         }
 
+        if (coinsRequired > wallet.availableCoins) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFF3B1017))
+                    .border(1.dp, Color(0xFFEF4444), RoundedCornerShape(12.dp))
+                    .padding(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("⚠️", fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Insufficient balance! You need %,d Coins but only have %,d Coins.".format(coinsRequired, wallet.availableCoins),
+                        color = Color(0xFFFCA5A5),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        } else if (coinsRequired < wallet.minimumWithdrawalCoins) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFF2E195E))
+                    .border(1.dp, RadiantPurple, RoundedCornerShape(12.dp))
+                    .padding(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("ℹ️", fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Minimum withdrawal is ₹10 (%,d Coins).".format(wallet.minimumWithdrawalCoins),
+                        color = Color(0xFFA5B4FC),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        }
+
         // Withdraw to UPI CTA Button (Matching 13_UPI_Withdraw.png)
         GradientButton(
             text = "Withdraw to UPI",
             onClick = {
-                val result = repository.submitWithdrawal(amountRupees, user.upiId)
-                result.onSuccess { msg ->
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }.onFailure { err ->
-                    Toast.makeText(context, err.message, Toast.LENGTH_SHORT).show()
+                if (coinsRequired > wallet.availableCoins) {
+                    Toast.makeText(context, "Insufficient balance! Need %,d coins (Available: %,d)".format(coinsRequired, wallet.availableCoins), Toast.LENGTH_SHORT).show()
+                } else if (coinsRequired < wallet.minimumWithdrawalCoins) {
+                    Toast.makeText(context, "Minimum withdrawal is ₹10 (%,d coins)".format(wallet.minimumWithdrawalCoins), Toast.LENGTH_SHORT).show()
+                } else {
+                    val result = repository.submitWithdrawal(amountRupees, user.upiId)
+                    result.onSuccess { msg ->
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }.onFailure { err ->
+                        Toast.makeText(context, err.message ?: "Withdrawal failed", Toast.LENGTH_SHORT).show()
+                    }
                 }
             },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = coinsRequired <= wallet.availableCoins && coinsRequired >= wallet.minimumWithdrawalCoins
+            modifier = Modifier.fillMaxWidth()
         )
 
         // Linked UPI Instant Card (Matching 13_UPI_Withdraw.png)

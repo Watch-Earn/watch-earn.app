@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AdminNotificationController;
+use App\Http\Controllers\Api\AdminSponsorshipController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OfferController;
@@ -79,6 +80,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/support-tickets', [AdminController::class, 'supportTickets']);
         Route::post('/support-tickets/{id}', [AdminController::class, 'updateTicket']);
         Route::get('/integrity-check', [AdminController::class, 'integrityCheck']);
+        Route::get('/payout-gateway', [AdminController::class, 'getPayoutGateway']);
+        Route::post('/payout-gateway', [AdminController::class, 'updatePayoutGateway']);
+        Route::post('/payout-reconcile', [AdminController::class, 'runBankReconciliation']);
 
         // Push Campaigns & Notification Controls
         Route::get('/push/stats', [AdminNotificationController::class, 'stats']);
@@ -87,5 +91,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/push/campaigns', [AdminNotificationController::class, 'campaigns']);
         Route::get('/push/campaigns/{id}', [AdminNotificationController::class, 'campaignDetail']);
         Route::post('/push/campaigns/{id}/cancel', [AdminNotificationController::class, 'cancelCampaign']);
+
+        // Brand Sponsorships & Advertiser CRM Studio
+        Route::get('/sponsorships', [AdminSponsorshipController::class, 'index']);
+        Route::get('/sponsorships/leads/{id}', [AdminSponsorshipController::class, 'showLead']);
+        Route::post('/sponsorships/leads/{id}/status', [AdminSponsorshipController::class, 'updateLeadStatus']);
+        Route::post('/sponsorships/campaigns', [AdminSponsorshipController::class, 'createCampaign']);
+        Route::post('/sponsorships/campaigns/{id}/status', [AdminSponsorshipController::class, 'updateCampaignStatus']);
     });
 });

@@ -34,5 +34,6 @@ return [
     // Integration Modes: 'mock', 'sandbox', 'production'
     'rewards_provider_mode' => env('REWARDS_PROVIDER_MODE', 'mock'),
     'payout_provider_mode' => env('PAYOUT_PROVIDER_MODE', 'sandbox'),
+    'payout_driver' => env('PAYOUT_DRIVER', 'mock'),
     'otp_provider_mode' => env('OTP_PROVIDER_MODE', 'mock'),
 ];

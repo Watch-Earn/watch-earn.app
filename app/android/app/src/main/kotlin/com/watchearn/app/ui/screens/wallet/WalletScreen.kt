@@ -40,7 +40,7 @@ fun WalletScreen(
             .background(DarkNavyBg)
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AppHeader(title = "My Wallet", onBackClick = onBack)
 

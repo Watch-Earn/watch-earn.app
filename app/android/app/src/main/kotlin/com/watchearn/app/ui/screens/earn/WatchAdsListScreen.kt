@@ -44,7 +44,7 @@ fun WatchAdsListScreen(
     ) {
         AppHeader(title = "Watch Ads", onBackClick = onBack)
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Top Clapperboard Banner (Matching 08_Watch_Ads_List.png)
         Box(

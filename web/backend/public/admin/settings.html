@@ -54,6 +54,10 @@
         <span class="nav-item-icon">🤝</span>
         <span>Partners &amp; Webhooks</span>
       </a>
+      <a href="sponsorships.html" class="nav-item" data-page="sponsorships">
+        <span class="nav-item-icon">🎯</span>
+        <span>Brand Sponsorships</span>
+      </a>
       <a href="fraud.html" class="nav-item" data-page="fraud">
         <span class="nav-item-icon">🛡️</span>
         <span>Fraud &amp; Velocity</span>
@@ -178,7 +182,7 @@
               </div>
             </div>
 
-            <form onsubmit="event.preventDefault(); window.WatchEarnAdmin.showToast('Compliance configuration updated and recorded in audit log.', 'success');">
+            <form onsubmit="event.preventDefault(); window.WatchEarnAdmin.handleSettingsSave();">
               <div class="modal-field">
                 <label class="modal-label">Virtual Coin to INR Rate</label>
                 <input type="text" class="modal-input" value="1,000 Coins = 100 Paise (₹1.00)" readonly style="background: rgba(8, 11, 32, 0.4); color: var(--gold-primary); font-family: var(--font-mono);">
@@ -268,8 +272,257 @@
 
       </div>
 
+      <!-- Administrative Security & Access Hardening -->
+      <div style="margin-top: 28px; margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
+              <span>🛡️</span>
+              <span>Administrative Security &amp; Access Safeguards</span>
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 3px;">
+              Two-Factor Authentication (2FA/TOTP), Session Concurrency Hardening &amp; Cryptographic Privileged Controls
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="status-pill status-approved" id="twoFactorStatusBadge">2FA Enforced</span>
+            <span class="nav-badge" id="activeSessionsCountBadge" style="background: rgba(6, 182, 212, 0.15); color: var(--cyan-primary); border: 1px solid rgba(6, 182, 212, 0.35); padding: 4px 10px; font-weight: 700; font-size: 0.72rem;">3 Active Sessions</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Card 1: Two-Factor Authentication (2FA / TOTP) Security Card -->
+          <div class="hud-card" style="margin-bottom: 0;">
+            <div class="hud-card-header">
+              <div class="hud-card-title">
+                <span>🔑</span>
+                <span>Two-Factor Authentication (2FA / TOTP)</span>
+              </div>
+              <span class="eq-chip" style="font-size: 0.68rem; color: var(--emerald-primary);">RFC 6238 Compliant</span>
+            </div>
+
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+              Enforce mandatory time-based one-time password verification for all administrative roles to protect ledger seals, payout approvals, and compliance policies.
+            </p>
+
+            <div style="margin-bottom: 18px;">
+              <label class="switch-label" style="background: rgba(8, 11, 32, 0.5); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <div class="switch-text">
+                  <h5 style="color: #fff; font-size: 0.85rem; font-weight: 700;">Enforce 2FA on Administrative Logins</h5>
+                  <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Require 6-digit TOTP token at privileged session initialization.</p>
+                </div>
+                <input type="checkbox" id="twoFactorToggle" class="switch-input" checked>
+                <div class="switch-toggle"></div>
+              </label>
+            </div>
+
+            <div style="background: rgba(8, 11, 32, 0.4); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Enrolled Authenticator</span>
+                <span style="font-size: 0.75rem; font-weight: 700; color: #fff;">Google Authenticator / Authy</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Algorithm &amp; Interval</span>
+                <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--cyan-primary);">HMAC-SHA1 • 30s Step</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Emergency Recovery Codes</span>
+                <span style="font-size: 0.75rem; font-weight: 700; color: var(--gold-primary);">8 Unused Codes</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button type="button" id="btnOpen2FAModal" class="btn-table btn-table-approve" style="padding: 9px 18px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                <span>📲</span>
+                <span>Configure 2FA Authenticator</span>
+              </button>
+              <button type="button" id="btnRegenBackupCodes" class="btn-table" style="background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-subtle); color: #fff; padding: 9px 14px; font-size: 0.8rem;">
+                Regenerate Codes
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Session Hardening & Timeout Control -->
+          <div class="hud-card" style="margin-bottom: 0;">
+            <div class="hud-card-header">
+              <div class="hud-card-title">
+                <span>⏱️</span>
+                <span>Session Hardening &amp; Inactivity Control</span>
+              </div>
+              <span id="sessionCountdownTimer" style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--cyan-primary); background: rgba(6, 182, 212, 0.12); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(6, 182, 212, 0.3);">30:00 Idle Lock</span>
+            </div>
+
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px;">
+              Mitigate hijacked session risks via strict inactivity revocation windows and zero-trust concurrent session invalidation.
+            </p>
+
+            <div class="modal-field" style="margin-bottom: 14px;">
+              <label class="modal-label" style="display: flex; justify-content: space-between;">
+                <span>Configurable Inactivity Timeout</span>
+                <span style="color: var(--text-muted); font-size: 0.7rem;">Auto-lock threshold</span>
+              </label>
+              <select id="sessionTimeoutSelect" class="modal-select" style="font-size: 0.82rem;">
+                <option value="15">15 Minutes (Strict Security — Zero Drift)</option>
+                <option value="30" selected>30 Minutes (Recommended Compliance Window)</option>
+                <option value="60">60 Minutes (Standard Operations Shift)</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #fff;">Active Administrator Sessions</span>
+                <span id="activeSessionsLabel" style="font-size: 0.7rem; color: var(--text-muted);">3 tokens active</span>
+              </div>
+              <div id="activeSessionsContainer">
+                <!-- Session 1: Current -->
+                <div class="session-device-row current-device">
+                  <div class="session-device-left">
+                    <span class="session-device-icon">💻</span>
+                    <div class="session-device-info">
+                      <h6>macOS 14.6 • Chrome 130</h6>
+                      <p>IP: 10.0.4.12 • Mumbai Node (Active Console)</p>
+                    </div>
+                  </div>
+                  <span class="session-device-badge active-now">Current Session</span>
+                </div>
+                <!-- Session 2: Remote -->
+                <div class="session-device-row" id="remoteSessionRow1">
+                  <div class="session-device-left">
+                    <span class="session-device-icon">🖥️</span>
+                    <div class="session-device-info">
+                      <h6>Linux x86_64 • Firefox 132</h6>
+                      <p>IP: 49.37.14.88 • Bengaluru Gateway</p>
+                    </div>
+                  </div>
+                  <span class="session-device-badge idle">Idle 24m ago</span>
+                </div>
+                <!-- Session 3: Remote Mobile -->
+                <div class="session-device-row" id="remoteSessionRow2">
+                  <div class="session-device-left">
+                    <span class="session-device-icon">📱</span>
+                    <div class="session-device-info">
+                      <h6>iOS 18.1 • Mobile Safari</h6>
+                      <p>IP: 103.253.14.2 • Singapore Transit</p>
+                    </div>
+                  </div>
+                  <span class="session-device-badge idle">Idle 1h ago</span>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" id="btnTerminateOtherSessions" class="btn-table btn-table-reject" style="width: 100%; padding: 10px; font-weight: 700; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <span>🚫</span>
+              <span>Terminate All Other Sessions</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </main>
+
+  <!-- Interactive 2FA Setup Modal -->
+  <div class="modal-overlay" id="twoFactorModal">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+          <span>🔑</span>
+          <span>Setup Two-Factor Authentication (TOTP)</span>
+        </div>
+        <button class="modal-close-btn" id="btnClose2FAModalX">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+          Scan the QR code below using your authenticator app (e.g. Google Authenticator, Microsoft Authenticator, or Authy).
+        </p>
+
+        <!-- Simulated QR Code -->
+        <div style="text-align: center; margin-bottom: 16px;">
+          <div class="qr-code-box">
+            <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="160" height="160" fill="#ffffff" rx="6"/>
+              <!-- Corner Finder Pattern 1 -->
+              <rect x="12" y="12" width="36" height="36" fill="#0b0f24" rx="3"/>
+              <rect x="18" y="18" width="24" height="24" fill="#ffffff" rx="2"/>
+              <rect x="24" y="24" width="12" height="12" fill="#0b0f24" rx="1"/>
+              <!-- Corner Finder Pattern 2 -->
+              <rect x="112" y="12" width="36" height="36" fill="#0b0f24" rx="3"/>
+              <rect x="118" y="18" width="24" height="24" fill="#ffffff" rx="2"/>
+              <rect x="124" y="24" width="12" height="12" fill="#0b0f24" rx="1"/>
+              <!-- Corner Finder Pattern 3 -->
+              <rect x="12" y="112" width="36" height="36" fill="#0b0f24" rx="3"/>
+              <rect x="18" y="118" width="24" height="24" fill="#ffffff" rx="2"/>
+              <rect x="24" y="124" width="12" height="12" fill="#0b0f24" rx="1"/>
+              <!-- Data Matrix Simulators -->
+              <rect x="56" y="16" width="8" height="8" fill="#0b0f24"/>
+              <rect x="72" y="16" width="16" height="8" fill="#0b0f24"/>
+              <rect x="96" y="16" width="8" height="8" fill="#0b0f24"/>
+              <rect x="56" y="32" width="16" height="8" fill="#0b0f24"/>
+              <rect x="80" y="32" width="8" height="16" fill="#0b0f24"/>
+              <rect x="96" y="40" width="8" height="8" fill="#0b0f24"/>
+              <rect x="16" y="56" width="8" height="16" fill="#0b0f24"/>
+              <rect x="32" y="56" width="16" height="8" fill="#0b0f24"/>
+              <rect x="56" y="56" width="8" height="8" fill="#06b6d4"/>
+              <rect x="72" y="56" width="16" height="16" fill="#0b0f24"/>
+              <rect x="96" y="56" width="8" height="8" fill="#0b0f24"/>
+              <rect x="112" y="56" width="16" height="8" fill="#0b0f24"/>
+              <rect x="136" y="56" width="8" height="16" fill="#0b0f24"/>
+              <rect x="24" y="80" width="16" height="8" fill="#0b0f24"/>
+              <rect x="48" y="72" width="16" height="16" fill="#0b0f24"/>
+              <rect x="72" y="80" width="8" height="8" fill="#a855f7"/>
+              <rect x="88" y="80" width="16" height="8" fill="#0b0f24"/>
+              <rect x="112" y="72" width="8" height="16" fill="#0b0f24"/>
+              <rect x="128" y="80" width="16" height="8" fill="#0b0f24"/>
+              <rect x="56" y="96" width="8" height="16" fill="#0b0f24"/>
+              <rect x="72" y="104" width="16" height="8" fill="#0b0f24"/>
+              <rect x="96" y="96" width="16" height="16" fill="#0b0f24"/>
+              <rect x="120" y="96" width="8" height="8" fill="#0b0f24"/>
+              <rect x="56" y="120" width="16" height="8" fill="#0b0f24"/>
+              <rect x="80" y="120" width="8" height="16" fill="#0b0f24"/>
+              <rect x="96" y="128" width="16" height="8" fill="#0b0f24"/>
+              <rect x="120" y="120" width="16" height="8" fill="#0b0f24"/>
+              <rect x="64" y="136" width="8" height="12" fill="#0b0f24"/>
+              <rect x="88" y="140" width="16" height="8" fill="#0b0f24"/>
+              <rect x="112" y="136" width="8" height="12" fill="#0b0f24"/>
+              <rect x="128" y="136" width="16" height="12" fill="#0b0f24"/>
+            </svg>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px;">
+            <code>otpauth://totp/WatchEarn-Admin:admin@watchearn.app</code>
+          </div>
+        </div>
+
+        <!-- Manual Secret Key -->
+        <div class="modal-field">
+          <label class="modal-label" style="display: flex; justify-content: space-between;">
+            <span>Or Enter Secret Key Manually</span>
+            <span style="color: var(--text-muted); font-size: 0.7rem;">Base32 Encoded</span>
+          </label>
+          <div class="base32-key-card">
+            <span class="base32-key-text" id="base32SecretDisplay">JBSW Y3DP EHPK 3PXP</span>
+            <button type="button" class="btn-copy-secret" id="btnCopySecretKey">📋 Copy Key</button>
+          </div>
+        </div>
+
+        <!-- Verification Input -->
+        <div class="modal-field" style="margin-top: 14px;">
+          <label class="modal-label">Enter 6-Digit Authenticator Code</label>
+          <input type="text" id="twoFactorCodeInput" class="modal-input" placeholder="000000" maxlength="6" autocomplete="off" style="text-align: center; font-family: var(--font-mono); font-size: 1.4rem; letter-spacing: 0.4em; font-weight: 700; color: var(--cyan-primary);">
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 4px; text-align: center;">Enter any 6 digits to verify the simulation link.</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-table" id="btnClose2FAModal" style="background: rgba(255,255,255,0.06); color: #fff;">Cancel</button>
+        <button type="button" class="btn-table btn-table-approve" id="btnVerify2FACode" style="padding: 10px 20px; font-weight: 700;">
+          Verify &amp; Activate 2FA
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast-container" id="toastContainer"></div>
   <script src="js/admin.js"></script>

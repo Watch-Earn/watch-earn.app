@@ -54,6 +54,10 @@
         <span class="nav-item-icon">🤝</span>
         <span>Partners &amp; Webhooks</span>
       </a>
+      <a href="sponsorships.html" class="nav-item" data-page="sponsorships">
+        <span class="nav-item-icon">🎯</span>
+        <span>Brand Sponsorships</span>
+      </a>
       <a href="fraud.html" class="nav-item active" data-page="fraud">
         <span class="nav-item-icon">🛡️</span>
         <span>Fraud &amp; Velocity</span>
@@ -189,6 +193,58 @@
         </div>
       </div>
 
+      <!-- Automated Circuit Breaker & High-Velocity Alert Card -->
+      <div class="velocity-circuit-breaker-card" id="velocityAlertCard">
+        <div class="velocity-breaker-header">
+          <div class="velocity-breaker-title">
+            <span style="font-size: 1.4rem;">🚨</span>
+            <div>
+              <h3>HIGH-VELOCITY BURST BREACH — AUTOMATED CIRCUIT BREAKER</h3>
+              <p style="font-size: 0.75rem; color: #fca5a5; margin-top: 2px;">
+                Critical velocity threshold anomaly triggered: Abnormal task completion burst detected on user account.
+              </p>
+            </div>
+          </div>
+          <span class="status-pill status-under_review" id="quarantineStatusBadge" style="font-size: 0.75rem; padding: 4px 12px;">Active Velocity Threat</span>
+        </div>
+
+        <div class="velocity-breaker-grid">
+          <div class="velocity-metric-item">
+            <span>Target Account</span>
+            <strong style="color: var(--cyan-primary);">Karan Mehra (#215)</strong>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">Phone: ...4489 • 2 Devices</div>
+          </div>
+
+          <div class="velocity-metric-item">
+            <span>Telemetry Trigger</span>
+            <strong style="color: var(--rose-primary);">8 Tasks in 180s</strong>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">Rate Limit: max 5 / 300s (4.4x rate)</div>
+          </div>
+
+          <div class="velocity-metric-item">
+            <span>Exposed Liquid Balance</span>
+            <strong style="color: var(--gold-primary);" id="exposedBalanceDisplay">8,200 Coins (₹8.20)</strong>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">+ 5,000 Pending • 50,000 Reserved</div>
+          </div>
+
+          <div class="velocity-metric-item">
+            <span>Risk Score / Integrity</span>
+            <strong style="color: var(--rose-primary);">CRITICAL (0.89)</strong>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">Automated script pattern detected</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div style="font-size: 0.78rem; color: var(--text-secondary); max-width: 600px; line-height: 1.4;">
+            Quarantining atomically freezes available &amp; pending balances, revokes active sessions, halts pending payout #1040, and commits an irreversible entry to the audit log.
+          </div>
+          <button type="button" class="btn-quarantine-active" id="btnQuarantineAccount" onclick="window.WatchEarnAdmin.quarantineUser(215, 'SIG-900')">
+            <span>🔒</span>
+            <span id="btnQuarantineText">Quarantine Account</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Main Signals Table -->
       <div class="hud-card">
         <div class="hud-card-header">
@@ -219,13 +275,23 @@
                 <td><code>ro.kernel.qemu=1, ro.product.model=BlueStacks</code></td>
                 <td>Account auto-suspended; payouts blocked</td>
               </tr>
-              <tr>
+              <tr id="sigRow900">
                 <td><strong>#SIG-900</strong></td>
-                <td>User ...4489 (#215)</td>
-                <td><span class="status-pill status-under_review">Velocity Spike</span></td>
-                <td><strong style="color: var(--gold-primary);">MEDIUM</strong></td>
-                <td>8 tasks completed within 180 seconds</td>
-                <td>Flagged for manual analyst verification</td>
+                <td>
+                  <div style="font-weight: 700;">User ...4489 (#215)</div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Karan Mehra</div>
+                </td>
+                <td><span class="status-pill status-under_review" id="sigPill900">Velocity Spike</span></td>
+                <td><strong style="color: var(--gold-primary);" id="sigSeverity900">MEDIUM (ANOMALY)</strong></td>
+                <td><code>8 tasks completed within 180 seconds</code></td>
+                <td id="sigActionCell900">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted);" id="sigActionText900">Flagged for verification</span>
+                    <button class="btn-table btn-table-reject" style="padding: 4px 10px; font-size: 0.72rem;" onclick="window.WatchEarnAdmin.quarantineUser(215, 'SIG-900')">
+                      Quarantine
+                    </button>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><strong>#SIG-899</strong></td>

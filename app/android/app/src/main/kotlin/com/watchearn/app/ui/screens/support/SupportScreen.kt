@@ -3,6 +3,7 @@ package com.watchearn.app.ui.screens.support
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -38,7 +39,7 @@ fun SupportScreen(
             .background(DarkNavyBg)
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AppHeader(title = "Help & Support", onBackClick = onBack)
 
@@ -76,6 +77,7 @@ fun SupportScreen(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))
                                 .background(if (isSelected) RadiantPurple else Color(0xFF1E2145))
+                                .clickable { selectedCategory = cat }
                                 .padding(horizontal = 12.dp, vertical = 6.dp)
                         ) {
                             Text(label, fontSize = 12.sp, color = TextPrimary)

@@ -89,4 +89,76 @@ class WithdrawalWorkflowTest extends TestCase
         $this->assertEquals(0, $finalSummary['reserved_coins']);
         $this->assertEquals(10000, $finalSummary['paid_coins']);
     }
+
+    public function test_driver_configuration_and_graceful_fallback(): void
+    {
+        $this->withdrawalService->setDriver('cashfree');
+        $this->assertEquals('cashfree', $this->withdrawalService->getDriver());
+
+        $this->withdrawalService->setDriver('razorpayx');
+        $this->assertEquals('razorpayx', $this->withdrawalService->getDriver());
+
+        $this->withdrawalService->setDriver('sandbox');
+        $this->assertEquals('mock', $this->withdrawalService->getDriver());
+
+        // Invalid driver must gracefully fall back to mock
+        $this->withdrawalService->setDriver('unsupported_gateway_xyz');
+        $this->assertEquals('mock', $this->withdrawalService->getDriver());
+    }
+
+    public function test_dispatch_payout_with_cashfree_graceful_fallback(): void
+    {
+        $this->walletService->creditPendingReward($this->user, 15000, 'ref_cf_1', 'idem_cf_1');
+        $this->walletService->releasePendingReward($this->user, 15000, 'ref_cf_1');
+
+        $req = $this->withdrawalService->requestWithdrawal($this->user, 10000, 'user@okhdfcbank', 'idem_cf_req_1');
+        $withdrawal = $req['withdrawal'];
+
+        // Dispatch via cashfree driver without API keys -> must gracefully fall back to mock
+        $dispatchRes = $this->withdrawalService->dispatchPayout($withdrawal, 'cashfree');
+        $this->assertTrue($dispatchRes['success']);
+        $this->assertTrue($dispatchRes['fallback_used']);
+        $this->assertEquals('paid', $dispatchRes['status']);
+        $this->assertEquals('paid', $withdrawal->fresh()->status);
+    }
+
+    public function test_dispatch_payout_with_razorpayx_graceful_fallback(): void
+    {
+        $this->walletService->creditPendingReward($this->user, 15000, 'ref_rz_1', 'idem_rz_1');
+        $this->walletService->releasePendingReward($this->user, 15000, 'ref_rz_1');
+
+        $req = $this->withdrawalService->requestWithdrawal($this->user, 10000, 'user@ybl', 'idem_rz_req_1');
+        $withdrawal = $req['withdrawal'];
+
+        // Dispatch via razorpayx driver without API keys -> must gracefully fall back to mock
+        $dispatchRes = $this->withdrawalService->dispatchPayout($withdrawal, 'razorpayx');
+        $this->assertTrue($dispatchRes['success']);
+        $this->assertTrue($dispatchRes['fallback_used']);
+        $this->assertEquals('paid', $dispatchRes['status']);
+        $this->assertEquals('paid', $withdrawal->fresh()->status);
+    }
+
+    public function test_bank_statement_reconciliation_runner(): void
+    {
+        // Credit and reserve coins
+        $this->walletService->creditPendingReward($this->user, 20000, 'ref_recon_1', 'idem_recon_1');
+        $this->walletService->releasePendingReward($this->user, 20000, 'ref_recon_1');
+        $req = $this->withdrawalService->requestWithdrawal($this->user, 10000, 'recon@okhdfcbank', 'idem_recon_req_1');
+
+        // Balanced reconciliation test
+        $recon = $this->withdrawalService->reconcileBankStatement();
+        $this->assertTrue($recon['is_balanced']);
+        $this->assertEquals('reconciled', $recon['status']);
+        $this->assertEquals(10000, $recon['ledger_reserved_coins']);
+        $this->assertEquals(1000, $recon['ledger_reserved_paise']);
+        $this->assertEquals(0, $recon['discrepancy_paise']);
+
+        // Discrepancy detection test (e.g., bank report has 1,500 paise vs ledger 1,000 paise)
+        $reconDiscrepancy = $this->withdrawalService->reconcileBankStatement([
+            'bank_balance_paise' => 1500,
+        ]);
+        $this->assertFalse($reconDiscrepancy['is_balanced']);
+        $this->assertEquals('discrepancy_detected', $reconDiscrepancy['status']);
+        $this->assertEquals(500, $reconDiscrepancy['discrepancy_paise']);
+    }
 }

@@ -1,7 +1,9 @@
 package com.watchearn.app.ui.screens.tasks
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +31,7 @@ fun TasksScreen(
     repository: WatchEarnRepository,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val user by repository.user.collectAsState()
 
     Column(
@@ -38,7 +42,7 @@ fun TasksScreen(
     ) {
         AppHeader(title = "Achievements & Tasks", onBackClick = onBack)
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Streak Card (Matching 17_Achievements_Progress.png)
         Box(
@@ -55,6 +59,9 @@ fun TasksScreen(
                     Brush.horizontalGradient(listOf(RadiantPurple, ElectricCyan)),
                     RoundedCornerShape(18.dp)
                 )
+                .clickable {
+                    Toast.makeText(context, "Streak: Active for ${user.streakDays} consecutive days! Keep checking in daily for multipliers.", Toast.LENGTH_SHORT).show()
+                }
                 .padding(18.dp)
         ) {
             Row(
@@ -118,6 +125,13 @@ fun TasksScreen(
                         .clip(RoundedCornerShape(14.dp))
                         .background(DarkCardSurfaceElevated)
                         .border(1.dp, DarkBorder, RoundedCornerShape(14.dp))
+                        .clickable {
+                            if (item.isCompleted) {
+                                Toast.makeText(context, "${item.title}: Already completed & rewarded!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "${item.title}: Active! Progress recorded automatically.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                         .padding(14.dp)
                 ) {
                     Row(

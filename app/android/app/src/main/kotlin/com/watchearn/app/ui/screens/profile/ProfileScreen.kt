@@ -66,7 +66,7 @@ fun ProfileScreen(
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AppHeader(title = "Your Profile", onBackClick = onBack)
 
@@ -94,7 +94,11 @@ fun ProfileScreen(
                     .size(30.dp)
                     .clip(CircleShape)
                     .background(Color(0xFF4C1D95), CircleShape)
-                    .border(1.5.dp, Color.White, CircleShape),
+                    .border(1.5.dp, Color.White, CircleShape)
+                    .clickable {
+                        tempName = user.name
+                        showEditProfileDialog = true
+                    },
                 contentAlignment = Alignment.Center
             ) {
                 Icon(

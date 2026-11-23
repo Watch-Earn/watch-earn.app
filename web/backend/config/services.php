@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'cashfree' => [
+        'app_id' => env('CASHFREE_APP_ID'),
+        'secret_key' => env('CASHFREE_SECRET_KEY'),
+        'environment' => env('CASHFREE_ENV', 'sandbox'),
+    ],
+
+    'razorpayx' => [
+        'key' => env('RAZORPAYX_KEY'),
+        'secret' => env('RAZORPAYX_SECRET'),
+        'account_number' => env('RAZORPAYX_ACCOUNT_NUMBER'),
+    ],
+
 ];

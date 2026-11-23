@@ -358,4 +358,61 @@ class AdminController extends Controller
             'data' => $logs,
         ]);
     }
+
+    public function getPayoutGateway(Request $request, \App\Services\WithdrawalService $withdrawalService): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'active_gateway' => $withdrawalService->getDriver(),
+                'supported_gateways' => $withdrawalService->getSupportedDrivers(),
+            ],
+        ]);
+    }
+
+    public function updatePayoutGateway(Request $request, \App\Services\WithdrawalService $withdrawalService): JsonResponse
+    {
+        $request->validate([
+            'gateway' => 'required|string|in:mock,cashfree,razorpayx',
+        ]);
+
+        $gateway = $request->input('gateway');
+        $withdrawalService->setDriver($gateway);
+
+        AdminAuditLog::create([
+            'admin_id' => (string) ($request->user()?->id ?? 'admin_console'),
+            'action' => 'payout_gateway_switched',
+            'target_type' => 'gateway_config',
+            'target_id' => $gateway,
+            'reason' => "Payout driver switched to {$gateway}",
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Payout gateway driver switched to {$gateway}",
+            'data' => [
+                'active_gateway' => $withdrawalService->getDriver(),
+            ],
+        ]);
+    }
+
+    public function runBankReconciliation(Request $request, \App\Services\WithdrawalService $withdrawalService): JsonResponse
+    {
+        $payload = $request->all();
+        $result = $withdrawalService->reconcileBankStatement($payload);
+
+        AdminAuditLog::create([
+            'admin_id' => (string) ($request->user()?->id ?? 'admin_console'),
+            'action' => 'bank_reconciliation_executed',
+            'target_type' => 'reconciliation',
+            'target_id' => $result['reconciliation_id'],
+            'reason' => "Status: {$result['status']}; Discrepancy: ₹{$result['discrepancy_inr']}",
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Bank reconciliation completed successfully',
+            'data' => $result,
+        ]);
+    }
 }

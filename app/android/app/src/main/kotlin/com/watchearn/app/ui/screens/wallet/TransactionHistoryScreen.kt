@@ -45,7 +45,7 @@ fun TransactionHistoryScreen(
     ) {
         AppHeader(title = "Transaction History", onBackClick = onBack)
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Filter Pills: All, Earnings, Withdrawals (Matching 15_Transaction_History.png)
         Row(

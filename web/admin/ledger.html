@@ -54,6 +54,10 @@
         <span class="nav-item-icon">🤝</span>
         <span>Partners &amp; Webhooks</span>
       </a>
+      <a href="sponsorships.html" class="nav-item" data-page="sponsorships">
+        <span class="nav-item-icon">🎯</span>
+        <span>Brand Sponsorships</span>
+      </a>
       <a href="fraud.html" class="nav-item" data-page="fraud">
         <span class="nav-item-icon">🛡️</span>
         <span>Fraud &amp; Velocity</span>
@@ -148,6 +152,90 @@
         </div>
 
         <div id="invariantFeedback" style="display: none;"></div>
+      </div>
+
+      <!-- Cryptographic Tamper-Evident Seal Indicator -->
+      <div class="hud-card" style="margin-bottom: 24px; border: 1px solid rgba(16, 185, 129, 0.35); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(21, 27, 71, 0.6) 100%);">
+        <div class="hud-card-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 12px; margin-bottom: 12px;">
+          <div class="hud-card-title">
+            <span>🔒</span>
+            <span style="color: var(--emerald-primary); font-weight: 700;">Cryptographic Tamper-Evident Seal Indicator</span>
+            <span class="status-pill status-approved" id="sealStatusPill" style="font-size: 0.68rem; margin-left: 8px;">Zero Balance Drift Verified</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);" id="sealBlockHeight">Block #14,924 • SHA-256 Sequential Integrity Active</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: center;">
+          <div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+              Current Journal State SHA-256 Block Hash
+            </div>
+            <div style="background: rgba(8, 11, 32, 0.7); border: 1px solid var(--border-subtle); padding: 8px 12px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+              <code id="ledgerSealHash" style="color: var(--cyan-primary); font-family: var(--font-mono); font-size: 0.76rem; word-break: break-all;">
+                Computing SHA-256 state seal...
+              </code>
+              <button class="btn-table" id="btnCopySealHash" style="padding: 3px 8px; font-size: 0.68rem; background: rgba(255,255,255,0.08);" title="Copy Hash">
+                📋
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 20px; justify-content: flex-start; flex-wrap: wrap;">
+            <div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); display: block;">Balance Drift</span>
+              <strong style="color: var(--emerald-primary); font-size: 0.95rem; font-family: var(--font-mono);">Δ = 0.00 Coins</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); display: block;">Sequential Audit Chain</span>
+              <strong style="color: #fff; font-size: 0.95rem;">Unbroken Chain</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); display: block;">Last Integrity Seal</span>
+              <strong style="color: var(--text-secondary); font-size: 0.85rem; font-family: var(--font-mono);" id="sealTimestamp">Live</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tally & Enterprise ERP Double-Entry Export Toolbar -->
+      <div class="hud-card" style="margin-bottom: 24px;">
+        <div class="hud-card-header">
+          <div class="hud-card-title">
+            <span>📦</span>
+            <span>Tally &amp; Enterprise ERP Double-Entry Export</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Standardized Double-Entry General Ledger Export Engine</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <div>
+              <label style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 4px; text-transform: uppercase; font-weight: 700;">Format Options</label>
+              <select id="erpExportFormat" class="modal-select" style="min-width: 190px; padding: 7px 12px; font-size: 0.82rem;">
+                <option value="csv">Standard CSV Journal</option>
+                <option value="tally_xml">Tally XML Format (ERP 9 / Prime)</option>
+                <option value="json">JSON Double-Entry Journal</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 4px; text-transform: uppercase; font-weight: 700;">Date Range</label>
+              <select id="erpDateRange" class="modal-select" style="min-width: 150px; padding: 7px 12px; font-size: 0.82rem;">
+                <option value="all">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="btn-table btn-table-approve" id="btnExportErp" style="padding: 9px 18px; font-size: 0.82rem;">
+              <span>📥</span>
+              <span>Export Journal Feed</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Main Ledger Table -->

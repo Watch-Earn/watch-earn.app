@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch &amp; Earn — Brand Sponsorships &amp; Advertiser CRM</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-page="sponsorships">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/brand_emblem.png" alt="Emblem" class="brand-emblem-img">
+      <div class="brand-text">
+        <h1>WATCH &amp; EARN</h1>
+        <span>Admin Operations HUD</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Operations</div>
+      <a href="index.html" class="nav-item" data-page="overview">
+        <span class="nav-item-icon">📊</span>
+        <span>Overview &amp; HUD</span>
+      </a>
+      <a href="withdrawals.html" class="nav-item" data-page="withdrawals">
+        <span class="nav-item-icon">💸</span>
+        <span>Withdrawals</span>
+        <span class="nav-badge danger" id="navWdBadge" style="display: none;">0</span>
+      </a>
+      <a href="users.html" class="nav-item" data-page="users">
+        <span class="nav-item-icon">👥</span>
+        <span>Users &amp; Security</span>
+      </a>
+
+      <div class="nav-section-title">Messaging &amp; Push</div>
+      <a href="notifications.html" class="nav-item" data-page="notifications">
+        <span class="nav-item-icon">🔔</span>
+        <span>Push Campaigns</span>
+      </a>
+
+      <div class="nav-section-title">Ledger &amp; Partners</div>
+      <a href="ledger.html" class="nav-item" data-page="ledger">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Double-Entry Ledger</span>
+      </a>
+      <a href="partners.html" class="nav-item" data-page="partners">
+        <span class="nav-item-icon">🤝</span>
+        <span>Partners &amp; Webhooks</span>
+      </a>
+      <a href="sponsorships.html" class="nav-item active" data-page="sponsorships">
+        <span class="nav-item-icon">🎯</span>
+        <span>Brand Sponsorships</span>
+      </a>
+      <a href="fraud.html" class="nav-item" data-page="fraud">
+        <span class="nav-item-icon">🛡️</span>
+        <span>Fraud &amp; Velocity</span>
+      </a>
+
+      <div class="nav-section-title">Disputes &amp; Audit</div>
+      <a href="support.html" class="nav-item" data-page="support">
+        <span class="nav-item-icon">🎫</span>
+        <span>Support Tickets</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <span class="nav-item-icon">📜</span>
+        <span>Audit Trail</span>
+      </a>
+      <a href="settings.html" class="nav-item" data-page="settings">
+        <span class="nav-item-icon">⚙️</span>
+        <span>Compliance Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="node-status-pill">
+        <div class="pulse-indicator">
+          <div class="pulse-dot"></div>
+          <span>Node: Mumbai-IN</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">v1.0.4</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+        <div class="page-title-box">
+          <h2>Brand Sponsorships &amp; Advertiser CRM</h2>
+          <p>Direct advertiser deal-flow pipeline, sponsored quest campaigns, performance advertiser CRM &amp; postbacks</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mode-toggle-chip" id="modeToggle">
+          <div class="mode-status-led" id="modeStatusLed"></div>
+          <span id="modeLabel">Connecting...</span>
+        </div>
+        <button class="btn-refresh" id="btnRefresh">
+          <span>🔄</span>
+          <span>Sync</span>
+        </button>
+        <div class="admin-avatar-card">
+          <div class="avatar-circle">SA</div>
+          <div class="admin-info">
+            <div class="admin-info-name">Sec Officer</div>
+            <div class="admin-info-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+
+      <!-- Statutory & Policy Notice -->
+      <div class="notice-box" style="margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <strong>Brand Escrow &amp; Server-Authoritative Attribution:</strong> Direct brand sponsor budgets are held in verified escrow. User rewards are minted strictly upon cryptographically signed HMAC postback or validated deep engagement milestone.
+        </div>
+        <div style="font-weight: 700; color: var(--emerald-primary);">
+          ✓ Verified Indian Brand Sponsorship Network
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Total Inbound Brand Leads</span>
+            <span class="kpi-icon">📬</span>
+          </div>
+          <div class="kpi-value" id="kpiTotalBrandLeads">--</div>
+          <div class="kpi-sub">
+            <span class="trend-up" id="kpiNewLeadsTrend">+3 this week</span> Inbound advertiser briefs
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Active Brand Sponsors</span>
+            <span class="kpi-icon">🏢</span>
+          </div>
+          <div class="kpi-value" id="kpiActiveBrandSponsors" style="color: var(--cyan-primary);">--</div>
+          <div class="kpi-sub">
+            Live direct campaign partners
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Pipeline Deal Value (₹)</span>
+            <span class="kpi-icon">💰</span>
+          </div>
+          <div class="kpi-value" id="kpiPipelineDealValue" style="color: var(--emerald-primary);">--</div>
+          <div class="kpi-sub">
+            Active negotiation deal flow
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Conversion Rate</span>
+            <span class="kpi-icon">📈</span>
+          </div>
+          <div class="kpi-value" id="kpiConversionRate" style="color: var(--purple-light);">--</div>
+          <div class="kpi-sub">
+            Lead to Active Partner ratio
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: INBOUND LEADS CRM PIPELINE -->
+      <div class="hud-card" style="margin-bottom: 32px;">
+        <div class="hud-card-header" style="flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div class="hud-card-title">
+              <span>💼</span>
+              <span>Inbound Leads CRM Pipeline</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">
+              Manage direct advertising requests originating from website campaign briefs, emails, and direct agency pitches
+            </span>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <a href="/advertise.html" target="_blank" class="btn-table btn-table-view" style="padding: 7px 14px; text-decoration: none;">
+              <span>🌐</span> <span>View Website Brief Form</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="filter-toolbar">
+          <div class="filter-group-left" id="leadFilterGroup">
+            <button class="filter-chip lead-filter-chip active" data-filter="all">
+              All Leads <span class="filter-count" id="countAllLeads">0</span>
+            </button>
+            <button class="filter-chip lead-filter-chip" data-filter="New">
+              New <span class="filter-count" id="countNewLeads">0</span>
+            </button>
+            <button class="filter-chip lead-filter-chip" data-filter="Contacted">
+              Contacted <span class="filter-count" id="countContactedLeads">0</span>
+            </button>
+            <button class="filter-chip lead-filter-chip" data-filter="Proposal Sent">
+              Proposal Sent <span class="filter-count" id="countProposalLeads">0</span>
+            </button>
+            <button class="filter-chip lead-filter-chip" data-filter="Active Partner">
+              Active Partner <span class="filter-count" id="countActiveLeads">0</span>
+            </button>
+            <button class="filter-chip lead-filter-chip" data-filter="Closed">
+              Closed <span class="filter-count" id="countClosedLeads">0</span>
+            </button>
+          </div>
+
+          <div class="search-input-box">
+            <span class="search-icon-pos">🔍</span>
+            <input type="text" id="leadSearchInput" placeholder="Filter by brand name, email, or contact...">
+          </div>
+        </div>
+
+        <!-- Leads Table -->
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Lead ID</th>
+                <th>Brand &amp; Contact Person</th>
+                <th>Objective / Type</th>
+                <th>Budget &amp; Est. Value</th>
+                <th>Submission Date</th>
+                <th>CRM Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sponsorshipLeadsTableBody">
+              <!-- Dynamically hydrated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 2: BRANDED CAMPAIGN CREATOR & ACTIVE CAMPAIGNS -->
+      <div style="display: grid; grid-template-columns: 1.1fr 1.5fr; gap: 24px; margin-bottom: 32px;" class="sponsorship-studio-grid">
+        
+        <!-- Left Column: Branded Campaign Creator -->
+        <div class="hud-card" style="margin-bottom: 0;">
+          <div class="hud-card-header">
+            <div class="hud-card-title">
+              <span>🚀</span>
+              <span>Branded Campaign Creator</span>
+            </div>
+            <span class="status-badge live" style="font-size: 0.75rem;">Escrow Locked</span>
+          </div>
+
+          <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 18px;">
+            Configure and launch a server-authoritative sponsored quest, CPI app install, or consumer survey campaign for an onboarded brand partner.
+          </p>
+
+          <form id="sponsorshipCampaignForm" onsubmit="event.preventDefault(); window.WatchEarnAdmin.createSponsoredCampaign();">
+            <div class="modal-field">
+              <label class="modal-label" for="spBrandName">
+                Brand Name <span style="color: var(--danger-color);">*</span>
+              </label>
+              <input type="text" class="modal-input" id="spBrandName" placeholder="e.g. Swiggy Instamart" required maxlength="100">
+            </div>
+
+            <div class="modal-field">
+              <label class="modal-label" for="spCampaignType">
+                Campaign Type <span style="color: var(--danger-color);">*</span>
+              </label>
+              <select class="modal-select" id="spCampaignType" required>
+                <option value="Video Quest">Video Quest (Watch &amp; Quiz Explainer)</option>
+                <option value="CPI App Installs" selected>CPI App Installs (Verified Install &amp; Open)</option>
+                <option value="Survey">Survey (Verified Demographic Research)</option>
+                <option value="Weekend Headline">Weekend Headline (Full App Banner Takeover)</option>
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="modal-field">
+                <label class="modal-label" for="spCoinBudget">
+                  Total Coin Budget <span style="color: var(--danger-color);">*</span>
+                </label>
+                <input type="number" class="modal-input" id="spCoinBudget" placeholder="1000000" min="1000" step="1000" value="1500000" required>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 4px; display: block;" id="spBudgetEquivHint">
+                  ≈ ₹15,000.00 liability budget
+                </span>
+              </div>
+
+              <div class="modal-field">
+                <label class="modal-label" for="spPayoutPerAction">
+                  Payout Per Action (Coins) <span style="color: var(--danger-color);">*</span>
+                </label>
+                <input type="number" class="modal-input" id="spPayoutPerAction" placeholder="50" min="1" step="1" value="50" required>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 4px; display: block;" id="spPayoutEquivHint">
+                  = ₹0.50 per verified action
+                </span>
+              </div>
+            </div>
+
+            <div class="modal-field">
+              <label class="modal-label" for="spTargetAudience">
+                Target Audience &amp; Cohort
+              </label>
+              <select class="modal-select" id="spTargetAudience">
+                <option value="All Active Users (PAN India)" selected>All Active Users (PAN India 18+)</option>
+                <option value="Tier 1 Metro (18-35)">Tier 1 Metro Cities (18-35, Android 11+)</option>
+                <option value="Tier 2 & 3 Mobile Gamers">Tier 2 &amp; Tier 3 Mobile Gamers</option>
+                <option value="High Earners & Salaried">High Balance &amp; Salaried Demographic</option>
+                <option value="College Students (18-24)">College Students (18-24)</option>
+              </select>
+            </div>
+
+            <div class="modal-field">
+              <label class="modal-label" for="spTrackingLink">
+                Tracking Link / Attribution URL
+              </label>
+              <input type="url" class="modal-input" id="spTrackingLink" placeholder="https://tracking.partner.com/click?sub1={user_id}" style="font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+
+            <div class="modal-field">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="modal-label" for="spHmacSecret" style="margin-bottom: 0;">
+                  HMAC Secret Key (Postback Verification)
+                </label>
+                <button type="button" id="btnGenHmacSecret" style="background: none; border: none; color: var(--cyan-primary); font-size: 0.75rem; font-weight: 700; cursor: pointer; padding: 0;">
+                  ⚡ Auto-Generate
+                </button>
+              </div>
+              <input type="text" class="modal-input" id="spHmacSecret" placeholder="sec_brand_xxxxxx" style="font-family: var(--font-mono); font-size: 0.8rem;">
+            </div>
+
+            <button type="submit" class="btn-table btn-table-approve" id="btnSubmitCampaign" style="width: 100%; padding: 12px; font-size: 0.9rem; font-weight: 700; margin-top: 10px;">
+              🚀 Launch Sponsored Campaign
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Active Sponsored Campaigns Table -->
+        <div class="hud-card" style="margin-bottom: 0; display: flex; flex-direction: column;">
+          <div class="hud-card-header">
+            <div>
+              <div class="hud-card-title">
+                <span>🎯</span>
+                <span>Active Sponsored Campaigns</span>
+              </div>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">
+                Real-time coin burn rate, engagement velocity &amp; completed conversions
+              </span>
+            </div>
+            <button class="btn-table btn-table-view" onclick="window.WatchEarnAdmin.syncSponsorships()" style="font-size: 0.78rem;">
+              <span>🔄</span> Refresh
+            </button>
+          </div>
+
+          <div class="table-responsive" style="flex: 1;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Brand Name</th>
+                  <th>Campaign Type</th>
+                  <th>Allocated Budget</th>
+                  <th>Burn Rate</th>
+                  <th>Completions</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="sponsoredCampaignsTableBody">
+                <!-- Dynamically hydrated by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL: View Lead Brief & Update Status -->
+  <div class="modal-overlay" id="leadModal">
+    <div class="modal-dialog" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="leadModalTitle">Advertiser Campaign Brief</h3>
+        <button class="modal-close-btn modal-close-trigger" aria-label="Close">✕</button>
+      </div>
+      
+      <form id="leadStatusForm" onsubmit="event.preventDefault(); window.WatchEarnAdmin.saveLeadModal();">
+        <div class="modal-body">
+          <input type="hidden" id="leadModalId">
+          
+          <!-- Lead Brief Overview Card -->
+          <div id="leadModalBriefCard" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+            <!-- Hydrated dynamically -->
+          </div>
+
+          <!-- Status Selector -->
+          <div class="modal-field">
+            <label class="modal-label" for="leadModalStatus">
+              Update CRM Pipeline Status <span style="color: var(--danger-color);">*</span>
+            </label>
+            <select class="modal-select" id="leadModalStatus" required>
+              <option value="New">New (Uncontacted Inbound Inquiry)</option>
+              <option value="Contacted">Contacted (Introductory Pitch / Media Kit Sent)</option>
+              <option value="Proposal Sent">Proposal Sent (CPA Schedule &amp; Contract Drafting)</option>
+              <option value="Active Partner">Active Partner (Live Campaign Running)</option>
+              <option value="Closed">Closed (Completed or Archived)</option>
+            </select>
+          </div>
+
+          <!-- CRM Notes / Activity Log -->
+          <div class="modal-field">
+            <label class="modal-label" for="leadModalNotes">
+              Ad Ops Internal Notes &amp; Follow-up Actions
+            </label>
+            <textarea class="modal-textarea" id="leadModalNotes" rows="4" placeholder="Enter notes, meeting dates, custom CPA agreements, or client feedback..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel modal-close-trigger">Close</button>
+          <button type="submit" class="btn-confirm-approve" id="btnSaveLeadModal">
+            Save CRM Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

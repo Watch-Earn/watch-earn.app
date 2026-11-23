@@ -1,5 +1,6 @@
 package com.watchearn.app.ui.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -70,6 +71,15 @@ fun MainScreen(
     var currentRoute by remember { mutableStateOf<ScreenRoute>(ScreenRoute.Splash) }
     var currentBottomTab by remember { mutableStateOf(BottomTab.HOME) }
 
+    // System Back Navigation Handling
+    BackHandler(enabled = currentRoute != ScreenRoute.Splash && currentRoute != ScreenRoute.Login) {
+        if (currentRoute != ScreenRoute.MainApp) {
+            currentRoute = ScreenRoute.MainApp
+        } else if (currentBottomTab != BottomTab.HOME) {
+            currentBottomTab = BottomTab.HOME
+        }
+    }
+
     when (val route = currentRoute) {
         is ScreenRoute.Splash -> {
             SplashScreen(onFinish = {
@@ -120,6 +130,10 @@ fun MainScreen(
         is ScreenRoute.EarnHub -> {
             EarnHubScreen(
                 onNavigateToWatchAds = { currentRoute = ScreenRoute.WatchAdsList },
+                onNavigateToTasks = {
+                    currentBottomTab = BottomTab.TASKS
+                    currentRoute = ScreenRoute.MainApp
+                },
                 onNavigateBack = { currentRoute = ScreenRoute.MainApp }
             )
         }
@@ -148,7 +162,10 @@ fun MainScreen(
             )
         }
         is ScreenRoute.Support -> {
-            SupportScreen(repository = repository)
+            SupportScreen(
+                repository = repository,
+                onBack = { currentRoute = ScreenRoute.MainApp }
+            )
         }
         is ScreenRoute.Notifications -> {
             NotificationScreen(
@@ -199,7 +216,9 @@ fun MainScreen(
                             onNavigateToWithdraw = { currentRoute = ScreenRoute.Withdraw },
                             onNavigateToTasks = { currentBottomTab = BottomTab.TASKS },
                             onNavigateToRefer = { currentRoute = ScreenRoute.Refer },
-                            onNavigateToNotifications = { currentRoute = ScreenRoute.Notifications }
+                            onNavigateToNotifications = { currentRoute = ScreenRoute.Notifications },
+                            onNavigateToSupport = { currentRoute = ScreenRoute.Support },
+                            onNavigateToEarnHub = { currentRoute = ScreenRoute.EarnHub }
                         )
                         BottomTab.TASKS -> TasksScreen(
                             repository = repository,
